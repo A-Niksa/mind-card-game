@@ -1,0 +1,72 @@
+package logic.games.components;
+
+import logic.models.cards.HealthCard;
+import logic.models.cards.NinjaCard;
+import logic.models.cards.NumberedCard;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Deck {
+    public static final int NUMBER_OF_NUMBERED_CARDS = 100;
+    public static final int NUMBER_OF_NINJA_CARDS = 2;
+
+    private int numberOfPlayers;
+    private List<NumberedCard> numberedCardsList;
+    private List<NinjaCard> ninjaCardsList;
+    private List<HealthCard> healthCardsList;
+    private Random randomGenerator;
+
+    public Deck(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+
+        initializeCardsLists();
+        addCardsToLists();
+
+        randomGenerator = new Random();
+    }
+
+    private void initializeCardsLists() {
+        numberedCardsList = new ArrayList<>();
+        ninjaCardsList = new ArrayList<>();
+        healthCardsList = new ArrayList<>();
+    }
+
+    private void addCardsToLists() {
+        addNumberedCards();
+        addNinjaCards();
+        addHealthCards();
+    }
+
+    private void addNumberedCards() {
+        for (int i = 0; i < NUMBER_OF_NUMBERED_CARDS; i++) {
+            numberedCardsList.add(new NumberedCard(i+1));
+        }
+    }
+
+    private void addNinjaCards() {
+        for (int i = 0; i < NUMBER_OF_NINJA_CARDS; i++) {
+            ninjaCardsList.add(new NinjaCard());
+        }
+    }
+
+    private void addHealthCards() {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            healthCardsList.add(new HealthCard());
+        }
+    }
+
+    public Hand getRandomHand(int sizeOfHand) {
+        ArrayList<NumberedCard> randomNumberedCardsList = new ArrayList<>();
+        randomNumberedCardsList.add(getRandomNumberedCard());
+        randomNumberedCardsList.add(getRandomNumberedCard());
+
+        return new Hand(randomNumberedCardsList);
+    }
+
+    private NumberedCard getRandomNumberedCard() {
+        int randomIndex = randomGenerator.nextInt(numberedCardsList.size());
+        return numberedCardsList.remove(randomIndex);
+    }
+}
