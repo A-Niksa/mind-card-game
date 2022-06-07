@@ -1,5 +1,7 @@
 package backend.server;
 
+import api.API;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,22 +28,30 @@ public class NetworkThread implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        while (true){
-            try {
-                var b = inputStream.readBoolean();
 
-                System.out.println("Client : " + id + "  send boolean  " + b);
-
-                if(b){
-                    outputStream.writeBoolean(true);
-                }
-                else{
-                    outputStream.writeBoolean(false);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+        try {
+            outputStream.writeInt(API.addNewPlayer());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+
+
+//        while (true){
+//            try {
+//                var b = inputStream.readBoolean();
+//
+//                System.out.println("Client : " + id + "  send boolean  " + b);
+//
+//                if(b){
+//                    outputStream.writeBoolean(true);
+//                }
+//                else{
+//                    outputStream.writeBoolean(false);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }

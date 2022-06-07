@@ -9,6 +9,7 @@ import java.net.Socket;
 
 public class ClientNetwork {
     private Socket socket;
+    private int playerId;
 
     DataInputStream inputStream = null;
     DataOutputStream outputStream = null;
@@ -24,6 +25,13 @@ public class ClientNetwork {
         try {
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            playerId = inputStream.readInt();
         } catch (IOException e) {
             e.printStackTrace();
         }
