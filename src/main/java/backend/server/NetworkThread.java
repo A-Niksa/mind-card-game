@@ -78,7 +78,7 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(ConfigClass.AddNewGame)){
             try {
-                outputStream.writeUTF(API.addNewGame(inputStream.readInt(), 0 , inputStream.readInt()));
+                outputStream.writeUTF(API.addNewGame(inputStream.readInt(), -1 , inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
