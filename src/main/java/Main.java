@@ -1,11 +1,12 @@
 import frontend.gui.ClientNetwork;
+import frontend.gui.MainFrame;
 
 public class Main {
     public static void main(String[] args) {
+        new MainFrame();
+
         var clientNetwork = new ClientNetwork();
         var v = clientNetwork.addNewPlayer();
-
-
 
         while (true){
             System.out.println("id : " + v);
@@ -16,7 +17,6 @@ public class Main {
                 e.printStackTrace();
             }
         }
-
 
 
     }

@@ -12,4 +12,8 @@ public class ConfigClass {
     public static String NoAction = "No action";
     public static String MakeMoveACard = "Move a card";
 
+
+    public static int FRAME_HEIGHT = 600;
+    public static int FRAME_WIDTH = 900;
+
 }
