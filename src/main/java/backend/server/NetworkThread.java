@@ -94,7 +94,7 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(ConfigClass.AllJoinableGames)){
             try {
-                outputStream.writeUTF(API.getAllGames());
+                outputStream.writeUTF(API.getAllJoinableGames());
             } catch (IOException e) {
                 e.printStackTrace();
             }

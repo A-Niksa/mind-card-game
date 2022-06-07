@@ -32,6 +32,7 @@ public class ClientNetwork {
 
     }
 
+
     public boolean testConnection(){
         try {
             outputStream.writeUTF(ConfigClass.AddNewPlayerInNetwork);
@@ -152,9 +153,7 @@ public class ClientNetwork {
 
     }
 
-
-
-
+    
 
 
 }

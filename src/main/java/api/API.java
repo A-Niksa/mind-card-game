@@ -14,7 +14,7 @@ public class API {
         // TODO -> can join game or not
     }
 
-    public static String getAllGames() {
+    public static String getAllJoinableGames() {
         // TODO: returning Gson -> gameId, number of free players, number of bots
         // if num of free = 0 => don't return
         return "";
