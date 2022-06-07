@@ -11,7 +11,7 @@ public class API {
 
     public static boolean joinGame(int gameId) {
         return true;
-        // TODO
+        // TODO -> can join game or not
     }
 
     public static String getAllGames() {
