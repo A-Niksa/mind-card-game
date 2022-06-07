@@ -9,7 +9,6 @@ import java.net.Socket;
 
 public class ClientNetwork {
     private Socket socket;
-    private int playerId;
 
     DataInputStream inputStream = null;
     DataOutputStream outputStream = null;
@@ -33,7 +32,7 @@ public class ClientNetwork {
 
     }
 
-    public boolean TestConnection(){
+    public boolean testConnection(){
         try {
             outputStream.writeUTF(ConfigClass.AddNewPlayerInNetwork);
             boolean b = true;
@@ -53,8 +52,15 @@ public class ClientNetwork {
             return false;
         }
 
+    }
 
-
+    public void noAction(){
+        try {
+            outputStream.writeUTF(ConfigClass.NoAction);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -71,5 +77,84 @@ public class ClientNetwork {
         }
 
     }
+
+    public String creatNewGame(int numberOfBots, int playerId){
+        try {
+            outputStream.writeUTF(ConfigClass.AddNewGame);
+            outputStream.writeInt(numberOfBots);
+            outputStream.writeInt(playerId);
+            return inputStream.readUTF();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public boolean joinGame(int idGame){
+
+        try {
+            outputStream.writeUTF(ConfigClass.JoinGame);
+            return inputStream.readBoolean();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public String allJoinableGames(){
+
+        try {
+            outputStream.writeUTF(ConfigClass.AllJoinableGames);
+            return inputStream.readUTF();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
+
+    public String updateGame(int gameId, int currentHumanId){
+
+        try {
+            outputStream.writeUTF(ConfigClass.UpdateGame);
+            outputStream.writeInt(gameId);
+            outputStream.writeInt(currentHumanId);
+            return inputStream.readUTF();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
+
+    public String makeMove(int gameId, int playerId, int cardNumber){
+
+        try {
+            outputStream.writeUTF(ConfigClass.UpdateGame);
+            outputStream.writeInt(gameId);
+            outputStream.writeInt(playerId);
+            outputStream.writeInt(cardNumber);
+            return inputStream.readUTF();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
+
+
+
+
+
 
 }

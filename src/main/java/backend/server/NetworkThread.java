@@ -36,35 +36,84 @@ public class NetworkThread implements Runnable{
 
             try {
                 input = inputStream.readUTF();
+                checkConditionAndDoAction(input, inputStream, outputStream);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            if(input.equals(ConfigClass.AddNewPlayerInNetwork)){
-                try {
-                    outputStream.writeInt(API.addNewPlayer());
-                } catch (IOException e) {
-                    e.printStackTrace();
+        }
+    }
+
+    public void checkConditionAndDoAction(String input, DataInputStream inputStream, DataOutputStream outputStream){
+
+        if(input.equals(ConfigClass.TestConnection)){
+            try {
+                var b = inputStream.readBoolean();
+
+                System.out.println("Client : " + id + "  send boolean  " + b);
+
+                if(b){
+                    outputStream.writeBoolean(true);
                 }
-            }
-            else if(input.equals(ConfigClass.TestConnection)){
-                try {
-                    var b = inputStream.readBoolean();
-
-                    System.out.println("Client : " + id + "  send boolean  " + b);
-
-                    if(b){
-                        outputStream.writeBoolean(true);
-                    }
-                    else{
-                        outputStream.writeBoolean(false);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                else{
+                    outputStream.writeBoolean(false);
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
 
+        else if(input.equals(ConfigClass.NoAction)){
+            //  No action
+        }
 
+        else if(input.equals(ConfigClass.AddNewPlayerInNetwork)){
+            try {
+                outputStream.writeInt(API.addNewPlayer());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(input.equals(ConfigClass.AddNewGame)){
+            try {
+                outputStream.writeUTF(API.addNewGame(inputStream.readInt(), 0 , inputStream.readInt()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(input.equals(ConfigClass.JoinGame)){
+            try {
+                outputStream.writeBoolean(API.joinGame(inputStream.readInt()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(input.equals(ConfigClass.AllJoinableGames)){
+            try {
+                outputStream.writeUTF(API.getAllGames());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(input.equals(ConfigClass.UpdateGame)){
+            try {
+                outputStream.writeUTF(API.updateGame(inputStream.readInt(), inputStream.readInt()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(input.equals(ConfigClass.MakeMoveACard)){
+            try {
+                outputStream.writeUTF(API.makeMove(inputStream.readInt(), inputStream.readInt(), inputStream.readInt()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
