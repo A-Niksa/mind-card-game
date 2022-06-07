@@ -2,7 +2,7 @@ package api;
 
 public class API {
     public int addNewPlayer() {
-        return 0; // TODO
+        return 0; // TODO returning id
     }
 
         public String addNewGame(int numberOfBots, int numberOfHumans, int currentHumanId) {

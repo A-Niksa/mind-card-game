@@ -11,15 +11,14 @@ public class NetworkServer {
 
     public static void main(String[] args) throws IOException {
         serverSocket = new ServerSocket(ConfigClass.PORT);
+        System.out.println("server started");
         while (true){
+            System.out.println("Waiting for new client: ");
             Socket socket = serverSocket.accept();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    //TODO: send answer of request
-                }
-            }).start();
-        }
 
+            System.out.println("client with ip : " + socket.getRemoteSocketAddress().toString() + " is connected");
+
+            new Thread(new NetworkThread(socket)).start();
+        }
     }
 }
