@@ -2,10 +2,9 @@ package frontend.gui;
 
 import config.ConfigClass;
 import frontend.gui.firstMenuPage.FirstMenuPage;
-
-
 import javax.swing.*;
 import java.awt.*;
+
 
 public class MainFrame extends JFrame {
     private JPanel currentPanel;
@@ -21,7 +20,6 @@ public class MainFrame extends JFrame {
         this.currentPanel = currentPanel;
         getContentPane().removeAll();
         getContentPane().add(this.currentPanel);
-
         repaintFrame();
     }
 

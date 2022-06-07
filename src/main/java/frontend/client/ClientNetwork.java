@@ -35,7 +35,7 @@ public class ClientNetwork {
 
     public boolean testConnection(){
         try {
-            outputStream.writeUTF(ConfigClass.AddNewPlayerInNetwork);
+            outputStream.writeUTF(ConfigClass.TestConnection);
             boolean b = true;
 
             try {
