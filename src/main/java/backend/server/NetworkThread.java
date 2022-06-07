@@ -1,6 +1,7 @@
 package backend.server;
 
 import api.API;
+import config.ConfigClass;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -22,6 +23,7 @@ public class NetworkThread implements Runnable{
     public void run() {
         DataInputStream inputStream = null;
         DataOutputStream outputStream = null;
+
         try {
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
@@ -29,29 +31,40 @@ public class NetworkThread implements Runnable{
             e.printStackTrace();
         }
 
-        try {
-            outputStream.writeInt(API.addNewPlayer());
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (true){
+            String input = "";
+
+            try {
+                input = inputStream.readUTF();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if(input.equals(ConfigClass.AddNewPlayerInNetwork)){
+                try {
+                    outputStream.writeInt(API.addNewPlayer());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if(input.equals(ConfigClass.TestConnection)){
+                try {
+                    var b = inputStream.readBoolean();
+
+                    System.out.println("Client : " + id + "  send boolean  " + b);
+
+                    if(b){
+                        outputStream.writeBoolean(true);
+                    }
+                    else{
+                        outputStream.writeBoolean(false);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
         }
-
-
-
-//        while (true){
-//            try {
-//                var b = inputStream.readBoolean();
-//
-//                System.out.println("Client : " + id + "  send boolean  " + b);
-//
-//                if(b){
-//                    outputStream.writeBoolean(true);
-//                }
-//                else{
-//                    outputStream.writeBoolean(false);
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 }

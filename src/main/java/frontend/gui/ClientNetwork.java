@@ -20,6 +20,7 @@ public class ClientNetwork {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         System.out.println("Connected to the server");
 
         try {
@@ -30,28 +31,43 @@ public class ClientNetwork {
         }
 
 
-        try {
-            playerId = inputStream.readInt();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
     public boolean TestConnection(){
         try {
-            outputStream.writeBoolean(true);
-            System.out.println(inputStream.readBoolean());
-        } catch (IOException e) {
+            outputStream.writeUTF(ConfigClass.AddNewPlayerInNetwork);
+            boolean b = true;
+
+            try {
+                outputStream.writeBoolean(true);
+                b = inputStream.readBoolean();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return b & socket.isConnected();
+
+        }
+        catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
 
-        if(socket.isConnected()){
-            return true;
+
+
+
+    }
+
+    public int addNewPlayer(){
+
+        try {
+            outputStream.writeUTF(ConfigClass.AddNewPlayerInNetwork);
+            return inputStream.readInt();
+
         }
-        else{
-            return false;
+        catch (IOException e) {
+            e.printStackTrace();
+            return -1;
         }
 
     }
