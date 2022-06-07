@@ -1,8 +1,8 @@
-package logic.games.components;
+package backend.logic.games.components;
 
-import logic.models.cards.HealthCard;
-import logic.models.cards.NinjaCard;
-import logic.models.cards.NumberedCard;
+import backend.logic.models.cards.HealthCard;
+import backend.logic.models.cards.NinjaCard;
+import backend.logic.models.cards.NumberedCard;
 
 import java.util.ArrayList;
 import java.util.List;

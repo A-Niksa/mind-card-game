@@ -1,4 +1,4 @@
-package logic.models.cards;
+package backend.logic.models.cards;
 
 public class NumberedCard extends Card {
     private int cardNumber;

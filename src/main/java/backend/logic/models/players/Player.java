@@ -1,6 +1,6 @@
-package logic.models.players;
+package backend.logic.models.players;
 
-import logic.games.components.Hand;
+import backend.logic.games.components.Hand;
 
 public abstract class Player {
     private Hand hand;

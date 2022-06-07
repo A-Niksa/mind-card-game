@@ -1,6 +1,6 @@
-package logic.games.components;
+package backend.logic.games.components;
 
-import logic.models.cards.NumberedCard;
+import backend.logic.models.cards.NumberedCard;
 
 import java.util.ArrayList;
 import java.util.List;

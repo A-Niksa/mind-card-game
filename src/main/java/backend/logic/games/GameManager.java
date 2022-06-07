@@ -1,4 +1,4 @@
-package logic.games;
+package backend.logic.games;
 
 public class GameManager {
 }
