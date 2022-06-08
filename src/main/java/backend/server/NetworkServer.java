@@ -12,7 +12,7 @@ public class NetworkServer {
     public static void main(String[] args) throws IOException {
         serverSocket = new ServerSocket(ConfigClass.PORT);
         System.out.println("server started");
-        while (true){
+        while (true) {
             System.out.println("Waiting for new client: ");
             Socket socket = serverSocket.accept();
 
