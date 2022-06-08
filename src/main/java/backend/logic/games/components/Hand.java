@@ -20,13 +20,17 @@ public class Hand {
         comparator = new NumberedCardComparator();
     }
 
-    public NumberedCard getSmallestCard() {
+    public void addCard(NumberedCard card) {
+        numberedCardsList.add(card);
+    }
+
+    public NumberedCard getSmallestCard() { // removes the smallest card from the hand as well
         if (numberedCardsList.isEmpty()) {
             return null;
         }
 
         numberedCardsList.sort(comparator);
-        return numberedCardsList.get(0);
+        return numberedCardsList.remove(0);
     }
 
     public List<NumberedCard> getNumberedCardsList() {

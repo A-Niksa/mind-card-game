@@ -1,5 +1,7 @@
 package backend.logic.games;
 
+import backend.logic.models.cards.NumberedCard;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,13 +44,13 @@ public class GameManager {
         return game.getLatestActionTimeDifference();
     }
 
-    public static void dropCardInGame(int gameId, int playerId, int numberOfCardToDrop) {
+    public static void dropCardInGame(int gameId, int playerId, NumberedCard cardToDrop) {
         Game game = getGameById(gameId);
         if (game == null) {
             return;
         }
 
-        game.dropCard(playerId, numberOfCardToDrop);
+        game.dropCard(playerId, cardToDrop);
     }
 
     private static Game getGameById(int gameId) {

@@ -18,7 +18,7 @@ public class ActionLogger {
         latestTimeDifference = INITIAL_TIME_DIFFERENCE; // initial value
     }
 
-    public void push(Action action) {
+    public void addAction(Action action) {
         actionsStack.push(action);
 
         updateTimeKeepers();
@@ -34,6 +34,14 @@ public class ActionLogger {
 
         penultimateTimeStamp = latestTimeStamp;
         latestTimeStamp = actionsStack.peek().getTimeStamp();
+    }
+
+    public void clear() {
+        actionsStack.clear();
+
+        penultimateTimeStamp = 0; // initial value
+        latestTimeStamp = 0; // initial value
+        latestTimeDifference = INITIAL_TIME_DIFFERENCE; // initial value
     }
 
     public long getLatestTimeDifference() {

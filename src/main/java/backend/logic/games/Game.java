@@ -1,15 +1,15 @@
 package backend.logic.games;
 
+import backend.logic.games.actionlogger.Action;
 import backend.logic.games.actionlogger.ActionLogger;
 import backend.logic.games.components.Deck;
-import backend.logic.models.cards.Card;
+import backend.logic.games.components.DroppingGround;
+import backend.logic.models.cards.NumberedCard;
 import backend.logic.models.players.Player;
 import backend.logic.models.players.bots.Bot;
 import backend.logic.models.players.bots.BotGenerationUtils;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 
 public class Game {
@@ -20,10 +20,10 @@ public class Game {
     private int currentRound;
     private int numberOfBots;
     private int hostHumanId;
-    private Deque<Card> cardsStack;
     private List<Player> playersList;
     private List<Thread> botThreadsList;
     private Deck deck;
+    private DroppingGround droppingGround;
     private ActionLogger actionLogger;
 
     public Game(int numberOfBots, int hostHumanId) {
@@ -32,7 +32,6 @@ public class Game {
 
         generateGameId();
         initializeLists();
-        cardsStack = new ArrayDeque<>();
         gameHasBeenStarted = false;
         currentRound = 1;
     }
@@ -49,18 +48,59 @@ public class Game {
 
     public void startGame() {
         // this class is 'lazy', in the sense that most components will be initialized if we start the game by this method
-        initializeGameComponents();
+        initializeGame();
         gameHasBeenStarted = true;
     }
 
-    public void dropCard(int playerId, int numberOfCardToDrop) {
+    public synchronized void dropCard(int playerId, NumberedCard cardToDrop) {
+        if (!droppingGround.cardToDropRespectsOrder(cardToDrop)) {
+            getPlayerById(playerId).getBackRejectedCard(cardToDrop);
+            resetComponents();
+
+            goToNextRound();
+        }
+
+        droppingGround.dropCardOnGround(cardToDrop);
+        actionLogger.addAction(new Action()); // logs timestamp of the latest action
         // TODO
+    }
+
+    private void goToNextRound() {
+        makeBotsSleepTillNextRound();
+    }
+
+    private void makeBotsSleepTillNextRound() {
+
+    }
+
+    private void sleepFor(Thread thread, int milliseconds) {
+
+    }
+
+    private void resetComponents() {
+        actionLogger.clear();
+        droppingGround.clear();
+    }
+
+    private Player getPlayerById(int playerId) {
+        for (Player player : playersList) {
+            if (playerId == player.getPlayerId()) {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    private void initializeGame() {
+        initializeBots();
+        startBotThreads();
     }
 
     private void initializeGameComponents() {
         deck = new Deck(getNumberOfPlayers());
-        initializeBots();
-        startBotThreads();
+        droppingGround = new DroppingGround();
+        actionLogger = new ActionLogger();
     }
 
     private void startBotThreads() {
