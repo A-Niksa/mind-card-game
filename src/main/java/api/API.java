@@ -27,7 +27,7 @@ public class API {
     }
 
     public static String makeMove(int gameId, int playerId, int cardNumber) {
-        // TODO: moveWasValid, doesMoveCauseLossOfHeart
+        // TODO: moveWasValid, doesMoveCauseLossOfHeart, smallestCardThatHasCausedLoss (if the second boolean is true)
         return "";
     }
 
