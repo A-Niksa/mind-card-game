@@ -69,4 +69,16 @@ public class Deck {
         int randomIndex = randomGenerator.nextInt(numberedCardsList.size());
         return numberedCardsList.remove(randomIndex);
     }
+
+    public List<NumberedCard> getNumberedCardsList() {
+        return numberedCardsList;
+    }
+
+    public List<NinjaCard> getNinjaCardsList() {
+        return ninjaCardsList;
+    }
+
+    public List<HealthCard> getHealthCardsList() {
+        return healthCardsList;
+    }
 }
