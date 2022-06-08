@@ -27,11 +27,12 @@ public class Game {
         this.numberOfBots = numberOfBots;
         this.hostHumanId = hostHumanId;
 
+        initializeLists();
         gameHasBeenStarted = false;
         currentRound = 1;
     }
 
-    private void initializeArrays() {
+    private void initializeLists() {
         playersList = new ArrayList<>();
         botThreadsList = new ArrayList<>();
     }
@@ -45,10 +46,17 @@ public class Game {
     private void initializeGameComponents() {
         deck = new Deck(getNumberOfPlayers());
         initializeBots();
+        startBotThreads();
+    }
+
+    private void startBotThreads() {
+        for (Thread thread : botThreadsList) {
+            thread.start();
+        }
     }
 
     private void initializeBots() {
-        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound);
+        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound, gameId);
         playersList.addAll(botsList);
 
         connectThreadsToBots(botsList);
