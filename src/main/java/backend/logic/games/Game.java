@@ -56,7 +56,7 @@ public class Game {
     }
 
     private void initializeBots() {
-        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound, gameId);
+        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound, gameId); // dummy comment
         playersList.addAll(botsList);
 
         connectThreadsToBots(botsList);
