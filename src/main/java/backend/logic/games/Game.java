@@ -1,13 +1,15 @@
 package backend.logic.games;
 
+import backend.logic.games.actionlogger.ActionLogger;
 import backend.logic.games.components.Deck;
-import backend.logic.models.cards.HealthCard;
-import backend.logic.models.cards.NinjaCard;
+import backend.logic.models.cards.Card;
 import backend.logic.models.players.Player;
 import backend.logic.models.players.bots.Bot;
 import backend.logic.models.players.bots.BotGenerationUtils;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 public class Game {
@@ -18,18 +20,26 @@ public class Game {
     private int currentRound;
     private int numberOfBots;
     private int hostHumanId;
+    private Deque<Card> cardsStack;
     private List<Player> playersList;
     private List<Thread> botThreadsList;
     private Deck deck;
+    private ActionLogger actionLogger;
 
-    public Game(int gameId, int numberOfBots, int hostHumanId) {
-        this.gameId = gameId;
+    public Game(int numberOfBots, int hostHumanId) {
         this.numberOfBots = numberOfBots;
         this.hostHumanId = hostHumanId;
 
+        generateGameId();
         initializeLists();
+        cardsStack = new ArrayDeque<>();
         gameHasBeenStarted = false;
         currentRound = 1;
+    }
+
+    private void generateGameId() {
+        gameId = globalGameId;
+        globalGameId++;
     }
 
     private void initializeLists() {
@@ -41,6 +51,10 @@ public class Game {
         // this class is 'lazy', in the sense that most components will be initialized if we start the game by this method
         initializeGameComponents();
         gameHasBeenStarted = true;
+    }
+
+    public void dropCard(int playerId, int numberOfCardToDrop) {
+        // TODO
     }
 
     private void initializeGameComponents() {
@@ -56,7 +70,7 @@ public class Game {
     }
 
     private void initializeBots() {
-        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound, gameId); // dummy comment
+        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound, gameId);
         playersList.addAll(botsList);
 
         connectThreadsToBots(botsList);
@@ -71,6 +85,10 @@ public class Game {
 
     public boolean hasHealthCardsLeft() {
         return deck.getHealthCardsList().size() > 0;
+    }
+
+    public long getLatestActionTimeDifference() {
+        return actionLogger.getLatestTimeDifference();
     }
 
     public int getNumberOfPlayers() {

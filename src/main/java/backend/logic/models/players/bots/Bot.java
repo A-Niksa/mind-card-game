@@ -2,6 +2,7 @@ package backend.logic.models.players.bots;
 
 import backend.logic.games.GameManager;
 import backend.logic.games.components.Hand;
+import backend.logic.models.cards.NumberedCard;
 import backend.logic.models.players.Player;
 
 public abstract class Bot extends Player implements Runnable {
@@ -17,7 +18,33 @@ public abstract class Bot extends Player implements Runnable {
     @Override
     public void run() {
         while (GameManager.gameHasHealthCardsLeft(joinedGameId)) {
-            // TODO
+            sleepFor(getTimeToSleep());
+            GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardNumber());
         }
+    }
+
+    private int getSmallestCardNumber() {
+        return -1;
+        // TODO
+    }
+
+    private int getTimeToSleep() {
+        long latestActionTimeDifference = GameManager.getLatestActionTimeDifferenceOfGame(joinedGameId);
+        double calculatedSleepTime = (latestActionTimeDifference +
+                (getNumberOfCards() * 1.0 / AVERAGING_DIVISION_CONSTANT)) / 2;
+
+        return (int) calculatedSleepTime;
+    }
+
+    private void sleepFor(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getNumberOfCards() {
+        return hand.getNumberedCardsList().size();
     }
 }

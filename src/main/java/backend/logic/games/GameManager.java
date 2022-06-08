@@ -33,6 +33,24 @@ public class GameManager {
         return game.hasHealthCardsLeft();
     }
 
+    public static long getLatestActionTimeDifferenceOfGame(int gameId) {
+        Game game = getGameById(gameId);
+        if (game == null) {
+            return -1;
+        }
+
+        return game.getLatestActionTimeDifference();
+    }
+
+    public static void dropCardInGame(int gameId, int playerId, int numberOfCardToDrop) {
+        Game game = getGameById(gameId);
+        if (game == null) {
+            return;
+        }
+
+        game.dropCard(playerId, numberOfCardToDrop);
+    }
+
     private static Game getGameById(int gameId) {
         for (Game game : getInstance().gamesList){
             if (gameId == game.getGameId()) {
