@@ -10,7 +10,7 @@ public abstract class Bot extends Player implements Runnable {
     protected int joinedGameId;
 
     protected Bot(Hand hand, int joinedGameId, double averagingDivisionConstant) {
-        super(hand);
+        super(hand, true);
         this.joinedGameId = joinedGameId;
         AVERAGING_DIVISION_CONSTANT = averagingDivisionConstant;
     }
@@ -22,7 +22,7 @@ public abstract class Bot extends Player implements Runnable {
                 sleepFor(getTimeToSleep());
                 GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
             } else {
-                sleepFor(1000);
+                sleepFor(100);
             }
         }
     }
