@@ -6,4 +6,8 @@ public class NumberedCard extends Card {
     public NumberedCard(int cardNumber) {
         this.cardNumber = cardNumber;
     }
+
+    public int getCardNumber() {
+        return cardNumber;
+    }
 }
