@@ -26,6 +26,15 @@ public class JudgeUtils {
         return false;
     }
 
+    public static boolean cardToDropIsTheMinOfAllPlayers(Game game, int cardNumber) {
+        ArrayList<NumberedCard> cardsOfAllPlayersList = getCardsOfAllPlayersList(game);
+
+        NumberedCardComparator comparator = new NumberedCardComparator();
+        cardsOfAllPlayersList.sort(comparator);
+
+        return cardsOfAllPlayersList.get(0).getCardNumber() == cardNumber;
+    }
+
     public static boolean cardToDropIsTheMinOfAllPlayers(Game game, NumberedCard cardToDrop) {
         ArrayList<NumberedCard> cardsOfAllPlayersList = getCardsOfAllPlayersList(game);
 
@@ -35,9 +44,9 @@ public class JudgeUtils {
         return cardsOfAllPlayersList.get(0).getCardNumber() == cardToDrop.getCardNumber();
     }
 
-    private static ArrayList<NumberedCard> getCardsOfAllPlayersList(Game game) {
+    public static ArrayList<NumberedCard> getCardsOfAllPlayersList(Game game) {
         ArrayList<NumberedCard> cardsOfAllPlayersList = new ArrayList<>();
-        List<NumberedCard> cardsOfEachPlayerList = new ArrayList<>();
+        List<NumberedCard> cardsOfEachPlayerList;
         for (Player player : game.getPlayersList()) {
             cardsOfEachPlayerList = player.getHand().getNumberedCardsList();
             cardsOfAllPlayersList.addAll(cardsOfEachPlayerList);

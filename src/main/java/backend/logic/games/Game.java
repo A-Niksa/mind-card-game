@@ -163,6 +163,10 @@ public class Game {
         return deck;
     }
 
+    public DroppingGround getDroppingGround() {
+        return droppingGround;
+    }
+
     public int getNumberOfPlayers() {
         return playersList.size();
     }

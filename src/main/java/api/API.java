@@ -1,5 +1,11 @@
 package api;
 
+import api.dataeggs.MakingMoveDataEgg;
+import api.utils.GsonUtils;
+import api.utils.MakingMoveUtils;
+import backend.logic.games.Game;
+import backend.logic.games.GameManager;
+
 public class API {
     public static int addNewPlayer() {
         return 0; // TODO returning id
@@ -26,9 +32,16 @@ public class API {
         return "";
     }
 
-    public static String makeMove(int gameId, int playerId, int cardNumber) {
+    public static String makeMove(int gameId, int playerId, int cardIndex) {
         // TODO: moveWasValid, doesMoveCauseLossOfHeart, smallestCardThatHasCausedLoss (if the second boolean is true)
-        return "";
+        Game game = GameManager.getGameById(gameId);
+        boolean moveRespectsGroundOrder = MakingMoveUtils.moveRespectsGroundOrder(game, playerId, cardIndex);
+        boolean moveCausesLossOfHealth = MakingMoveUtils.moveCausesHealthLoss(game, playerId, cardIndex);
+        int smallestCardNumberThatHasCausedLoss = MakingMoveUtils.getSmallestCardInPlayersHands(game);
+
+        MakingMoveDataEgg dataEgg = new MakingMoveDataEgg(moveRespectsGroundOrder, moveCausesLossOfHealth,
+                smallestCardNumberThatHasCausedLoss);
+        return GsonUtils.getJsonString(dataEgg);
     }
 
     public static void makeGameUnjoinable(int idGame){
