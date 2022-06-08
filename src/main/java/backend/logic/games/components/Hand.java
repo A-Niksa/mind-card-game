@@ -33,6 +33,10 @@ public class Hand {
         return numberedCardsList.remove(0);
     }
 
+    public boolean hasAnyCards() {
+        return !numberedCardsList.isEmpty();
+    }
+
     public List<NumberedCard> getNumberedCardsList() {
         return numberedCardsList;
     }

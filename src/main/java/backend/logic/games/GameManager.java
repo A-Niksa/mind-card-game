@@ -3,15 +3,17 @@ package backend.logic.games;
 import backend.logic.models.cards.NumberedCard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameManager {
     private static GameManager manager;
 
-    private List<Game> gamesList;
+    private Map<Integer, Game> gamesMap;
 
     private GameManager() {
-        gamesList = new ArrayList<>();
+        gamesMap = new HashMap<>();
     }
 
     private static GameManager getInstance() {
@@ -23,7 +25,7 @@ public class GameManager {
     }
 
     public static void addGame(Game game) {
-        getInstance().gamesList.add(game);
+        getInstance().gamesMap.put(game.getGameId(), game);
     }
 
     public static boolean gameHasHealthCardsLeft(int gameId) {
@@ -54,12 +56,6 @@ public class GameManager {
     }
 
     private static Game getGameById(int gameId) {
-        for (Game game : getInstance().gamesList){
-            if (gameId == game.getGameId()) {
-                return game;
-            }
-        }
-
-        return null;
+        return getInstance().gamesMap.getOrDefault(gameId, null);
     }
 }
