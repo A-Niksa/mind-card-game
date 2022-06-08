@@ -5,16 +5,16 @@ public class API {
         return 0; // TODO
     }
 
-        public String addNewGame(int numberOfBots, int numberOfHumans, int currentHumanId) {
+    public String addNewGame(int numberOfBots, int numberOfHumans, int currentHumanId) {
         return ""; // TODO: returning Gson -> gameWasSuccessfullyCreated, gameId
     }
 
-        public boolean joinGame(int gameId) {
+    public boolean joinGame(int gameId) {
         return true;
         // TODO
     }
 
-        public String getAllGames() {
+    public String getAllGames() {
         // TODO: returning Gson -> gameId, number of free players, number of bots
         // if num of free = 0 => don't return
         return "";
