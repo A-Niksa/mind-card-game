@@ -13,7 +13,7 @@ public class ConfigClass {
     public static String MakeMoveACard = "Move a card";
 
 
-    public static int FRAME_HEIGHT = 600;
-    public static int FRAME_WIDTH = 900;
+    public static int MenuPageFRAME_HEIGHT = 600;
+    public static int MenuPageFRAME_WIDTH = 900;
 
 }

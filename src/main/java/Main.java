@@ -1,9 +1,9 @@
 import frontend.gui.ClientNetwork;
-import frontend.gui.MainFrame;
+import frontend.gui.firstMenuPage.FirstMenuPage;
 
 public class Main {
     public static void main(String[] args) {
-        new MainFrame();
+        new FirstMenuPage();
 
         var clientNetwork = new ClientNetwork();
         var v = clientNetwork.addNewPlayer();
