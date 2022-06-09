@@ -12,7 +12,7 @@ public class Main {
             System.out.println("id : " + v);
             System.out.println("Test connection : " + clientNetwork.testConnection());
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

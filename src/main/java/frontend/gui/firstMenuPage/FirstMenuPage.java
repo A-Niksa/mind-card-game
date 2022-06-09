@@ -22,7 +22,6 @@ public class FirstMenuPage{
         joinGame = new JButton();
         exit = new JButton();
 
-
         addButtonToFrame(creatNewGame, "New game", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 - 100, new Color(0, 184, 42));
         addButtonToFrame(joinGame, "Join game", ConfigClass.MenuPageFRAME_WIDTH / 2, ConfigClass.MenuPageFRAME_HEIGHT / 2, Color.YELLOW);
         addButtonToFrame(exit, "Exit", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 100, Color.RED);
