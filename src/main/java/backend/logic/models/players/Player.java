@@ -8,9 +8,11 @@ public abstract class Player {
 
     protected Hand hand;
     protected int playerId;
+    protected boolean isBot;
 
-    protected Player(Hand hand) {
+    protected Player(Hand hand, boolean isBot) {
         this.hand = hand;
+        this.isBot = isBot;
 
         playerId = globalPlayerId;
         globalPlayerId++;
@@ -18,6 +20,14 @@ public abstract class Player {
 
     public void getBackRejectedCard(NumberedCard card) {
         hand.addCard(card);
+    }
+
+    public void setHand(Hand hand) {
+        this.hand = hand;
+    }
+
+    public Hand getHand() {
+        return hand;
     }
 
     public int getPlayerId() {

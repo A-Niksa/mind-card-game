@@ -5,6 +5,7 @@ import backend.logic.models.cards.NinjaCard;
 import backend.logic.models.cards.NumberedCard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -39,10 +40,16 @@ public class Deck {
         addHealthCards();
     }
 
+    public void resetDeck() {
+        numberedCardsList.clear();
+        addNumberedCards();
+    }
+
     private void addNumberedCards() {
         for (int i = 0; i < NUMBER_OF_NUMBERED_CARDS; i++) {
             numberedCardsList.add(new NumberedCard(i+1));
         }
+        Collections.shuffle(numberedCardsList);
     }
 
     private void addNinjaCards() {
@@ -54,6 +61,12 @@ public class Deck {
     private void addHealthCards() {
         for (int i = 0; i < numberOfPlayers; i++) {
             healthCardsList.add(new HealthCard());
+        }
+    }
+
+    public void removeOneHealthCard() {
+        if (healthCardsList.size() >= 1) {
+            healthCardsList.remove(0);
         }
     }
 
@@ -70,12 +83,12 @@ public class Deck {
         return numberedCardsList.remove(randomIndex);
     }
 
-    public List<NumberedCard> getNumberedCardsList() {
-        return numberedCardsList;
+    public int getNumberOfNumberedCards() {
+        return numberedCardsList.size();
     }
 
-    public List<NinjaCard> getNinjaCardsList() {
-        return ninjaCardsList;
+    public int getNumberOfHealthCards() {
+        return healthCardsList.size();
     }
 
     public List<HealthCard> getHealthCardsList() {

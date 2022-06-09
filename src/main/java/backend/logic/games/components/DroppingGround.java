@@ -17,13 +17,8 @@ public class DroppingGround {
         droppedCardsStack.push(card);
     }
 
-    public boolean cardToDropRespectsOrder(NumberedCard cardToDrop) {
-        NumberedCard cardOnTop = droppedCardsStack.peek();
-        if (cardOnTop == null) {
-            return true; // there's no card for which the order has to be respected!
-        }
-
-        return cardToDrop.getCardNumber() > cardOnTop.getCardNumber();
+    public NumberedCard peek() {
+        return droppedCardsStack.peek();
     }
 
     public void clear() {

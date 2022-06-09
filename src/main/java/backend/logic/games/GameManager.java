@@ -55,7 +55,7 @@ public class GameManager {
         game.dropCard(playerId, cardToDrop);
     }
 
-    private static Game getGameById(int gameId) {
+    public static Game getGameById(int gameId) {
         return getInstance().gamesMap.getOrDefault(gameId, null);
     }
 }

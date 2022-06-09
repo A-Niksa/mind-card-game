@@ -4,6 +4,6 @@ import backend.logic.games.components.Hand;
 
 public class Human extends Player {
     protected Human(Hand hand) {
-        super(hand);
+        super(hand, false);
     }
 }
