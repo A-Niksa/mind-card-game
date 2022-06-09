@@ -45,7 +45,8 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static void makeGameUnjoinable(int idGame){
-        // TODO
+    public static boolean makeGameUnjoinable(int idGame){
+        // TODO -> return a boolean that can or not
+        return true;
     }
 }

@@ -1,5 +1,6 @@
 package frontend.gui.firstMenuPage;
 
+import com.google.gson.Gson;
 import config.ConfigClass;
 import frontend.gui.ClientNetwork;
 
@@ -8,30 +9,29 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class FirstMenuPage{
+
+public class ChooseNumOfBot{
     JFrame frame;
     JButton creatNewGame;
-    JButton joinGame;
-    JButton exit;
     ClientNetwork clientNetwork;
-    final int playerId;
+    JButton back;
+    JSlider jSlider;
+    int idPlayer;
 
-
-    public FirstMenuPage (ClientNetwork clientNetwork, int playerId){
+    public ChooseNumOfBot (ClientNetwork clientNetwork, int playerId){
         this.clientNetwork = clientNetwork;
-
-        this.playerId = playerId;
+        this.idPlayer = playerId;
 
         frame = new JFrame();
         initializeFrame();
 
         creatNewGame = new JButton();
-        joinGame = new JButton();
-        exit = new JButton();
+        back = new JButton();
 
-        addButtonToFrame(creatNewGame, "New game", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 - 100, new Color(0, 184, 42));
-        addButtonToFrame(joinGame, "Join game", ConfigClass.MenuPageFRAME_WIDTH / 2, ConfigClass.MenuPageFRAME_HEIGHT / 2, Color.YELLOW);
-        addButtonToFrame(exit, "Exit", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 100, Color.RED);
+        addButtonToFrame(creatNewGame, "Creat", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 100, new Color(0, 184, 42));
+        addButtonToFrame(back, "Back", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 200, Color.RED);
+
+        addSlider();
 
         creatNewGame.addMouseListener(new MouseListener() {
             @Override
@@ -41,32 +41,7 @@ public class FirstMenuPage{
 
             @Override
             public void mousePressed(MouseEvent e) {
-                frame.dispose();
-                new ChooseNumOfBot(clientNetwork, playerId);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            public void mouseEntered(MouseEvent e) {
-                frame.setCursor(new Cursor(Cursor.HAND_CURSOR));;
-            }
-
-            public void mouseExited(MouseEvent e) {
-                frame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));;
-            }
-        });
-
-        joinGame.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
+                String json = clientNetwork.creatNewGame(jSlider.getValue(), playerId);
                 // TODO
             }
 
@@ -84,7 +59,7 @@ public class FirstMenuPage{
             }
         });
 
-        exit.addMouseListener(new MouseListener() {
+        back.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -92,14 +67,8 @@ public class FirstMenuPage{
 
             @Override
             public void mousePressed(MouseEvent e) {
-                JOptionPane jOptionPane = new JOptionPane();
-                int result = JOptionPane.showConfirmDialog(frame,"Sure? You want to exit?", "mind card game",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
-
-                if(result == 0){
-                    frame.dispose();
-                }
+                frame.dispose();
+                new FirstMenuPage(clientNetwork, playerId);
             }
 
             @Override
@@ -116,8 +85,10 @@ public class FirstMenuPage{
             }
         });
 
+
         setBackImage();
         frame.setVisible(true);
+
     }
 
     private void initializeFrame(){
@@ -140,12 +111,24 @@ public class FirstMenuPage{
     }
 
     public void setBackImage(){
-        ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\FirstPageMenu.png");
+        ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\ChooseNumOfBot.png");
         JLabel label = new JLabel();
         label.setIcon(icon);
         label.setBounds(0, 0, ConfigClass.MenuPageFRAME_WIDTH, ConfigClass.MenuPageFRAME_HEIGHT);
         frame.add(label);
 
+    }
+
+
+
+    public void addSlider(){
+        JSlider slider = new JSlider(SwingConstants.HORIZONTAL, 0, 3, 0);
+        slider.setMajorTickSpacing(1);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        slider.setPreferredSize(new Dimension(100, 50));
+        slider.setBounds(ConfigClass.MenuPageFRAME_WIDTH / 2  - 130 , ConfigClass.MenuPageFRAME_HEIGHT / 2 , 300 , 50);
+        frame.getContentPane().add(slider);
     }
 
 
