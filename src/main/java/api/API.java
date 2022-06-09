@@ -22,7 +22,8 @@ public class API {
 
     public static String updateGame(int gameId, int currentHumanId) {
         // TODO: updates game and returns Gson of GameState ->
-        // isGameStarted , level, num of hearts, last card game on ground, num of players, number of cards on ground, hands
+        // isGameStarted , level  , num of hearts, last card game on ground, num of players, number of cards on ground, hands (my player) , opponents hand meta data (sorted by id)
+        //                                                                                                              exm:  60, 17 ,40 ,2 , 0 : 6 , 1 : 7 , 3 : 2
         return "";
     }
 
