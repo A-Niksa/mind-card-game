@@ -31,6 +31,7 @@ public class ChooseNumOfBot{
         addButtonToFrame(creatNewGame, "Creat", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 100, new Color(0, 184, 42));
         addButtonToFrame(back, "Back", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 200, Color.RED);
 
+        jSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 3, 0);
         addSlider();
 
         creatNewGame.addMouseListener(new MouseListener() {
@@ -41,7 +42,8 @@ public class ChooseNumOfBot{
 
             @Override
             public void mousePressed(MouseEvent e) {
-                String json = clientNetwork.creatNewGame(jSlider.getValue(), playerId);
+                int numJSlider = jSlider.getValue();
+                String json = clientNetwork.creatNewGame(numJSlider, playerId);
                 // TODO
             }
 
@@ -122,13 +124,13 @@ public class ChooseNumOfBot{
 
 
     public void addSlider(){
-        JSlider slider = new JSlider(SwingConstants.HORIZONTAL, 0, 3, 0);
-        slider.setMajorTickSpacing(1);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-        slider.setPreferredSize(new Dimension(100, 50));
-        slider.setBounds(ConfigClass.MenuPageFRAME_WIDTH / 2  - 130 , ConfigClass.MenuPageFRAME_HEIGHT / 2 , 300 , 50);
-        frame.getContentPane().add(slider);
+
+        jSlider.setMajorTickSpacing(1);
+        jSlider.setPaintTicks(true);
+        jSlider.setPaintLabels(true);
+        jSlider.setPreferredSize(new Dimension(100, 50));
+        jSlider.setBounds(ConfigClass.MenuPageFRAME_WIDTH / 2  - 130 , ConfigClass.MenuPageFRAME_HEIGHT / 2 , 300 , 50);
+        frame.getContentPane().add(jSlider);
     }
 
 
