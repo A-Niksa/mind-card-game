@@ -37,6 +37,13 @@ public class GameManager {
         return game.hasHealthCardsLeft();
     }
 
+    public static boolean gameHasBeenStarted(int gameId, boolean gameHasBeenEnded) {
+        // returns a boolean indicating whether the setting operation was successful
+        Game game = getGameById(gameId);
+        game.setGameHasEnded(gameHasBeenEnded);
+        return true;
+    }
+
     public static long getLatestActionTimeDifferenceOfGame(int gameId) {
         Game game = getGameById(gameId);
         if (game == null) {
@@ -57,5 +64,9 @@ public class GameManager {
 
     public static Game getGameById(int gameId) {
         return getInstance().gamesMap.getOrDefault(gameId, null);
+    }
+
+    public static Map<Integer, Game> getGamesMap() {
+        return getInstance().gamesMap;
     }
 }

@@ -175,6 +175,10 @@ public class Game {
         return playersList.size();
     }
 
+    public int getNumberOfBots() {
+        return numberOfBots;
+    }
+
     public int getGameId() {
         return gameId;
     }

@@ -1,7 +1,9 @@
 package api;
 
 import api.dataeggs.MakingMoveDataEgg;
+import api.dataeggs.joinablegames.JoinableGamesDataEgg;
 import api.utils.GsonUtils;
+import api.utils.JoinableGamesUtils;
 import api.utils.MakingMoveUtils;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
@@ -23,7 +25,9 @@ public class API {
     public static String getAllJoinableGames() {
         // TODO: returning Gson -> gameId, number of free players, number of bots
         // if num of free = 0 => don't return
-        return "";
+        JoinableGamesDataEgg dataEgg = JoinableGamesUtils.getJoinableGamesDataEgg();
+
+        return GsonUtils.getJsonString(dataEgg);
     }
 
     public static String updateGame(int gameId, int currentHumanId) {
@@ -49,8 +53,8 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static boolean makeGameUnjoinable(int idGame){
+    public static boolean makeGameUnjoinable(int gameId){
         // TODO -> return a boolean that can or not
-        return true;
+        return GameManager.gameHasBeenStarted(gameId, true);
     }
 }
