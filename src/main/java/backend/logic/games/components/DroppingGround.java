@@ -24,4 +24,8 @@ public class DroppingGround {
     public void clear() {
         droppedCardsStack.clear();
     }
+
+    public int getNumberOfCardsOnGround() {
+        return droppedCardsStack.size();
+    }
 }

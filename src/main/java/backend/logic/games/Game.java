@@ -182,4 +182,12 @@ public class Game {
     public int getGameId() {
         return gameId;
     }
+
+    public boolean gameHasBeenStarted() {
+        return gameHasBeenStarted;
+    }
+
+    public int getCurrentRound() {
+        return currentRound;
+    }
 }

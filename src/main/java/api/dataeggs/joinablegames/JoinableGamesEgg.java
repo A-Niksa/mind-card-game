@@ -5,10 +5,10 @@ import backend.logic.games.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoinableGamesDataEgg {
+public class JoinableGamesEgg {
     private List<JoinableGame> joinableGamesList;
 
-    public JoinableGamesDataEgg() {
+    public JoinableGamesEgg() {
         joinableGamesList = new ArrayList<JoinableGame>();
     }
 

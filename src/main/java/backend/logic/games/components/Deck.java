@@ -83,10 +83,6 @@ public class Deck {
         return numberedCardsList.remove(randomIndex);
     }
 
-    public int getNumberOfNumberedCards() {
-        return numberedCardsList.size();
-    }
-
     public int getNumberOfHealthCards() {
         return healthCardsList.size();
     }

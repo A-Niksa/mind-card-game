@@ -1,12 +1,12 @@
 package api.dataeggs;
 
-public class MakingMoveDataEgg {
+public class MakingMoveEgg {
     private boolean moveRespectsGroundOrder;
     private boolean moveCausesLossOfHealth;
     private int numberOfSmallestCardThatHasCausedLoss; // -1 if no loss has happened
 
-    public MakingMoveDataEgg(boolean moveRespectsGroundOrder, boolean moveCausesLossOfHealth,
-                             int numberOfSmallestCardThatHasCausedLoss) {
+    public MakingMoveEgg(boolean moveRespectsGroundOrder, boolean moveCausesLossOfHealth,
+                         int numberOfSmallestCardThatHasCausedLoss) {
         this.moveRespectsGroundOrder = moveRespectsGroundOrder;
         this.moveCausesLossOfHealth = moveCausesLossOfHealth;
         this.numberOfSmallestCardThatHasCausedLoss = numberOfSmallestCardThatHasCausedLoss;
