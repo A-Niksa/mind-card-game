@@ -36,10 +36,14 @@ public class API {
     public static String makeMove(int gameId, int playerId, int cardIndex) {
         // TODO: moveWasValid, doesMoveCauseLossOfHeart, smallestCardThatHasCausedLoss (if the second boolean is true)
         Game game = GameManager.getGameById(gameId);
-        boolean moveRespectsGroundOrder = MakingMoveUtils.moveRespectsGroundOrder(game, playerId, cardIndex);
-        boolean moveCausesLossOfHealth = MakingMoveUtils.moveCausesHealthLoss(game, playerId, cardIndex);
+        boolean moveRespectsGroundOrder = MakingMoveUtils.moveRespectsGroundOrder(game, playerId);
+        boolean moveCausesLossOfHealth = MakingMoveUtils.moveCausesHealthLoss(game, playerId);
         int smallestCardNumberThatHasCausedLoss = MakingMoveUtils.getSmallestCardInPlayersHands(game);
 
+        // making a move in GameManager:
+        MakingMoveUtils.dropCardInGameManager(game, playerId, cardIndex);
+
+        // returning the data-egg:
         MakingMoveDataEgg dataEgg = new MakingMoveDataEgg(moveRespectsGroundOrder, moveCausesLossOfHealth,
                 smallestCardNumberThatHasCausedLoss);
         return GsonUtils.getJsonString(dataEgg);

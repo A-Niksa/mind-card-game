@@ -79,6 +79,10 @@ public class Game {
         }
     }
 
+    public void dropCardByHuman(int playerId, int numberOfCardToDrop) {
+
+    }
+
     private void removeOneHealthCardFromDeck() {
         deck.removeOneHealthCard();
     }
