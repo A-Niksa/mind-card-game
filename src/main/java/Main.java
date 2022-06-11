@@ -1,14 +1,18 @@
 import frontend.client.ClientNetwork;
 import frontend.gui.firstMenuPage.FirstMenuPage;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
     private static JFrame frame;
 
 
     public static void main(String[] args) {
+
         new FirstMenuPage(0);
 
         var clientNetwork = new ClientNetwork();

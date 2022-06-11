@@ -31,7 +31,8 @@ public class NetworkThread implements Runnable{
             e.printStackTrace();
         }
 
-        while (true){
+        boolean notBroken = true;
+        while (notBroken){
             String input = "";
 
             try {
@@ -40,6 +41,7 @@ public class NetworkThread implements Runnable{
 
             } catch (IOException e) {
                 e.printStackTrace();
+                notBroken = false;
             }
 
         }
