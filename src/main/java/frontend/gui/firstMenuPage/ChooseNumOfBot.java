@@ -1,65 +1,47 @@
 package frontend.gui.firstMenuPage;
 
-import com.google.gson.Gson;
-import config.ConfigClass;
-import frontend.gui.ClientNetwork;
 
+import config.ConfigClass;
+import frontend.client.ClientNetwork;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class ChooseNumOfBot{
     JFrame frame;
-    JButton creatNewGame;
     ClientNetwork clientNetwork;
     JButton back;
+    JButton oneBot;
+    JButton twoBot;
+    JButton threeBot;
     JSlider jSlider;
     int idPlayer;
 
-    public ChooseNumOfBot (ClientNetwork clientNetwork, int playerId){
+    public ChooseNumOfBot (int playerId){
         this.clientNetwork = clientNetwork;
         this.idPlayer = playerId;
 
         frame = new JFrame();
         initializeFrame();
 
-        creatNewGame = new JButton();
         back = new JButton();
+        oneBot = new JButton();
+        twoBot = new JButton();
+        threeBot = new JButton();
 
-        addButtonToFrame(creatNewGame, "Creat", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 100, new Color(0, 184, 42));
-        addButtonToFrame(back, "Back", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 200, Color.RED);
+        addButtonToFrame(oneBot, "OneBot1", 150 , 100, Color.WHITE);
+        addButtonToFrame(twoBot, "TwoBot1", 150 , 200, Color.WHITE);
+        addButtonToFrame(threeBot, "ThreeBot1", 150 , 300, Color.WHITE);
+        addButtonToFrame(back, "Back", 150, 400, Color.RED);
 
-        jSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 3, 0);
-        addSlider();
 
-        creatNewGame.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int numJSlider = jSlider.getValue();
-                String json = clientNetwork.creatNewGame(numJSlider, playerId);
-                // TODO
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            public void mouseEntered(MouseEvent e) {
-                frame.setCursor(new Cursor(Cursor.HAND_CURSOR));;
-            }
-
-            public void mouseExited(MouseEvent e) {
-                frame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));;
-            }
-        });
 
         back.addMouseListener(new MouseListener() {
             @Override
@@ -86,51 +68,120 @@ public class ChooseNumOfBot{
                 frame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));;
             }
         });
+        oneBot.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
 
+            }
 
-        setBackImage();
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                frame.setCursor(new Cursor(Cursor.HAND_CURSOR));;
+            }
+
+            public void mouseExited(MouseEvent e) {
+                frame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));;
+            }
+        });
+        twoBot.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                frame.setCursor(new Cursor(Cursor.HAND_CURSOR));;
+            }
+
+            public void mouseExited(MouseEvent e) {
+                frame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));;
+            }
+        });
+        threeBot.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                frame.setCursor(new Cursor(Cursor.HAND_CURSOR));;
+            }
+
+            public void mouseExited(MouseEvent e) {
+                frame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));;
+            }
+        });
+
         frame.setVisible(true);
 
     }
 
     private void initializeFrame(){
         frame.setLayout(null);
-        frame.setTitle("Menu page");
-        frame.setLocation(new Point((1920 - ConfigClass.MenuPageFRAME_WIDTH) / 2 - 150, (1080 - ConfigClass.MenuPageFRAME_HEIGHT) / 2 - 100));
-        frame.setSize(new Dimension(ConfigClass.MenuPageFRAME_WIDTH, ConfigClass.MenuPageFRAME_HEIGHT));
-        frame.setUndecorated(true);
+        frame.setTitle("Number of bot");
+        frame.setSize(new Dimension(300, 500));
+        frame.setLocation(550, 150);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void addButtonToFrame(JButton jButton, String text, int x, int y, Color color){
+        if(text.toLowerCase().equals(("OneBot1").toLowerCase()) || text.toLowerCase().equals(("TwoBot1").toLowerCase()) || text.toLowerCase().equals(("ThreeBot1").toLowerCase())){
+            try {
+                File file = new File(ConfigClass.publicNameForPath + text + ".png");
+                Image image = ImageIO.read(file);
+                jButton.setIcon(new ImageIcon(image));
+                jButton.setBounds(x - 50, y, 100, 40);
+                jButton.setFont(new Font("SERIF", Font.ITALIC, 20));
+                jButton.setForeground(Color.BLACK);
+                frame.add(jButton);
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
         jButton.setText(text);
-        jButton.setBounds(x - 50, y, 150, 50);
+        jButton.setBounds(x - 50, y, 100, 40);
         jButton.setFont(new Font("SERIF", Font.ITALIC, 20));
         jButton.setForeground(Color.BLACK);
         jButton.setBackground(color);
         frame.add(jButton);
     }
 
-    public void setBackImage(){
-        ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\ChooseNumOfBot.png");
-        JLabel label = new JLabel();
-        label.setIcon(icon);
-        label.setBounds(0, 0, ConfigClass.MenuPageFRAME_WIDTH, ConfigClass.MenuPageFRAME_HEIGHT);
-        frame.add(label);
-
-    }
-
-
-
-    public void addSlider(){
-
-        jSlider.setMajorTickSpacing(1);
-        jSlider.setPaintTicks(true);
-        jSlider.setPaintLabels(true);
-        jSlider.setPreferredSize(new Dimension(100, 50));
-        jSlider.setBounds(ConfigClass.MenuPageFRAME_WIDTH / 2  - 130 , ConfigClass.MenuPageFRAME_HEIGHT / 2 , 300 , 50);
-        frame.getContentPane().add(jSlider);
+    public static void main(String[] args) {
+        new ChooseNumOfBot(0);
     }
 
 

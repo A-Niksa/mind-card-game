@@ -1,4 +1,4 @@
-package frontend.gui;
+package frontend.client;
 
 import config.ConfigClass;
 

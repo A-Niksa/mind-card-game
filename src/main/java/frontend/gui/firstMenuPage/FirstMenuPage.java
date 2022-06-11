@@ -1,8 +1,7 @@
 package frontend.gui.firstMenuPage;
 
 import config.ConfigClass;
-import frontend.gui.ClientNetwork;
-
+import frontend.client.ClientNetwork;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -42,7 +41,7 @@ public class FirstMenuPage{
             @Override
             public void mousePressed(MouseEvent e) {
                 frame.dispose();
-                new ChooseNumOfBot(clientNetwork, playerId);
+                new ChooseNumOfBot(playerId);
             }
 
             @Override

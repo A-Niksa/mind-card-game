@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4f398126-a4de-4987-9ecc-3ea873016928" name="Default Changelist" comment="" />
+    <list default="true" id="4f398126-a4de-4987-9ecc-3ea873016928" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/config/ConfigClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/config/ConfigClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/frontend/client/ClientNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/frontend/client/ClientNetwork.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/frontend/gui/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/frontend/gui/GamePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/frontend/gui/firstMenuPage/ChooseNumOfBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/frontend/gui/firstMenuPage/ChooseNumOfBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/frontend/gui/firstMenuPage/FirstMenuPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/frontend/gui/firstMenuPage/FirstMenuPage.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,6 +36,37 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
+  <component name="RunManager">
+    <configuration name="NetworkServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="backend.server.NetworkServer" />
+      <module name="mind-card-game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="backend.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.NetworkServer" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -37,7 +76,11 @@
       <option name="presentableId" value="Default" />
       <updated>1654586636610</updated>
       <workItem from="1654586647063" duration="6000" />
+      <workItem from="1654939633798" duration="1562000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

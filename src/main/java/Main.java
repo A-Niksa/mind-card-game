@@ -1,4 +1,4 @@
-import frontend.gui.ClientNetwork;
+import frontend.client.ClientNetwork;
 import frontend.gui.firstMenuPage.FirstMenuPage;
 
 public class Main {
@@ -10,10 +10,9 @@ public class Main {
         new FirstMenuPage(clientNetwork, playerId);
 
 
-
         while (true){
-            System.out.println("id : " + playerId);
-            System.out.println("Test connection : " + clientNetwork.testConnection());
+            System.out.println("id: " + playerId);
+            System.out.println("Test connection: " + clientNetwork.testConnection());
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {

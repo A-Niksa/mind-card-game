@@ -1,5 +1,8 @@
 package frontend.gui;
 
+import config.ConfigClass;
+import frontend.client.ClientNetwork;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +15,15 @@ import java.util.ArrayList;
 public class GamePage extends JPanel {
     JFrame frame = new JFrame();
     ArrayList<Integer> arrayList = new ArrayList<>();
+    ClientNetwork clientNetwork;
+    int playerId;
+    int gameId;
 
-    public static String publicNameForPath = ".\\src\\main\\resources\\";
+    public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
+        this.gameId = gameId;
+        this.playerId = playerId;
+        this.clientNetwork = clientNetwork;
 
-    public GamePage() {
         for (int j = 1; j < 12; j++) {
             arrayList.add(j * 9);
         }
@@ -46,10 +54,11 @@ public class GamePage extends JPanel {
         printCards(arrayList, "Up", g);
 
     }
+
     public void printBack(Graphics g){
         BufferedImage imageBack = null;
         try {
-            File file1 = new File(publicNameForPath + "BackMainPage2.png");
+            File file1 = new File(ConfigClass.publicNameForPath + "BackMainPage2.png");
             imageBack = ImageIO.read(file1);
         }
         catch (IOException e) {
@@ -63,34 +72,34 @@ public class GamePage extends JPanel {
     public File getNumOfCard(int num){
         File file;
         if(num <= 10){
-            file = new File(publicNameForPath + "1-10.png");
+            file = new File(ConfigClass.publicNameForPath + "1-10.png");
         }
         else if(num <= 20){
-            file = new File(publicNameForPath + "11-20.png");
+            file = new File(ConfigClass.publicNameForPath + "11-20.png");
         }
         else if(num <= 30){
-            file = new File(publicNameForPath + "21-30.png");
+            file = new File(ConfigClass.publicNameForPath + "21-30.png");
         }
         else if(num <= 40){
-            file = new File(publicNameForPath + "31-40.png");
+            file = new File(ConfigClass.publicNameForPath + "31-40.png");
         }
         else if(num <= 50){
-            file = new File(publicNameForPath + "41-50.png");
+            file = new File(ConfigClass.publicNameForPath + "41-50.png");
         }
         else if(num <= 60){
-            file = new File(publicNameForPath + "51-60.png");
+            file = new File(ConfigClass.publicNameForPath + "51-60.png");
         }
         else if(num <= 70){
-            file = new File(publicNameForPath + "61-70.png");
+            file = new File(ConfigClass.publicNameForPath + "61-70.png");
         }
         else if(num <= 80){
-            file = new File(publicNameForPath + "71-80.png");
+            file = new File(ConfigClass.publicNameForPath + "71-80.png");
         }
         else if(num <= 90){
-            file = new File(publicNameForPath + "81-90.png");
+            file = new File(ConfigClass.publicNameForPath + "81-90.png");
         }
         else {
-            file = new File(publicNameForPath + "91-100.png");
+            file = new File(ConfigClass.publicNameForPath + "91-100.png");
         }
 
         return file;
@@ -126,11 +135,11 @@ public class GamePage extends JPanel {
                     imageCard = ImageIO.read(file);
                 }
                 else if(position.toLowerCase().equals(("Up").toLowerCase())){
-                    File file = new File(publicNameForPath + "backCard.png");
+                    File file = new File(ConfigClass.publicNameForPath + "backCard.png");
                     imageCard = ImageIO.read(file);
                 }
                 else {
-                    File file = new File(publicNameForPath + "backCard2.png");
+                    File file = new File(ConfigClass.publicNameForPath + "backCard2.png");
                     imageCard = ImageIO.read(file);
                 }
 
@@ -184,7 +193,6 @@ public class GamePage extends JPanel {
         }
     }
 
-
     public Color getColorOfNumber(int num){
         Color color;
         if(num <= 10){
@@ -224,7 +232,4 @@ public class GamePage extends JPanel {
         return color;
     }
 
-    public static void main(String[] args) {
-        new GamePage();
-    }
 }
