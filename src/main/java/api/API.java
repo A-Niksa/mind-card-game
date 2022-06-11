@@ -23,10 +23,9 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static boolean joinGame(int gameId) {
+    public static boolean joinGame(int gameId, int playerId) {
         return true;
         // TODO -> can join game or not
-        // this method is problematic
     }
 
     public static String getAllJoinableGames() {
@@ -37,9 +36,9 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static String updateGame(int gameId, int currentHumanId) {
+    public static String getUpdatedGameState(int gameId, int currentHumanId) {
         // TODO: updates game and returns Gson of GameState ->
-        // isGameStarted , level  , num of hearts, last card game on ground, num of players, number of cards on ground, hands (my player) , opponents hand meta data (sorted by id)
+        // isGameStarted, has there any ninja request, level, num of hearts, last card game on ground, num of players, number of cards on ground, hands (my player) , opponents hand meta data (sorted by id)
         //                                                                                                              exm:  60, 17 ,40 ,2 , 0 : 6 , 1 : 7 , 3 : 2
         Game game = GameManager.getGameById(gameId);
         GameStateEgg dataEgg = new GameStateEgg(game, currentHumanId);
@@ -67,4 +66,19 @@ public class API {
         // return a boolean that can or not
         return GameManager.gameHasBeenStarted(gameId, true);
     }
+
+    public static void useNinjaCard(int gameId, int playerId){
+
+    }
+
+    public static void sendRequest(boolean requestStatus, int playerId, int gameId){
+
+    }
+
 }
+
+
+//  TODO
+//enum Requests{
+//    Waiting, Reject, Accept;
+//}

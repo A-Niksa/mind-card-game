@@ -40,7 +40,7 @@ public class ChooseNumOfBot extends JPanel{
                 int y = e.getY();
 
                 if (x >= 90 & x <= 320 & y >= 0 & y <= 174) {
-//                    ToDO
+                    clientNetwork.creatNewGame(1, playerId);
                 }
                 else if(x >= 90 & x <= 320 & y >= 175 & y <= 374){
 //                    ToDO
