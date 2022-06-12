@@ -1,137 +1,152 @@
 package frontend.gui.firstMenuPage;
 
-import com.google.gson.Gson;
 import config.ConfigClass;
-import frontend.gui.ClientNetwork;
+import frontend.client.ClientNetwork;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.zip.CheckedOutputStream;
 
-
-public class ChooseNumOfBot{
+public class ChooseNumOfBot extends JPanel{
     JFrame frame;
-    JButton creatNewGame;
     ClientNetwork clientNetwork;
-    JButton back;
-    JSlider jSlider;
-    int idPlayer;
+    final int playerId;
 
-    public ChooseNumOfBot (ClientNetwork clientNetwork, int playerId){
+    String fileName = "ChooseBotPage.png";
+
+    public ChooseNumOfBot (int playerId){
+
         this.clientNetwork = clientNetwork;
-        this.idPlayer = playerId;
-
-        frame = new JFrame();
         initializeFrame();
 
-        creatNewGame = new JButton();
-        back = new JButton();
+        this.playerId = playerId;
 
-        addButtonToFrame(creatNewGame, "Creat", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 100, new Color(0, 184, 42));
-        addButtonToFrame(back, "Back", ConfigClass.MenuPageFRAME_WIDTH / 2 , ConfigClass.MenuPageFRAME_HEIGHT / 2 + 200, Color.RED);
 
-        jSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 3, 0);
-        addSlider();
 
-        creatNewGame.addMouseListener(new MouseListener() {
-            @Override
+        addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
 
             }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int numJSlider = jSlider.getValue();
-                String json = clientNetwork.creatNewGame(numJSlider, playerId);
-                // TODO
+            public void mousePressed(MouseEvent e){
+                int x = e.getX();
+                int y = e.getY();
+
+                if (x >= 90 & x <= 320 & y >= 0 & y <= 174) {
+                    clientNetwork.creatNewGame(1, playerId);
+                }
+                else if(x >= 90 & x <= 320 & y >= 175 & y <= 374){
+//                    ToDO
+
+                }
+                else if(x >= 90 & x <= 320 & y >= 375 & y <= 584){
+//                    ToDO
+
+                }
+                else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 38 * 38){
+                    frame.dispose();
+                    new FirstMenuPage(playerId);
+                }
+
             }
 
-            @Override
             public void mouseReleased(MouseEvent e) {
 
             }
 
             public void mouseEntered(MouseEvent e) {
-                frame.setCursor(new Cursor(Cursor.HAND_CURSOR));;
             }
 
             public void mouseExited(MouseEvent e) {
-                frame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));;
+
             }
         });
 
-        back.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        addMouseMotionListener(new MouseAdapter() {
 
-            }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                frame.dispose();
-                new FirstMenuPage(clientNetwork, playerId);
-            }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseMoved(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
 
-            }
+                if (x >= 90 & x <= 320 & y >= 0 & y <= 174) {
+                    fileName = "ChooseBotPageOneRobot.png";
+                    setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    repaint();
+                }
+                else if(x >= 90 & x <= 320 & y >= 175 & y <= 374){
+                    fileName = "ChooseBotPageTwoRobot.png";
+                    setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    repaint();
+                }
+                else if(x >= 90 & x <= 320 & y >= 375 & y <= 584){
+                    fileName = "ChooseBotPageThreeRobot.png";
+                    setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    repaint();
+                }
+                else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 37 * 37){
+                    fileName = "ChooseBotPage.png";
+                    setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    repaint();
+                }
+                else{
+                    fileName = "ChooseBotPage.png";
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    repaint();
+                }
 
-            public void mouseEntered(MouseEvent e) {
-                frame.setCursor(new Cursor(Cursor.HAND_CURSOR));;
-            }
-
-            public void mouseExited(MouseEvent e) {
-                frame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));;
             }
         });
-
-
-        setBackImage();
-        frame.setVisible(true);
-
     }
 
-    private void initializeFrame(){
-        frame.setLayout(null);
-        frame.setTitle("Menu page");
-        frame.setLocation(new Point((1920 - ConfigClass.MenuPageFRAME_WIDTH) / 2 - 150, (1080 - ConfigClass.MenuPageFRAME_HEIGHT) / 2 - 100));
-        frame.setSize(new Dimension(ConfigClass.MenuPageFRAME_WIDTH, ConfigClass.MenuPageFRAME_HEIGHT));
-        frame.setUndecorated(true);
+
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        printBack(g);
+    }
+
+    public void printBack(Graphics g){
+        BufferedImage imageBack = null;
+        try {
+            File file1 = new File(ConfigClass.publicNameForPath + fileName);
+            imageBack = ImageIO.read(file1);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        int w = 400;
+        int h = 700;
+        g.drawImage(imageBack, 0, 0, (int) w, (int) h, null);
+    }
+
+    public void initializeFrame(){
+        frame = new JFrame();
+        frame.setTitle("Game");
+        frame.setSize(414, 738);
+        frame.setLocation(0,0);
+        frame.setLocationRelativeTo(null);
+        frame.setBackground(Color.WHITE);
+        frame.getContentPane().add(this);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
-    private void addButtonToFrame(JButton jButton, String text, int x, int y, Color color){
-        jButton.setText(text);
-        jButton.setBounds(x - 50, y, 150, 50);
-        jButton.setFont(new Font("SERIF", Font.ITALIC, 20));
-        jButton.setForeground(Color.BLACK);
-        jButton.setBackground(color);
-        frame.add(jButton);
+    public static void main(String[] args) {
+        new ChooseNumOfBot(0);
     }
 
-    public void setBackImage(){
-        ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\ChooseNumOfBot.png");
-        JLabel label = new JLabel();
-        label.setIcon(icon);
-        label.setBounds(0, 0, ConfigClass.MenuPageFRAME_WIDTH, ConfigClass.MenuPageFRAME_HEIGHT);
-        frame.add(label);
-
-    }
-
-
-
-    public void addSlider(){
-
-        jSlider.setMajorTickSpacing(1);
-        jSlider.setPaintTicks(true);
-        jSlider.setPaintLabels(true);
-        jSlider.setPreferredSize(new Dimension(100, 50));
-        jSlider.setBounds(ConfigClass.MenuPageFRAME_WIDTH / 2  - 130 , ConfigClass.MenuPageFRAME_HEIGHT / 2 , 300 , 50);
-        frame.getContentPane().add(jSlider);
-    }
 
 
 }

@@ -31,7 +31,8 @@ public class NetworkThread implements Runnable{
             e.printStackTrace();
         }
 
-        while (true){
+        boolean notBroken = true;
+        while (notBroken){
             String input = "";
 
             try {
@@ -40,6 +41,7 @@ public class NetworkThread implements Runnable{
 
             } catch (IOException e) {
                 e.printStackTrace();
+                notBroken = false;
             }
 
         }
@@ -86,7 +88,7 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(ConfigClass.JoinGame)){
             try {
-                outputStream.writeBoolean(API.joinGame(inputStream.readInt()));
+                outputStream.writeBoolean(API.joinGame(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,7 +104,7 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(ConfigClass.UpdateGame)){
             try {
-                outputStream.writeUTF(API.updateGame(inputStream.readInt(), inputStream.readInt()));
+                outputStream.writeUTF(API.getUpdatedGameState(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

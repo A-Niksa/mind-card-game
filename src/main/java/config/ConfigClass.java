@@ -12,6 +12,7 @@ public class ConfigClass {
     public static String NoAction = "No action";
     public static String MakeMoveACard = "Move a card";
 
+    public static String publicNameForPath = ".\\src\\main\\resources\\";
 
     public static int MenuPageFRAME_HEIGHT = 600;
     public static int MenuPageFRAME_WIDTH = 900;
