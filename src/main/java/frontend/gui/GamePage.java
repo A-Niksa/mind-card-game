@@ -1,7 +1,9 @@
 package frontend.gui;
 
+import com.google.gson.Gson;
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
+import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,9 +21,14 @@ public class GamePage extends JPanel {
     int playerId;
     int gameId;
     int gameLevel;
+    int hostId;
+    int lastCardInGround;
+    boolean isGameStarted;
 
     public GamePage(int gameId, int playerId) {
-        this.gameLevel = 1; // TODO: not correct
+        isGameStarted = false;
+        lastCardInGround = 5;
+        hostId = 0;
         this.gameId = gameId;
         this.playerId = playerId;
         this.clientNetwork = clientNetwork;
@@ -33,13 +40,26 @@ public class GamePage extends JPanel {
         initializeFrame();
 
 //        threadsForRepaint();
+
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
         printBack(g);
+
+
+        if(!isGameStarted){
+            if(hostId == playerId){
+
+            }
+            else{
+
+            }
+        }
+        else{
+
+        }
 
         printCards(arrayList, "Down", g);
         printCards(arrayList, "Right", g);
@@ -248,7 +268,10 @@ public class GamePage extends JPanel {
 
                 while(true){
                     //  TODO
-                    clientNetwork.updateGame(gameId, playerId);
+                    Gson gson = new Gson();
+
+                    GameStateEgg gameStateEgg = gson.fromJson(clientNetwork.updateGame(gameId, playerId), GameStateEgg.class);
+                    isGameStarted = gameStateEgg.isGameHasStarted();
                     repaint();
 
                     try {

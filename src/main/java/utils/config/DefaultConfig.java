@@ -16,4 +16,10 @@ public class DefaultConfig {
 
     public static int MenuPageFRAME_HEIGHT = 600;
     public static int MenuPageFRAME_WIDTH = 900;
+
+
+//    new:
+    public static String MakeGameUnjoinable = "Make game unjoinable";
+    public static String UseNinjaCard = "Use ninja card";
+    public static String SendRequest = "Send request for ninja card";
 }

@@ -117,5 +117,29 @@ public class NetworkThread implements Runnable{
                 e.printStackTrace();
             }
         }
+
+        else if(input.equals(DefaultConfig.MakeGameUnjoinable)){
+            try {
+                outputStream.writeBoolean(API.makeGameUnjoinable(inputStream.readInt()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(input.equals(DefaultConfig.SendRequest)){
+            try {
+                API.sendRequest(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(input.equals(DefaultConfig.UseNinjaCard)){
+            try {
+                API.useNinjaCard(inputStream.readInt(), inputStream.readInt());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 }

@@ -153,6 +153,52 @@ public class ClientNetwork {
 
     }
 
+    public boolean makeGameUnjoinable(int gameId){
+
+        try {
+            outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
+            outputStream.writeInt(gameId);
+            return inputStream.readBoolean();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public void useNinjaCard(int gameId, int playerId){
+
+        try {
+            outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
+            outputStream.writeInt(gameId);
+            outputStream.writeInt(playerId);
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void sendRequest(boolean requestStatus, int playerId, int gameId){
+
+        try {
+            outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
+            outputStream.writeBoolean(requestStatus);
+            outputStream.writeInt(playerId);
+            outputStream.writeInt(gameId);
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
     
 
 
