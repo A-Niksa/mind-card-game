@@ -1,10 +1,10 @@
-package api.dataeggs.gamestate;
+package utils.jsonparsing.literals.dataeggs.gamestate;
 
-import api.dataeggs.DataEgg;
-import api.dataeggs.DataEggType;
-import api.utils.GameStateUtils;
 import backend.logic.games.Game;
 import backend.logic.games.components.Hand;
+import utils.jsonparsing.literals.dataeggs.DataEgg;
+import utils.jsonparsing.literals.dataeggs.DataEggType;
+import utils.jsonparsing.literals.utils.GameStateUtils;
 
 import java.util.List;
 

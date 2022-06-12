@@ -1,4 +1,4 @@
-package api.dataeggs;
+package utils.jsonparsing.literals.dataeggs;
 
 public class NewGameEgg extends DataEgg {
     private boolean creatingNewGameWasSuccessful;

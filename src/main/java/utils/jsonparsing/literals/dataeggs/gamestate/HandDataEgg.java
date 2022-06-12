@@ -1,7 +1,7 @@
-package api.dataeggs.gamestate;
+package utils.jsonparsing.literals.dataeggs.gamestate;
 
-import api.dataeggs.DataEgg;
 import backend.logic.games.components.Hand;
+import utils.jsonparsing.literals.dataeggs.DataEgg;
 
 public class HandDataEgg extends DataEgg {
     private int playerId;

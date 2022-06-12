@@ -1,8 +1,8 @@
-package api.dataeggs.joinablegames;
+package utils.jsonparsing.literals.dataeggs.joinablegames;
 
-import api.dataeggs.DataEgg;
-import api.dataeggs.DataEggType;
 import backend.logic.games.Game;
+import utils.jsonparsing.literals.dataeggs.DataEgg;
+import utils.jsonparsing.literals.dataeggs.DataEggType;
 
 import java.util.ArrayList;
 import java.util.List;
