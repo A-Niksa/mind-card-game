@@ -5,7 +5,10 @@ import backend.logic.games.actionlogger.ActionLogger;
 import backend.logic.games.components.Deck;
 import backend.logic.games.components.DroppingGround;
 import backend.logic.games.components.JudgeUtils;
+import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
+import backend.logic.games.components.ninjahandling.NinjaHandler;
 import backend.logic.models.cards.NumberedCard;
+import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 import backend.logic.models.players.bots.Bot;
 import backend.logic.models.players.bots.BotGenerationUtils;
@@ -28,6 +31,7 @@ public class Game {
     private Deck deck;
     private DroppingGround droppingGround;
     private ActionLogger actionLogger;
+    private NinjaHandler ninjaHandler;
 
     public Game(int numberOfBots, int hostHumanId) {
         this.numberOfBots = numberOfBots;
@@ -79,8 +83,12 @@ public class Game {
         }
     }
 
-    public void dropNinjaCard(int playerId) {
+    public void castVoteForNinjaRequest(Human human, boolean agreesWithRequest) {
+        ninjaHandler.addRequest(human, agreesWithRequest);
+    }
 
+    public ArrayList<CardAndPlayerTuple> dropNinjaCard() {
+        return ninjaHandler.carryOutRequestAndReturnDroppedCards();
     }
 
     private void removeOneHealthCardFromDeck() {
@@ -113,14 +121,18 @@ public class Game {
     }
 
     private void initializeGame() {
+        initializeGameComponents();
         initializeBots();
         startBotThreads();
     }
 
     private void initializeGameComponents() {
-        deck = new Deck(getNumberOfPlayers());
         droppingGround = new DroppingGround();
         actionLogger = new ActionLogger();
+        deck = new Deck(getNumberOfPlayers());
+
+        int numberOfHumans = getNumberOfPlayers() - numberOfBots;
+        ninjaHandler = new NinjaHandler(gameId, numberOfHumans, playersList);
     }
 
     private void startBotThreads() {
@@ -165,6 +177,10 @@ public class Game {
 
     public Deck getDeck() {
         return deck;
+    }
+
+    public NinjaHandler getNinjaHandler() {
+        return ninjaHandler;
     }
 
     public DroppingGround getDroppingGround() {

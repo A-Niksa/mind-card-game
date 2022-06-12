@@ -4,11 +4,17 @@ import api.dataeggs.MakingMoveEgg;
 import api.dataeggs.NewGameEgg;
 import api.dataeggs.gamestate.GameStateEgg;
 import api.dataeggs.joinablegames.JoinableGamesEgg;
+import api.dataeggs.ninjarequest.NinjaMoveEgg;
 import api.utils.GsonUtils;
 import api.utils.JoinableGamesUtils;
 import api.utils.MakingMoveUtils;
+import api.utils.NinjaRequestUtils;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
+import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
+import backend.logic.models.players.Human;
+
+import java.util.ArrayList;
 
 public class API {
     public static int addNewPlayer() {
@@ -69,21 +75,18 @@ public class API {
 
     public static boolean makeGameUnjoinable(int gameId){
         // return a boolean that can or not
-        return GameManager.gameHasBeenStarted(gameId, true);
+        return GameManager.startGameById(gameId);
     }
 
-    public static void useNinjaCard(int gameId, int playerId){
+    public static String useNinjaCard(int gameId, int playerId){ // welp: should remove playerId
+        ArrayList<CardAndPlayerTuple> smallestCardsList = GameManager.dropNinjaCardInGame(gameId);
 
+        NinjaMoveEgg dataEgg = new NinjaMoveEgg(smallestCardsList);
+        return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static void sendRequest(boolean requestStatus, int playerId, int gameId){
-
+    public static void sendNinjaRequest(boolean agreesWithRequest, int playerId, int gameId){
+        Human human = NinjaRequestUtils.getHumanById(gameId, playerId);
+        GameManager.castVoteForNinjaRequestInGame(gameId, human, agreesWithRequest);
     }
-
 }
-
-
-//  TODO
-//enum Requests{
-//    Waiting, Reject, Accept;
-//}

@@ -2,6 +2,7 @@ package api.dataeggs.gamestate;
 
 import api.dataeggs.DataEgg;
 import api.dataeggs.DataEggType;
+import api.dataeggs.ninjarequest.NinjaRequestStatus;
 import api.utils.GameStateUtils;
 import backend.logic.games.Game;
 import backend.logic.games.components.Hand;
@@ -16,7 +17,9 @@ public class GameStateEgg extends DataEgg {
     private int numberOfPlayers;
     private int numberOfCardsOnGround;
     private Hand handOfCurrentPlayer;
-    private List<HandDataEgg> handsOfOtherPlayersList;
+    private List<HandEgg> handsOfOtherPlayersList;
+    private boolean thereHasBeenANinjaRequest;
+    private NinjaRequestStatus ninjaRequestStatus;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -33,6 +36,9 @@ public class GameStateEgg extends DataEgg {
 
         handOfCurrentPlayer = GameStateUtils.getHandById(game, playerId);
         handsOfOtherPlayersList = GameStateUtils.getHandsOfPlayersOtherThanCurrentById(game, playerId);
+
+        thereHasBeenANinjaRequest = GameStateUtils.thereHasBeenANinjaRequestInGame(game.getGameId());
+        ninjaRequestStatus = GameStateUtils.getNinjaRequestStatus(game.getGameId());
     }
 
     public boolean isGameHasStarted() {
@@ -63,7 +69,15 @@ public class GameStateEgg extends DataEgg {
         return handOfCurrentPlayer;
     }
 
-    public List<HandDataEgg> getHandsOfOtherPlayersList() {
+    public List<HandEgg> getHandsOfOtherPlayersList() {
         return handsOfOtherPlayersList;
+    }
+
+    public boolean isThereHasBeenANinjaRequest() {
+        return thereHasBeenANinjaRequest;
+    }
+
+    public NinjaRequestStatus getNinjaRequestStatus() {
+        return ninjaRequestStatus;
     }
 }

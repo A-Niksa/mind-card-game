@@ -12,13 +12,6 @@ import java.util.List;
 
 public class MakingMoveUtils {
     public static void dropCardInGameManager(Game game, int playerId, int cardIndex) {
-        if (cardIndex == -1) {
-            dropNinjaCardInGameManager(game, playerId, cardIndex);
-            GameManager.dropNinjaCardInGame(game.getGameId(), playerId);
-
-            return;
-        }
-
         NumberedCard card = getCardAndRemoveByIndex(game, playerId, cardIndex);
         GameManager.dropCardInGame(game.getGameId(), playerId, card);
     }

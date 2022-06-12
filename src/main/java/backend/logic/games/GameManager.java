@@ -1,10 +1,11 @@
 package backend.logic.games;
 
+import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.models.cards.NumberedCard;
+import backend.logic.models.players.Human;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GameManager {
@@ -37,10 +38,10 @@ public class GameManager {
         return game.hasHealthCardsLeft();
     }
 
-    public static boolean gameHasBeenStarted(int gameId, boolean gameHasBeenEnded) {
+    public static boolean startGameById(int gameId) {
         // returns a boolean indicating whether the setting operation was successful
         Game game = getGameById(gameId);
-        game.setGameHasEnded(gameHasBeenEnded);
+        game.startGame();
         return true;
     }
 
@@ -62,13 +63,22 @@ public class GameManager {
         game.dropCard(playerId, cardToDrop);
     }
 
-    public static void dropNinjaCardInGame(int gameId, int playerId) {
+    public static void castVoteForNinjaRequestInGame(int gameId, Human human, boolean agreesWithRequest) {
         Game game = getGameById(gameId);
         if (game == null) {
             return;
         }
 
-        game.dropNinjaCard(playerId);
+        game.castVoteForNinjaRequest(human, agreesWithRequest);
+    }
+
+    public static ArrayList<CardAndPlayerTuple> dropNinjaCardInGame(int gameId) {
+        Game game = getGameById(gameId);
+        if (game == null) {
+            return new ArrayList<>();
+        }
+
+        return game.dropNinjaCard();
     }
 
     public static Game getGameById(int gameId) {

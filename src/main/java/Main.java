@@ -20,7 +20,7 @@ public class Main {
         new FirstMenuPage(clientNetwork, playerId);
 
 
-        while (true){
+        while (true) {
             System.out.println("id: " + playerId);
             System.out.println("Test connection: " + clientNetwork.testConnection());
             try {

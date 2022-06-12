@@ -127,7 +127,7 @@ public class NetworkThread implements Runnable{
         }
         else if(input.equals(DefaultConfig.SendRequest)){
             try {
-                API.sendRequest(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
+                API.sendNinjaRequest(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
             } catch (IOException e) {
                 e.printStackTrace();
             }

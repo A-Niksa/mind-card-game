@@ -33,4 +33,8 @@ public abstract class Player {
     public int getPlayerId() {
         return playerId;
     }
+
+    public boolean isBot() {
+        return isBot;
+    }
 }
