@@ -2,7 +2,6 @@ package frontend.gui.firstMenuPage;
 
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -21,13 +20,10 @@ public class FirstMenuPage extends JPanel{
 
     String fileName = "FirstPage.png";
 
-    public FirstMenuPage (int playerId){
-
+    public FirstMenuPage (ClientNetwork clientNetwork, int playerId){
 
         this.clientNetwork = clientNetwork;
-
         this.playerId = playerId;
-
         initializeFrame();
 
 
@@ -47,10 +43,12 @@ public class FirstMenuPage extends JPanel{
                 }
 
                 else if(x >= 90 & x <= 320 & y >= 370 & y <= 579){
-
+                    frame.dispose();
+                    new JoinGamePage(clientNetwork, playerId);
                 }
                 else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 35 * 35){
-
+                    frame.dispose();
+//                    TODO -> stop network
                 }
                 else{
 

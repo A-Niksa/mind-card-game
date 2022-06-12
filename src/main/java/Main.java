@@ -13,11 +13,11 @@ public class Main {
 
 
     public static void main(String[] args) {
-        new FirstMenuPage(0);
 
         var clientNetwork = new ClientNetwork();
         int playerId = clientNetwork.addNewPlayer();
-//        new FirstMenuPage(playerId);
+
+        new FirstMenuPage(clientNetwork, playerId);
 
 
         while (true){

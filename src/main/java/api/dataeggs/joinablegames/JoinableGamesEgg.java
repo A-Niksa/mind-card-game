@@ -23,4 +23,8 @@ public class JoinableGamesEgg extends DataEgg {
 
         joinableGamesList.add(joinableGame);
     }
+
+    public List<JoinableGame> getJoinableGamesList() {
+        return joinableGamesList;
+    }
 }

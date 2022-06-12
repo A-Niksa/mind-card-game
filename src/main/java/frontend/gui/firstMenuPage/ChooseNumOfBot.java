@@ -1,8 +1,10 @@
 package frontend.gui.firstMenuPage;
 
+import com.google.gson.Gson;
+import frontend.gui.GamePage;
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
-
+import utils.jsonparsing.literals.dataeggs.NewGameEgg;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -39,19 +41,51 @@ public class ChooseNumOfBot extends JPanel{
                 int y = e.getY();
 
                 if (x >= 90 & x <= 320 & y >= 0 & y <= 174) {
-                    clientNetwork.creatNewGame(1, playerId);
+                    String output = clientNetwork.creatNewGame(1, playerId);
+                    Gson gson = new Gson();
+                    NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
+                    boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
+                    if(isCreatingNewGameWasSuccessful){
+                        int gameId = newGameEgg.getIdOfCreatedGame();
+                        new GamePage(gameId, playerId);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(frame, "Error!!!",
+                                "Creating game was unsuccessful", JOptionPane.ERROR_MESSAGE);
+                    }
+
                 }
                 else if(x >= 90 & x <= 320 & y >= 175 & y <= 374){
-//                    ToDO
-
+                    String output = clientNetwork.creatNewGame(2, playerId);
+                    Gson gson = new Gson();
+                    NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
+                    boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
+                    if(isCreatingNewGameWasSuccessful){
+                        int gameId = newGameEgg.getIdOfCreatedGame();
+                        new GamePage(gameId, playerId);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(frame, "Error!!!",
+                                "Creating game was unsuccessful", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 else if(x >= 90 & x <= 320 & y >= 375 & y <= 584){
-//                    ToDO
-
+                    String output = clientNetwork.creatNewGame(3, playerId);
+                    Gson gson = new Gson();
+                    NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
+                    boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
+                    if(isCreatingNewGameWasSuccessful){
+                        int gameId = newGameEgg.getIdOfCreatedGame();
+                        new GamePage(gameId, playerId);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(frame, "Error!!!",
+                                "Creating game was unsuccessful", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 38 * 38){
                     frame.dispose();
-                    new FirstMenuPage(playerId);
+                    new FirstMenuPage(clientNetwork, playerId);
                 }
 
             }
