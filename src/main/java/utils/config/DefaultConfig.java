@@ -1,6 +1,6 @@
-package config;
+package utils.config;
 
-public class ConfigClass {
+public class DefaultConfig {
     public static String IP = "127.0.0.1";
     public static int PORT = 8000;
     public static String AddNewPlayerInNetwork = "Add new player";
@@ -16,5 +16,4 @@ public class ConfigClass {
 
     public static int MenuPageFRAME_HEIGHT = 600;
     public static int MenuPageFRAME_WIDTH = 900;
-
 }

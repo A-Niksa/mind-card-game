@@ -1,7 +1,7 @@
 package backend.server;
 
 import api.API;
-import config.ConfigClass;
+import utils.config.DefaultConfig;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -49,7 +49,7 @@ public class NetworkThread implements Runnable{
 
     public void checkConditionAndDoAction(String input, DataInputStream inputStream, DataOutputStream outputStream){
 
-        if(input.equals(ConfigClass.TestConnection)){
+        if(input.equals(DefaultConfig.TestConnection)){
             try {
                 var b = inputStream.readBoolean();
 
@@ -66,11 +66,11 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(ConfigClass.NoAction)){
+        else if(input.equals(DefaultConfig.NoAction)){
             //  No action
         }
 
-        else if(input.equals(ConfigClass.AddNewPlayerInNetwork)){
+        else if(input.equals(DefaultConfig.AddNewPlayerInNetwork)){
             try {
                 outputStream.writeInt(API.addNewPlayer());
             } catch (IOException e) {
@@ -78,7 +78,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(ConfigClass.AddNewGame)){
+        else if(input.equals(DefaultConfig.AddNewGame)){
             try {
                 outputStream.writeUTF(API.addNewGame(inputStream.readInt() , inputStream.readInt()));
             } catch (IOException e) {
@@ -86,7 +86,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(ConfigClass.JoinGame)){
+        else if(input.equals(DefaultConfig.JoinGame)){
             try {
                 outputStream.writeBoolean(API.joinGame(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
@@ -94,7 +94,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(ConfigClass.AllJoinableGames)){
+        else if(input.equals(DefaultConfig.AllJoinableGames)){
             try {
                 outputStream.writeUTF(API.getAllJoinableGames());
             } catch (IOException e) {
@@ -102,7 +102,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(ConfigClass.UpdateGame)){
+        else if(input.equals(DefaultConfig.UpdateGame)){
             try {
                 outputStream.writeUTF(API.getUpdatedGameState(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
@@ -110,7 +110,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(ConfigClass.MakeMoveACard)){
+        else if(input.equals(DefaultConfig.MakeMoveACard)){
             try {
                 outputStream.writeUTF(API.makeMove(inputStream.readInt(), inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {

@@ -1,6 +1,6 @@
 package frontend.gui.firstMenuPage;
 
-import config.ConfigClass;
+import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
 
 import javax.imageio.ImageIO;
@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.zip.CheckedOutputStream;
 
 public class ChooseNumOfBot extends JPanel{
     JFrame frame;
@@ -119,7 +118,7 @@ public class ChooseNumOfBot extends JPanel{
     public void printBack(Graphics g){
         BufferedImage imageBack = null;
         try {
-            File file1 = new File(ConfigClass.publicNameForPath + fileName);
+            File file1 = new File(DefaultConfig.publicNameForPath + fileName);
             imageBack = ImageIO.read(file1);
         }
         catch (IOException e) {

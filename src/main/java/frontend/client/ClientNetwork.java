@@ -1,6 +1,6 @@
 package frontend.client;
 
-import config.ConfigClass;
+import utils.config.DefaultConfig;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,7 +15,7 @@ public class ClientNetwork {
 
     public ClientNetwork() {
         try {
-            socket = new Socket(ConfigClass.IP, ConfigClass.PORT);
+            socket = new Socket(DefaultConfig.IP, DefaultConfig.PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +35,7 @@ public class ClientNetwork {
 
     public boolean testConnection(){
         try {
-            outputStream.writeUTF(ConfigClass.TestConnection);
+            outputStream.writeUTF(DefaultConfig.TestConnection);
             boolean b = true;
 
             try {
@@ -57,7 +57,7 @@ public class ClientNetwork {
 
     public void noAction(){
         try {
-            outputStream.writeUTF(ConfigClass.NoAction);
+            outputStream.writeUTF(DefaultConfig.NoAction);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class ClientNetwork {
     public int addNewPlayer(){
 
         try {
-            outputStream.writeUTF(ConfigClass.AddNewPlayerInNetwork);
+            outputStream.writeUTF(DefaultConfig.AddNewPlayerInNetwork);
             return inputStream.readInt();
 
         }
@@ -81,7 +81,7 @@ public class ClientNetwork {
 
     public String creatNewGame(int numberOfBots, int playerId){
         try {
-            outputStream.writeUTF(ConfigClass.AddNewGame);
+            outputStream.writeUTF(DefaultConfig.AddNewGame);
             outputStream.writeInt(numberOfBots);
             outputStream.writeInt(playerId);
             return inputStream.readUTF();
@@ -95,7 +95,7 @@ public class ClientNetwork {
     public boolean joinGame(int idGame){
 
         try {
-            outputStream.writeUTF(ConfigClass.JoinGame);
+            outputStream.writeUTF(DefaultConfig.JoinGame);
             return inputStream.readBoolean();
         }
 
@@ -109,7 +109,7 @@ public class ClientNetwork {
     public String allJoinableGames(){
 
         try {
-            outputStream.writeUTF(ConfigClass.AllJoinableGames);
+            outputStream.writeUTF(DefaultConfig.AllJoinableGames);
             return inputStream.readUTF();
         }
 
@@ -123,7 +123,7 @@ public class ClientNetwork {
     public String updateGame(int gameId, int currentHumanId){
 
         try {
-            outputStream.writeUTF(ConfigClass.UpdateGame);
+            outputStream.writeUTF(DefaultConfig.UpdateGame);
             outputStream.writeInt(gameId);
             outputStream.writeInt(currentHumanId);
             return inputStream.readUTF();
@@ -139,7 +139,7 @@ public class ClientNetwork {
     public String makeMove(int gameId, int playerId, int cardNumber){
 
         try {
-            outputStream.writeUTF(ConfigClass.UpdateGame);
+            outputStream.writeUTF(DefaultConfig.UpdateGame);
             outputStream.writeInt(gameId);
             outputStream.writeInt(playerId);
             outputStream.writeInt(cardNumber);

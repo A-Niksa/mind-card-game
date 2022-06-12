@@ -1,6 +1,6 @@
 package backend.server;
 
-import config.ConfigClass;
+import utils.config.DefaultConfig;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,7 +10,7 @@ public class NetworkServer {
     private static ServerSocket serverSocket;
 
     public static void main(String[] args) throws IOException {
-        serverSocket = new ServerSocket(ConfigClass.PORT);
+        serverSocket = new ServerSocket(DefaultConfig.PORT);
         System.out.println("server started");
         while (true) {
             System.out.println("Waiting for new client: ");

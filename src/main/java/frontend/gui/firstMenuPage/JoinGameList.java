@@ -1,6 +1,6 @@
 package frontend.gui.firstMenuPage;
 
-import config.ConfigClass;
+import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
 
 import javax.imageio.ImageIO;
@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -137,7 +136,7 @@ public class JoinGameList extends JPanel{
             }
             BufferedImage imageID = null;
             try {
-                File file1 = new File(ConfigClass.publicNameForPath + fileNameId);
+                File file1 = new File(DefaultConfig.publicNameForPath + fileNameId);
                 imageID = ImageIO.read(file1);
             }
             catch (IOException e) {
@@ -159,7 +158,7 @@ public class JoinGameList extends JPanel{
             }
             BufferedImage imageNumberOfBots = null;
             try {
-                File file1 = new File(ConfigClass.publicNameForPath + fileNameNumberOfBots);
+                File file1 = new File(DefaultConfig.publicNameForPath + fileNameNumberOfBots);
                 imageNumberOfBots = ImageIO.read(file1);
             }
             catch (IOException e) {

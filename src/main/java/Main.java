@@ -1,5 +1,6 @@
 import frontend.client.ClientNetwork;
 import frontend.gui.firstMenuPage.FirstMenuPage;
+import utils.config.ConfigFetcher;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -12,7 +13,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-
         new FirstMenuPage(0);
 
         var clientNetwork = new ClientNetwork();

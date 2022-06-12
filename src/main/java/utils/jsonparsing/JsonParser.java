@@ -22,7 +22,6 @@ public class JsonParser {
 
     private static JsonParser getInstance() {
         if (parser == null) parser = new JsonParser();
-
         return parser;
     }
 
