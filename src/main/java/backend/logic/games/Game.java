@@ -79,7 +79,7 @@ public class Game {
         }
     }
 
-    public void dropCardByHuman(int playerId, int numberOfCardToDrop) {
+    public void dropNinjaCard(int playerId) {
 
     }
 

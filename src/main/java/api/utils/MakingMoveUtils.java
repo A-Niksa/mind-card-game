@@ -12,8 +12,19 @@ import java.util.List;
 
 public class MakingMoveUtils {
     public static void dropCardInGameManager(Game game, int playerId, int cardIndex) {
+        if (cardIndex == -1) {
+            dropNinjaCardInGameManager(game, playerId, cardIndex);
+            GameManager.dropNinjaCardInGame(game.getGameId(), playerId);
+
+            return;
+        }
+
         NumberedCard card = getCardAndRemoveByIndex(game, playerId, cardIndex);
         GameManager.dropCardInGame(game.getGameId(), playerId, card);
+    }
+
+    private static void dropNinjaCardInGameManager(Game game, int playerId, int cardIndex) {
+
     }
 
     private static NumberedCard getCardAndRemoveByIndex(Game game, int playerId, int cardIndex) {
@@ -35,12 +46,20 @@ public class MakingMoveUtils {
         return cardsOfAllPlayersList.get(0).getCardNumber();
     }
 
-    public static boolean moveCausesHealthLoss(Game game, int playerId) {
+    public static boolean moveCausesHealthLoss(Game game, int playerId, int cardIndex) {
+        if (cardIndex == -1) { // ninja card
+            return true;
+        }
+
         int cardNumber = getCardNumberByIndex(game, playerId);
         return !JudgeUtils.cardToDropIsTheMinOfAllPlayers(game, cardNumber);
     }
 
-    public static boolean moveRespectsGroundOrder(Game game, int playerId) {
+    public static boolean moveRespectsGroundOrder(Game game, int playerId, int cardIndex) {
+        if (cardIndex == -1) { // ninja card
+            return true;
+        }
+
         int cardNumber = getCardNumberByIndex(game, playerId);
         int topCardNumber = getTopCardNumber(game);
 

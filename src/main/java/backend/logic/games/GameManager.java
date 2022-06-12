@@ -62,6 +62,15 @@ public class GameManager {
         game.dropCard(playerId, cardToDrop);
     }
 
+    public static void dropNinjaCardInGame(int gameId, int playerId) {
+        Game game = getGameById(gameId);
+        if (game == null) {
+            return;
+        }
+
+        game.dropNinjaCard(playerId);
+    }
+
     public static Game getGameById(int gameId) {
         return getInstance().gamesMap.getOrDefault(gameId, null);
     }
