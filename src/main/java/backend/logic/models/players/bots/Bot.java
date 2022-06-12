@@ -17,9 +17,14 @@ public abstract class Bot extends Player implements Runnable {
 
     @Override
     public void run() {
-        while (GameManager.gameHasHealthCardsLeft(joinedGameId)) {
+        while (GameManager.gameHasHealthCardsLeft(joinedGameId) &&
+                GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
             if (hand.hasAnyCards()) {
                 sleepFor(getTimeToSleep());
+                if (GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
+                    continue;
+                }
+
                 GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
             } else {
                 sleepFor(100);

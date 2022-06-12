@@ -56,6 +56,12 @@ public class Game {
         botThreadsList = new ArrayList<>();
     }
 
+    public void addPlayer(Player player) {
+        if (!gameHasBeenStarted) {
+            playersList.add(player);
+        }
+    }
+
     public void startGame() {
         // this class is 'lazy', in the sense that most components will be initialized if we start the game by this method
         initializeGame();

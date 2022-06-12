@@ -12,6 +12,7 @@ import api.utils.NinjaRequestUtils;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
+import backend.logic.games.components.ninjahandling.NinjaRequest;
 import backend.logic.models.players.Human;
 
 import java.util.ArrayList;
@@ -29,9 +30,15 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static boolean joinGame(int gameId, int playerId) {
-        return true;
-        // TODO -> can join game or not
+    public static boolean joinGame(int gameId, int playerId) { // shouldn't have playerId
+        // returns: can join game or not
+        boolean canJoinGame = GameManager.canJoinGame(gameId);
+        if (canJoinGame) {
+            Human human = NinjaRequestUtils.createHumanPlayer(gameId);
+            GameManager.joinGame(gameId, human);
+        }
+
+        return canJoinGame;
     }
 
     public static String getAllJoinableGames() {

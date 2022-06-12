@@ -3,6 +3,7 @@ package backend.logic.games;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.models.cards.NumberedCard;
 import backend.logic.models.players.Human;
+import backend.logic.models.players.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +37,33 @@ public class GameManager {
         }
 
         return game.hasHealthCardsLeft();
+    }
+
+    public static void joinGame(int gameId, Player player) {
+        Game game = getGameById(gameId);
+        if (game == null) {
+            return;
+        }
+
+        game.addPlayer(player);
+    }
+
+    public static boolean canJoinGame(int gameId) {
+        Game game = getGameById(gameId);
+        if (game == null) {
+            return false;
+        }
+
+        return !game.gameHasBeenStarted();
+    }
+
+    public static boolean thereHasBeenANinjaRequest(int gameId) {
+        Game game = getGameById(gameId);
+        if (game == null) {
+            return false;
+        }
+
+        return game.getNinjaHandler().thereHasBeenARequest();
     }
 
     public static boolean startGameById(int gameId) {
