@@ -6,6 +6,7 @@ import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
 import utils.jsonparsing.literals.dataeggs.NewGameEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
 import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGamesEgg;
+import utils.jsonparsing.literals.dataeggs.ninjarequest.NinjaMoveEgg;
 
 public class GsonUtils {
     private static final GsonBuilder builder = new GsonBuilder();
@@ -24,6 +25,10 @@ public class GsonUtils {
     }
 
     public static String getJsonString(GameStateEgg dataEgg) {
+        return gson.toJson(dataEgg);
+    }
+
+    public static String getJsonString(NinjaMoveEgg dataEgg) {
         return gson.toJson(dataEgg);
     }
 }
