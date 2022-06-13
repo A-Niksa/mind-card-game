@@ -39,20 +39,12 @@ public class MakingMoveUtils {
         return cardsOfAllPlayersList.get(0).getCardNumber();
     }
 
-    public static boolean moveCausesHealthLoss(Game game, int playerId, int cardIndex) {
-        if (cardIndex == -1) { // ninja card
-            return true;
-        }
-
+    public static boolean moveCausesHealthLoss(Game game, int playerId) {
         int cardNumber = getCardNumberByIndex(game, playerId);
         return !JudgeUtils.cardToDropIsTheMinOfAllPlayers(game, cardNumber);
     }
 
-    public static boolean moveRespectsGroundOrder(Game game, int playerId, int cardIndex) {
-        if (cardIndex == -1) { // ninja card
-            return true;
-        }
-
+    public static boolean moveRespectsGroundOrder(Game game, int playerId) {
         int cardNumber = getCardNumberByIndex(game, playerId);
         int topCardNumber = getTopCardNumber(game);
 

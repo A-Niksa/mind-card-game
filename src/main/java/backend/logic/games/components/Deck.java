@@ -73,8 +73,9 @@ public class Deck {
 
     public Hand getRandomHand(int sizeOfHand) {
         ArrayList<NumberedCard> randomNumberedCardsList = new ArrayList<>();
-        randomNumberedCardsList.add(getRandomNumberedCard());
-        randomNumberedCardsList.add(getRandomNumberedCard());
+        for (int i = 0; i < sizeOfHand; i++) {
+            randomNumberedCardsList.add(getRandomNumberedCard());
+        }
 
         return new Hand(randomNumberedCardsList);
     }
