@@ -1,13 +1,22 @@
 package frontend.gui;
 
+import backend.logic.games.components.Hand;
+import backend.logic.models.cards.NumberedCard;
 import com.google.gson.Gson;
+import frontend.gui.firstMenuPage.ChooseNumOfBot;
+import frontend.gui.firstMenuPage.JoinGamePage;
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
 import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
+import utils.jsonparsing.literals.dataeggs.gamestate.HandDataEgg;
+import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +25,6 @@ import java.util.ArrayList;
 
 public class GamePage extends JPanel {
     JFrame frame = new JFrame();
-    ArrayList<Integer> arrayList = new ArrayList<>();
     ClientNetwork clientNetwork;
     int playerId;
     int gameId;
@@ -24,23 +32,115 @@ public class GamePage extends JPanel {
     int hostId;
     int lastCardInGround;
     boolean isGameStarted;
+    boolean isOnGameStartButton;
+    int heart;
+    int numberOfOtherPlayer;
+    ArrayList<Integer> numberOfCardForOtherPlayers;
+    ArrayList<NumberedCard> cardsForPlayer;
 
-    public GamePage(int gameId, int playerId) {
-        isGameStarted = false;
+
+    public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
+        numberOfCardForOtherPlayers = new ArrayList<>();
+        heart = 2;
+        cardsForPlayer = new ArrayList<>();
+        isGameStarted = true;
         lastCardInGround = 5;
         hostId = 0;
         this.gameId = gameId;
         this.playerId = playerId;
+        isOnGameStartButton = false;
         this.clientNetwork = clientNetwork;
-
-        for (int j = 1; j < 10; j++) {
-            arrayList.add(j * 9);
-        }
 
         initializeFrame();
 
-//        threadsForRepaint();
+        addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent e) {
 
+            }
+
+            public void mousePressed(MouseEvent e){
+                int x = e.getX();
+                int y = e.getY();
+
+                if(!isGameStarted){
+                    if(hostId == playerId){
+                        if(isOnGameStartButtonBeforeGameStared(x, y)){
+                            isGameStarted = clientNetwork.makeGameUnjoinable(gameId);
+                            if(isGameStarted){
+                                JOptionPane.showMessageDialog(null, "Game started", "Game started" , JOptionPane.INFORMATION_MESSAGE);
+                            }
+
+                            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+                        }
+
+                        repaint();
+                    }
+                    else{
+                        // Nothing to do
+                    }
+                }
+                else{
+
+                }
+
+
+            }
+
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+
+
+
+            public void mouseMoved(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+
+                System.out.println(x + "  " + y);
+                if(!isGameStarted){
+                    if(hostId == playerId){
+                        if(isOnGameStartButtonBeforeGameStared(x, y)){
+                            isOnGameStartButton = true;
+                            setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        }
+                        else{
+                            isOnGameStartButton = false;
+                            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        }
+
+
+                        repaint();
+                    }
+                    else{
+
+                    }
+                }
+                else{
+
+                }
+            }
+        });
+
+        threadsForRepaint();
+
+    }
+
+    public boolean isOnGameStartButtonBeforeGameStared(int x, int y){
+        if(x >= 200 & x <= 400 & y >= 265 & y <= 335){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -51,23 +151,134 @@ public class GamePage extends JPanel {
 
         if(!isGameStarted){
             if(hostId == playerId){
+                BufferedImage imageStartButton = null;
+                try {
 
+                    if(isOnGameStartButton){
+                        File file1 = new File(DefaultConfig.publicNameForPath + "StartHigh.png");
+                        imageStartButton = ImageIO.read(file1);
+                    }
+                    else{
+                        File file1 = new File(DefaultConfig.publicNameForPath + "Start.png");
+                        imageStartButton = ImageIO.read(file1);
+                    }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int w = 300 * 2 / 3;
+                int h = 102 * 2 / 3;
+                g.drawImage(imageStartButton, 200, 270, (int) w, (int) h, null);
             }
             else{
+                BufferedImage imageWaitingText = null;
+                File file1 = new File(DefaultConfig.publicNameForPath + "Waiting.png");
+                try {
+                    imageWaitingText = ImageIO.read(file1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+                int w = 300 * 2 / 3;
+                int h = 102 * 2 / 3;
+                g.drawImage(imageWaitingText, 200, 270, (int) w, (int) h, null);
             }
         }
         else{
+            printCardsForDown(cardsForPlayer, g);
+
+            if(numberOfCardForOtherPlayers != null){
+                for (int i = 0; i < numberOfCardForOtherPlayers.size(); i++) {
+                    printCardsOtherPlayer(numberOfCardForOtherPlayers, i, g);
+                }
+            }
+
+            printHeats(g);
+            printGameLevel(g);
+            printLastCardInGround(g);
+
+
 
         }
 
-        printCards(arrayList, "Down", g);
-        printCards(arrayList, "Right", g);
-        printCards(arrayList, "Left", g);
-        printCards(arrayList, "Up", g);
 
-        printGameLevel(g);
 
+    }
+
+    public void printHeats(Graphics g){
+        for (int i = 0; i < heart; i++) {
+            BufferedImage imageCard = null;
+            try {
+                File file = new File(DefaultConfig.publicNameForPath + "Heart.png");
+                imageCard = ImageIO.read(file);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            double start = 160.0 * 6 / 10;
+
+            double wCard = 60.0 * 6 / 10;
+            double hCard = 50.0 * 6 / 10;
+
+            g.drawImage(imageCard, (int) (start) + 40 + i * 40, 130, (int) wCard, (int) hCard, null);
+
+        }
+
+        for (int i = heart; i < 4; i++) {
+            BufferedImage imageCard = null;
+            try {
+                File file = new File(DefaultConfig.publicNameForPath + "BrokenHeart.png");
+                imageCard = ImageIO.read(file);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            double start = 160.0 * 6 / 10;
+
+            double wCard = 60.0 * 6 / 10;
+            double hCard = 50.0 * 6 / 10;
+
+            g.drawImage(imageCard, (int) (start) + 40 + i * 40, 130, (int) wCard, (int) hCard, null);
+
+        }
+    }
+
+    public void printLastCardInGround(Graphics g){
+        if(!(lastCardInGround >= 1 & lastCardInGround <= 100)){
+            return;
+        }
+
+        BufferedImage imageCard = null;
+        try {
+            File file = getNumOfCard(lastCardInGround);
+            imageCard = ImageIO.read(file);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        double start = 160.0 * 6 / 10;
+
+        double wCard = 50.0 * 9 / 10;
+        double hCard = 60.0 * 9 / 10;
+
+        g.drawImage(imageCard, (int) (start) + 175, 275, (int) wCard, (int) hCard, null);
+
+        g.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+        g.setColor(getColorOfNumber(lastCardInGround));
+
+        if(lastCardInGround == 100){
+            g.drawString(lastCardInGround + "", (int) (5.0 * 1 / 3 + start + 180), (int) (310));
+        }
+        else if(lastCardInGround >= 10){
+            g.drawString(lastCardInGround + "", (int) (20.0 * 1 / 3 + start + 180), (int) (310));
+        }
+        else{
+            g.drawString(lastCardInGround + "", (int) (35.0 * 1 / 3 + start + 180), (int) (310));
+        }
 
 
     }
@@ -82,18 +293,75 @@ public class GamePage extends JPanel {
             e.printStackTrace();
         }
         int w = 600;
-        int h = 600;
+        int h = 720;
         g.drawImage(imageBack, 0, 0, (int) w, (int) h, null);
     }
 
-    public void printCards(ArrayList<Integer> arrayList, String position, Graphics g){
+    public void printCardsForDown(ArrayList<NumberedCard> cardsForPlayer, Graphics g){
+        if(cardsForPlayer == null){
+            return;
+        }
+        else if(cardsForPlayer.size() == 0){
+            return;
+        }
         int counter;
         double distance = 636.0 * 600 / 1000;
 
-        counter = (int) (distance /  ((int) (arrayList.size() / 2) + 1));
+
+        counter = (int) (distance /  ((int) (cardsForPlayer.size() / 2) + 1));
 
         int num = 0;
-        if(position.toLowerCase().equals(("Down").toLowerCase()) | position.toLowerCase().equals(("Right").toLowerCase())){
+
+        double start = 160.0 * 6 / 10;
+        int numHelp = 0;
+
+        for (int j = 0; j < cardsForPlayer.size(); j++) {
+            BufferedImage imageCard = null;
+            try {
+                File file = getNumOfCard(cardsForPlayer.get(j).getCardNumber());
+                imageCard = ImageIO.read(file);
+
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if(j == cardsForPlayer.size() / 2){
+                counter = (int) (distance / (cardsForPlayer.size() - (cardsForPlayer.size() / 2) + 1));
+                numHelp = 0;
+                num++;
+            }
+
+            double wCard = 50.0 * 2 / 3;
+            double hCard = 60.0 * 2 / 3;
+
+            g.drawImage(imageCard, (int) (start + counter  + (numHelp) * counter), 500 + 50 * num, (int) wCard, (int) hCard, null);
+            g.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+            g.setColor(getColorOfNumber(cardsForPlayer.get(j).getCardNumber()));
+
+            if(cardsForPlayer.get(j).getCardNumber() == 100){
+                g.drawString(cardsForPlayer.get(j).getCardNumber() + "", (int) (5.0 * 1 / 3 + start + counter  + (numHelp) * counter), (int) (500 + 50 * num + 40.0 * 2 / 3));
+            }
+            else if(cardsForPlayer.get(j).getCardNumber() >= 10){
+                g.drawString(cardsForPlayer.get(j).getCardNumber() + "", (int) (20.0 * 1 / 3 + start + counter  + (numHelp) * counter), (int) (500 + 50 * num + 40.0 * 2 / 3));
+            }
+            else{
+                g.drawString(cardsForPlayer.get(j).getCardNumber() + "", (int) (35.0 * 1 / 3 + start + counter  + (numHelp) * counter), (int) (500 + 50 * num + 40.0 * 2 / 3));
+            }
+
+            numHelp++;
+
+        }
+    }
+
+    public void printCardsOtherPlayer(ArrayList<Integer> numberOfCardForOtherPlayers, int index, Graphics g){
+        int counter;
+        double distance = 636.0 * 600 / 1000;
+
+        counter = (int) (distance /  ((int) (numberOfCardForOtherPlayers.get(index) / 2) + 1));
+
+        int num = 0;
+        if(index == 2){
             num = 0;
         }
         else{
@@ -103,14 +371,10 @@ public class GamePage extends JPanel {
         double start = 160.0 * 6 / 10;
         int numHelp = 0;
 
-        for (int j = 0; j < arrayList.size(); j++) {
+        for (int j = 0; j < numberOfCardForOtherPlayers.get(index); j++) {
             BufferedImage imageCard = null;
             try {
-                if(position.toLowerCase().equals(("Down").toLowerCase())){
-                    File file = getNumOfCard(arrayList.get(j));
-                    imageCard = ImageIO.read(file);
-                }
-                else if(position.toLowerCase().equals(("Up").toLowerCase())){
+                if(index == 1){
                     File file = new File(DefaultConfig.publicNameForPath + "backCard.png");
                     imageCard = ImageIO.read(file);
                 }
@@ -124,10 +388,10 @@ public class GamePage extends JPanel {
                 e.printStackTrace();
             }
 
-            if(j == arrayList.size() / 2){
-                counter = (int) (distance / (arrayList.size() - (arrayList.size() / 2) + 1));
+            if(j == numberOfCardForOtherPlayers.get(index) / 2){
+                counter = (int) (distance / (numberOfCardForOtherPlayers.get(index) - (numberOfCardForOtherPlayers.get(index) / 2) + 1));
                 numHelp = 0;
-                if(position.toLowerCase().equals(("Down").toLowerCase()) | position.toLowerCase().equals(("Right").toLowerCase())){
+                if(index == 2){
                     num++;
                 }
                 else{
@@ -138,28 +402,13 @@ public class GamePage extends JPanel {
             double wCard = 50.0 * 2 / 3;
             double hCard = 60.0 * 2 / 3;
 
-            if(position.toLowerCase().equals(("Down").toLowerCase())){
-                g.drawImage(imageCard, (int) (start + counter  + (numHelp) * counter), 500 + 50 * num, (int) wCard, (int) hCard, null);
-                g.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-                g.setColor(getColorOfNumber(arrayList.get(j)));
-
-                if(arrayList.get(j) == 100){
-                    g.drawString(arrayList.get(j) + "", (int) (5.0 * 1 / 3 + start + counter  + (numHelp) * counter), (int) (500 + 50 * num + 40.0 * 2 / 3));
-                }
-                else if(arrayList.get(j) >= 10){
-                    g.drawString(arrayList.get(j) + "", (int) (20.0 * 1 / 3 + start + counter  + (numHelp) * counter), (int) (500 + 50 * num + 40.0 * 2 / 3));
-                }
-                else{
-                    g.drawString(arrayList.get(j) + "", (int) (35.0 * 1 / 3 + start + counter  + (numHelp) * counter), (int) (500 + 50 * num + 40.0 * 2 / 3));
-                }
-            }
-            else if(position.toLowerCase().equals(("Right").toLowerCase())){
+            if(index == 2){
                 g.drawImage(imageCard, 500 + 50 * num, (int) (start + counter  + (numHelp) * counter), (int) hCard, (int) wCard, null);
             }
-            else if(position.toLowerCase().equals(("Left").toLowerCase())){
+            else if(index == 0){
                 g.drawImage(imageCard, 10 + 50 * num, (int) (start + counter  + (numHelp) * counter), (int) hCard, (int) wCard, null);
             }
-            else if(position.toLowerCase().equals(("Up").toLowerCase())){
+            else if(index == 1){
                 g.drawImage(imageCard, (int) (start + counter  + (numHelp) * counter), 10 + 50 * num, (int) wCard, (int) hCard, null);
             }
             numHelp++;
@@ -250,8 +499,8 @@ public class GamePage extends JPanel {
 
     public void initializeFrame(){
         frame.setTitle("Game");
-        frame.setSize(614, 638);
-        this.setSize(614, 638);
+        frame.setSize(614, 758);
+        this.setSize(614, 758);
         frame.setLocation(0,0);
         frame.getContentPane().add(this);
         frame.setLocationRelativeTo(null);
@@ -272,23 +521,33 @@ public class GamePage extends JPanel {
 
                     GameStateEgg gameStateEgg = gson.fromJson(clientNetwork.updateGame(gameId, playerId), GameStateEgg.class);
                     isGameStarted = gameStateEgg.isGameHasStarted();
+                    gameLevel = gameStateEgg.getCurrentRound();
+                    Hand hand = gameStateEgg.getHandOfCurrentPlayer();
+                    cardsForPlayer = (ArrayList<NumberedCard>) hand.getNumberedCardsList();
+                    heart = gameStateEgg.getNumberOfHealthCards();
+                    lastCardInGround = gameStateEgg.getLastCardNumberOnGround();
+                    numberOfOtherPlayer = gameStateEgg.getNumberOfPlayers() - 1;
+                    ArrayList<HandDataEgg> handDataEggs = (ArrayList<HandDataEgg>) gameStateEgg.getHandsOfOtherPlayersList();
+                    numberOfCardForOtherPlayers.clear();
+
+                    for (int i = 0; i < numberOfOtherPlayer; i++) {
+                        numberOfCardForOtherPlayers.add(handDataEggs.get(i).getPlayerHand().getNumberedCardsList().size());
+                    }
                     repaint();
 
                     try {
                         Thread.sleep(100);
-                    } catch (InterruptedException e) {
+                    }
+                    catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+
                 }
 
             }
         }).start();
     }
 
-    public static void main(String[] args) {
-
-        new GamePage(0, 0);
-
-    }
 
 }

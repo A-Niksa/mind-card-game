@@ -64,7 +64,7 @@ public class JoinGamePage extends JPanel{
                     int index = y / 80;
                     boolean can = clientNetwork.joinGame(arrayListIds.get(index));
                     if(can){
-                        new GamePage(arrayListIds.get(index), playerId);
+                        new GamePage(clientNetwork, arrayListIds.get(index), playerId);
                         frame.dispose();
                     }
                     else{

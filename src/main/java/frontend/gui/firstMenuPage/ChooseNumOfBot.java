@@ -22,7 +22,7 @@ public class ChooseNumOfBot extends JPanel{
 
     String fileName = "ChooseBotPage.png";
 
-    public ChooseNumOfBot (int playerId){
+    public ChooseNumOfBot (ClientNetwork clientNetwork, int playerId){
 
         this.clientNetwork = clientNetwork;
         initializeFrame();
@@ -47,7 +47,7 @@ public class ChooseNumOfBot extends JPanel{
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
-                        new GamePage(gameId, playerId);
+                        new GamePage(clientNetwork, gameId, playerId);
                     }
                     else{
                         JOptionPane.showMessageDialog(frame, "Error!!!",
@@ -62,7 +62,7 @@ public class ChooseNumOfBot extends JPanel{
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
-                        new GamePage(gameId, playerId);
+                        new GamePage(clientNetwork, gameId, playerId);
                     }
                     else{
                         JOptionPane.showMessageDialog(frame, "Error!!!",
@@ -76,7 +76,7 @@ public class ChooseNumOfBot extends JPanel{
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
-                        new GamePage(gameId, playerId);
+                        new GamePage(clientNetwork, gameId, playerId);
                     }
                     else{
                         JOptionPane.showMessageDialog(frame, "Error!!!",
@@ -176,9 +176,6 @@ public class ChooseNumOfBot extends JPanel{
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new ChooseNumOfBot(0);
-    }
 
 
 

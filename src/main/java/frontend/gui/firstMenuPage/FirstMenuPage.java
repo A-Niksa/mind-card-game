@@ -36,10 +36,9 @@ public class FirstMenuPage extends JPanel{
                 int x = e.getX();
                 int y = e.getY();
 
-                System.out.println(x + "  " + y);
                 if(x >= 90 & x <= 320 & y >= 180 & y <= 369){
                     frame.dispose();
-                    new ChooseNumOfBot(playerId);
+                    new ChooseNumOfBot(clientNetwork, playerId);
                 }
 
                 else if(x >= 90 & x <= 320 & y >= 370 & y <= 579){
