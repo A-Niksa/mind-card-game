@@ -47,12 +47,19 @@ public class MakingMoveUtils {
     public static boolean moveRespectsGroundOrder(Game game, int playerId) {
         int cardNumber = getCardNumberByIndex(game, playerId);
         int topCardNumber = getTopCardNumber(game);
+        if (topCardNumber == -1) {
+            return true;
+        }
 
         return topCardNumber < cardNumber;
     }
 
     private static int getTopCardNumber(Game game) {
         NumberedCard topCard = game.getDroppingGround().peek();
+        if (topCard == null) {
+            return -1;
+        }
+
         return topCard.getCardNumber();
     }
 
