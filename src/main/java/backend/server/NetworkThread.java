@@ -37,6 +37,7 @@ public class NetworkThread implements Runnable{
 
             try {
                 input = inputStream.readUTF();
+                System.out.println(input);
                 checkConditionAndDoAction(input, inputStream, outputStream);
 
             } catch (IOException e) {

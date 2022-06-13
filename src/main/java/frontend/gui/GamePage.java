@@ -7,6 +7,7 @@ import frontend.gui.firstMenuPage.ChooseNumOfBot;
 import frontend.gui.firstMenuPage.JoinGamePage;
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
+import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.HandDataEgg;
 import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGame;
@@ -41,14 +42,21 @@ public class GamePage extends JPanel {
 
     public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
         numberOfCardForOtherPlayers = new ArrayList<>();
-        heart = 2;
         cardsForPlayer = new ArrayList<>();
+
+        heart = 2;
         isGameStarted = true;
         lastCardInGround = 5;
         hostId = 0;
+        for (int i = 0; i < 5; i++) {
+            cardsForPlayer.add(new NumberedCard(10 * i));
+        }
+
         this.gameId = gameId;
         this.playerId = playerId;
+
         isOnGameStartButton = false;
+
         this.clientNetwork = clientNetwork;
 
         initializeFrame();
@@ -81,7 +89,28 @@ public class GamePage extends JPanel {
                     }
                 }
                 else{
+                    double start = 160.0 * 6 / 10;
+                    double distance = 636.0 * 600 / 1000;
+                    double wCard = 50.0 * 2 / 3;
+                    double hCard = 60.0 * 2 / 3;
+                    int counter = (int) (distance /  ((int) (cardsForPlayer.size() / 2) + 1));
 
+                    if(cardsForPlayer == null){
+
+                    }
+                    else if(cardsForPlayer.size() == 0){
+
+                    }
+                    else if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
+                        Gson gson = new Gson();
+                        MakingMoveEgg makingMoveEgg = gson.fromJson(clientNetwork.makeMove(gameId, playerId, cardsForPlayer.get(0).getCardNumber()), MakingMoveEgg.class);
+                        if(!makingMoveEgg.moveWasValid()){
+                            JOptionPane.showMessageDialog(null, "Move wasn't valid", "Error!!" , JOptionPane.ERROR_MESSAGE);
+                        }
+                        else if(makingMoveEgg.moveCausesLossOfHealth()){
+                            JOptionPane.showMessageDialog(null, "Cause lost of heart because card of " + makingMoveEgg.getNumberOfSmallestCardThatHasCausedLoss() , "Lose heart" , JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
                 }
 
 
@@ -127,12 +156,30 @@ public class GamePage extends JPanel {
                     }
                 }
                 else{
+                    double start = 160.0 * 6 / 10;
+                    double distance = 636.0 * 600 / 1000;
+                    double wCard = 50.0 * 2 / 3;
+                    double hCard = 60.0 * 2 / 3;
+                    int counter = (int) (distance /  ((int) (cardsForPlayer.size() / 2) + 1));
 
+
+                    if(cardsForPlayer == null){
+                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
+                    else if(cardsForPlayer.size() == 0){
+                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
+                    if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    else{
+                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
                 }
             }
         });
 
-        threadsForRepaint();
+//        threadsForRepaint();
 
     }
 
@@ -516,7 +563,7 @@ public class GamePage extends JPanel {
             public void run() {
 
                 while(true){
-                    //  TODO
+
                     Gson gson = new Gson();
 
                     GameStateEgg gameStateEgg = gson.fromJson(clientNetwork.updateGame(gameId, playerId), GameStateEgg.class);
@@ -533,6 +580,7 @@ public class GamePage extends JPanel {
                     for (int i = 0; i < numberOfOtherPlayer; i++) {
                         numberOfCardForOtherPlayers.add(handDataEggs.get(i).getPlayerHand().getNumberedCardsList().size());
                     }
+
                     repaint();
 
                     try {

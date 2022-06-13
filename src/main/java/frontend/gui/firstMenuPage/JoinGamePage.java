@@ -25,6 +25,8 @@ public class JoinGamePage extends JPanel{
     ClientNetwork clientNetwork;
     final int playerId;
 
+    boolean notClicked;
+
     ArrayList<Integer> arrayListIds;
     ArrayList<Integer> arrayListNumOfBot;
     ArrayList<Integer> arrayListFreePlayer;
@@ -34,7 +36,7 @@ public class JoinGamePage extends JPanel{
 
     public JoinGamePage(ClientNetwork clientNetwork, int playerId){
 
-
+        notClicked = true;
         arrayListIds = new ArrayList<>();
         arrayListNumOfBot = new ArrayList<>();
         arrayListFreePlayer = new ArrayList<>();
@@ -64,6 +66,7 @@ public class JoinGamePage extends JPanel{
                     int index = y / 80;
                     boolean can = clientNetwork.joinGame(arrayListIds.get(index));
                     if(can){
+                        notClicked = false;
                         new GamePage(clientNetwork, arrayListIds.get(index), playerId);
                         frame.dispose();
                     }
@@ -182,7 +185,7 @@ public class JoinGamePage extends JPanel{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (notClicked){
                     String output = clientNetwork.allJoinableGames();
                     Gson gson = new Gson();
                     JoinableGamesEgg joinableGamesEgg = gson.fromJson(output, JoinableGamesEgg.class);

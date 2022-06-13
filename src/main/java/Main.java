@@ -20,14 +20,15 @@ public class Main {
         new FirstMenuPage(clientNetwork, playerId);
 
 
-        while (true) {
-            System.out.println("id: " + playerId);
-            System.out.println("Test connection: " + clientNetwork.testConnection());
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//        while (true) {
+//            System.out.println("id: " + playerId);
+//            System.out.println("Test connection: " + clientNetwork.testConnection());
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
     }
 }

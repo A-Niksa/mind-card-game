@@ -14,19 +14,19 @@ import backend.logic.games.GameManager;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.games.components.ninjahandling.NinjaRequest;
 import backend.logic.models.players.Human;
+import backend.logic.models.players.Player;
 
 import java.util.ArrayList;
 
 public class API {
-    public static int addNewPlayer() {
-        return 0; // TODO returning id
+    public static int addNewPlayer() { return 0; // TODO returning id
     }
 
     public static String addNewGame(int numberOfBots, int currentHumanId) {
         // returning Gson -> can make game or not // gameWasSuccessfullyCreated, gameId
         Game game = new Game(numberOfBots, currentHumanId);
         NewGameEgg dataEgg = new NewGameEgg(true, currentHumanId);
-
+        GameManager.addGame(game);
         return GsonUtils.getJsonString(dataEgg);
     }
 

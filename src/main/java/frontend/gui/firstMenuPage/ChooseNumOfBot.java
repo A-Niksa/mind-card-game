@@ -48,6 +48,7 @@ public class ChooseNumOfBot extends JPanel{
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
+                        frame.dispose();
                     }
                     else{
                         JOptionPane.showMessageDialog(frame, "Error!!!",
@@ -63,6 +64,7 @@ public class ChooseNumOfBot extends JPanel{
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
+                        frame.dispose();
                     }
                     else{
                         JOptionPane.showMessageDialog(frame, "Error!!!",
@@ -77,6 +79,7 @@ public class ChooseNumOfBot extends JPanel{
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
+                        frame.dispose();
                     }
                     else{
                         JOptionPane.showMessageDialog(frame, "Error!!!",
@@ -84,8 +87,8 @@ public class ChooseNumOfBot extends JPanel{
                     }
                 }
                 else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 38 * 38){
-                    frame.dispose();
                     new FirstMenuPage(clientNetwork, playerId);
+                    frame.dispose();
                 }
 
             }
