@@ -1,6 +1,6 @@
 package backend.logic.models.cards;
 
-public class NumberedCard extends Card {
+public class NumberedCard extends Card implements Comparable<NumberedCard> {
     private int cardNumber;
 
     public NumberedCard(int cardNumber) {
@@ -9,5 +9,10 @@ public class NumberedCard extends Card {
 
     public int getCardNumber() {
         return cardNumber;
+    }
+
+    @Override
+    public int compareTo(NumberedCard numberedCard) {
+        return cardNumber - numberedCard.getCardNumber();
     }
 }
