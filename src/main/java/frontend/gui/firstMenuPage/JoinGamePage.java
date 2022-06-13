@@ -1,5 +1,7 @@
 package frontend.gui.firstMenuPage;
 
+import utils.jsonparsing.JsonParser;
+import utils.jsonparsing.literals.dataeggs.DataEggType;
 import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGamesEgg;
 import com.google.gson.Gson;
 import frontend.gui.GamePage;
@@ -46,8 +48,9 @@ public class JoinGamePage extends JPanel{
         this.clientNetwork = clientNetwork;
         this.playerId = playerId;
 
-        initializeFrame();
         startThreads();
+
+        initializeFrame();
 
         addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
@@ -61,10 +64,11 @@ public class JoinGamePage extends JPanel{
                 if(isRightMouseButton(e)){
                     frame.dispose();
                     new FirstMenuPage(clientNetwork, playerId);
+                    return;
                 }
                 if(y < arrayListIds.size() * 80){
                     int index = y / 80;
-                    boolean can = clientNetwork.joinGame(arrayListIds.get(index));
+                    boolean can = clientNetwork.joinGame(arrayListIds.get(index), playerId);
                     if(can){
                         notClicked = false;
                         new GamePage(clientNetwork, arrayListIds.get(index), playerId);
@@ -188,7 +192,8 @@ public class JoinGamePage extends JPanel{
                 while (notClicked){
                     String output = clientNetwork.allJoinableGames();
                     Gson gson = new Gson();
-                    JoinableGamesEgg joinableGamesEgg = gson.fromJson(output, JoinableGamesEgg.class);
+                    JoinableGamesEgg joinableGamesEgg = (JoinableGamesEgg) JsonParser.parseToDataEgg(output, DataEggType.JOINABLE_GAMES_EGG);
+
                     ArrayList<JoinableGame> joinableGamesList = (ArrayList<JoinableGame>) joinableGamesEgg.getJoinableGamesList();
 
                     arrayListIds.clear();
