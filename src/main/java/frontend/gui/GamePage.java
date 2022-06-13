@@ -90,14 +90,19 @@ public class GamePage extends JPanel {
                     int counter = (int) (distance /  ((int) (cardsForPlayer.size() / 2) + 1));
 
                     if(cardsForPlayer == null){
-
+                        return;
                     }
                     else if(cardsForPlayer.size() == 0){
-
+                        return;
                     }
-                    else if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
+                    else if(cardsForPlayer.size() == 1){
+                        counter = (int) (distance / (numberOfCardForOtherPlayers.get(0) - (numberOfCardForOtherPlayers.get(0) / 2) + 1));
+                    }
+
+                    if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
                         Gson gson = new Gson();
-                        MakingMoveEgg makingMoveEgg = gson.fromJson(clientNetwork.makeMove(gameId, playerId, cardsForPlayer.get(0).getCardNumber()), MakingMoveEgg.class);
+                        String s = clientNetwork.makeMove(gameId, playerId, cardsForPlayer.get(0).getCardNumber());
+                        MakingMoveEgg makingMoveEgg = gson.fromJson(s, MakingMoveEgg.class);
                         if(!makingMoveEgg.moveWasValid()){
                             JOptionPane.showMessageDialog(null, "Move wasn't valid", "Error!!" , JOptionPane.ERROR_MESSAGE);
                         }
@@ -155,10 +160,16 @@ public class GamePage extends JPanel {
 
                     if(cardsForPlayer == null){
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        return;
                     }
                     else if(cardsForPlayer.size() == 0){
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        return;
                     }
+                    else if(cardsForPlayer.size() == 1){
+                        counter = (int) (distance / (numberOfCardForOtherPlayers.get(0) - (numberOfCardForOtherPlayers.get(0) / 2) + 1));
+                    }
+
                     if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
@@ -365,7 +376,9 @@ public class GamePage extends JPanel {
             if(j == cardsForPlayer.size() / 2){
                 counter = (int) (distance / (cardsForPlayer.size() - (cardsForPlayer.size() / 2) + 1));
                 numHelp = 0;
-                num++;
+                if(cardsForPlayer.size() != 1){
+                    num++;
+                }
             }
 
             double wCard = 50.0 * 2 / 3;
@@ -428,10 +441,14 @@ public class GamePage extends JPanel {
                 counter = (int) (distance / (numberOfCardForOtherPlayers.get(index) - (numberOfCardForOtherPlayers.get(index) / 2) + 1));
                 numHelp = 0;
                 if(index == 2){
-                    num++;
+                    if(cardsForPlayer.size() != 1){
+                        num++;
+                    }
                 }
                 else{
-                    num--;
+                    if(cardsForPlayer.size() != 1){
+                        num--;
+                    }
                 }
             }
 
@@ -565,7 +582,6 @@ public class GamePage extends JPanel {
                         continue;
                     }
 
-                    System.out.println(isGameStarted);
 
                     Gson gson = new Gson();
                     String s = clientNetwork.updateGame(gameId, playerId);

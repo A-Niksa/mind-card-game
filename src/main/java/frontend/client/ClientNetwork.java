@@ -188,7 +188,7 @@ public class ClientNetwork {
                 return "";
             }
 
-            outputStream.writeUTF(DefaultConfig.UpdateGame);
+            outputStream.writeUTF(DefaultConfig.MakeMoveACard);
             outputStream.writeInt(gameId);
             outputStream.writeInt(playerId);
             outputStream.writeInt(cardNumber);
