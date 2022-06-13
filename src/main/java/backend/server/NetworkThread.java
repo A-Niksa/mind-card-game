@@ -37,7 +37,7 @@ public class NetworkThread implements Runnable{
         boolean notBroken = true;
 
         authToken = AuthTokenGenerator.nextToken();
-        System.out.println(authToken);
+
         try {
             outputStream.writeUTF(authToken);
         } catch (IOException e) {
@@ -59,7 +59,6 @@ public class NetworkThread implements Runnable{
                 }
 
                 input = inputStream.readUTF();
-                System.out.println(input);
                 checkConditionAndDoAction(input, inputStream, outputStream);
 
             } catch (IOException e) {
@@ -160,6 +159,14 @@ public class NetworkThread implements Runnable{
         else if(input.equals(DefaultConfig.UseNinjaCard)){
             try {
                 API.useNinjaCard(inputStream.readInt(), inputStream.readInt());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(input.equals(DefaultConfig.IsGameStarted)){
+            try {
+                outputStream.writeBoolean(API.gameHasStarted(inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

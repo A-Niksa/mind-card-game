@@ -224,6 +224,26 @@ public class ClientNetwork {
 
     }
 
+    public boolean isGameStarted(int gameId){
+
+        try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return false;
+            }
+
+            outputStream.writeUTF(DefaultConfig.IsGameStarted);
+            outputStream.writeInt(gameId);
+            return inputStream.readBoolean();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
     public void useNinjaCard(int gameId, int playerId){
 
         try {

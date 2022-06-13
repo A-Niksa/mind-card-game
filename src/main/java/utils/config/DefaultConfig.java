@@ -22,4 +22,5 @@ public class DefaultConfig {
     public static String MakeGameUnjoinable = "Make game unjoinable";
     public static String UseNinjaCard = "Use ninja card";
     public static String SendRequest = "Send request for ninja card";
+    public static String IsGameStarted = "Is game started";
 }

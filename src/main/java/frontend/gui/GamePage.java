@@ -582,16 +582,17 @@ public class GamePage extends JPanel {
                         e.printStackTrace();
                     }
 
-                    String s = clientNetwork.updateGame(gameId, playerId);
-                    GameStateEgg gameStateEgg = (GameStateEgg) JsonParser.parseToDataEgg(s, GAME_STATE_EGG);
-                    isGameStarted = gameStateEgg.isGameHasStarted();
+                    isGameStarted = clientNetwork.isGameStarted(gameId);
+
 
                     if(!isGameStarted){
                         continue;
                     }
 
 
-                    Gson gson = new Gson();
+                    String s = clientNetwork.updateGame(gameId, playerId);
+                    GameStateEgg gameStateEgg = (GameStateEgg) JsonParser.parseToDataEgg(s, GAME_STATE_EGG);
+                    isGameStarted = gameStateEgg.isGameHasStarted();
 
                     if(s == null){
                         continue;
