@@ -41,11 +41,28 @@ public class Game {
         initializeLists();
         currentRound = 1;
 
-
         gameHasBeenStarted = false;
         gameHasEnded = false;
         gameHasResultedInLoss = false;
 
+        initializePlayers();
+    }
+
+    private void initializePlayers() {
+        initializeHost();
+        initializeBots();
+    }
+
+    private void initializeHost() {
+        Human hostHuman = GameManager.removePlayerFromLobbyById(hostHumanId);
+        playersList.add(hostHuman);
+    }
+
+    public void addHuman(int playerId) {
+        if (!gameHasBeenStarted) {
+            Human human = GameManager.removePlayerFromLobbyById(playerId);
+            playersList.add(human);
+        }
     }
 
     private void generateGameId() {
@@ -56,12 +73,6 @@ public class Game {
     private void initializeLists() {
         playersList = new ArrayList<>();
         botThreadsList = new ArrayList<>();
-    }
-
-    public void addPlayer(Player player) {
-        if (!gameHasBeenStarted) {
-            playersList.add(player);
-        }
     }
 
     public void startGame() {
@@ -130,7 +141,6 @@ public class Game {
 
     private void initializeGame() {
         initializeGameComponents();
-        initializeBots();
         startBotThreads();
     }
 
@@ -138,6 +148,7 @@ public class Game {
         droppingGround = new DroppingGround();
         actionLogger = new ActionLogger();
         deck = new Deck(getNumberOfPlayers());
+        BotGenerationUtils.giveHandsToPlayersFromDeck(playersList, deck, currentRound);
 
         int numberOfHumans = getNumberOfPlayers() - numberOfBots;
         ninjaHandler = new NinjaHandler(gameId, numberOfHumans, playersList);

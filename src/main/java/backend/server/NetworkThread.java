@@ -1,7 +1,6 @@
 package backend.server;
 
 import api.API;
-import backend.server.AuthTokenGenerator;
 import utils.config.DefaultConfig;
 
 import java.io.DataInputStream;
@@ -96,7 +95,7 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(DefaultConfig.AddNewPlayerInNetwork)){
             try {
-                outputStream.writeInt(API.addNewPlayer());
+                outputStream.writeInt(API.addNewPlayerToLobby());
             } catch (IOException e) {
                 e.printStackTrace();
             }

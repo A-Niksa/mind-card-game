@@ -9,8 +9,8 @@ public abstract class Bot extends Player implements Runnable {
     protected final double AVERAGING_DIVISION_CONSTANT;
     protected int joinedGameId;
 
-    protected Bot(Hand hand, int joinedGameId, double averagingDivisionConstant) {
-        super(hand, true);
+    protected Bot(int joinedGameId, double averagingDivisionConstant) {
+        super(true);
         this.joinedGameId = joinedGameId;
         AVERAGING_DIVISION_CONSTANT = averagingDivisionConstant;
     }
