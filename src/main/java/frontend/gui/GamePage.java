@@ -9,7 +9,7 @@ import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
 import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.HandDataEgg;
+import utils.jsonparsing.literals.dataeggs.gamestate.HandEgg;
 import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGame;
 
 import javax.imageio.ImageIO;
@@ -584,7 +584,7 @@ public class GamePage extends JPanel {
                     heart = gameStateEgg.getNumberOfHealthCards();
                     lastCardInGround = gameStateEgg.getLastCardNumberOnGround();
                     numberOfOtherPlayer = gameStateEgg.getNumberOfPlayers() - 1;
-                    ArrayList<HandDataEgg> handDataEggs = (ArrayList<HandDataEgg>) gameStateEgg.getHandsOfOtherPlayersList();
+                    ArrayList<HandEgg> handDataEggs = (ArrayList<HandEgg>) gameStateEgg.getHandsOfOtherPlayersList();
                     numberOfCardForOtherPlayers.clear();
 
                     for (int i = 0; i < numberOfOtherPlayer; i++) {
