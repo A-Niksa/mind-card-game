@@ -121,7 +121,7 @@ public class ClientNetwork {
         }
     }
 
-    public boolean joinGame(int idGame){
+    public boolean joinGame(int idGame, int playerId){
 
         try {
             outputStream.writeUTF(authToken);
@@ -130,6 +130,8 @@ public class ClientNetwork {
             }
 
             outputStream.writeUTF(DefaultConfig.JoinGame);
+            outputStream.writeInt(idGame);
+            outputStream.writeInt(playerId);
             return inputStream.readBoolean();
         }
 

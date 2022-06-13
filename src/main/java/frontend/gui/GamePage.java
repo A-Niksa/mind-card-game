@@ -25,6 +25,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static utils.jsonparsing.literals.dataeggs.DataEggType.GAME_STATE_EGG;
+
 
 public class GamePage extends JPanel {
     JFrame frame = new JFrame();
@@ -580,13 +582,17 @@ public class GamePage extends JPanel {
                         e.printStackTrace();
                     }
 
+                    String s = clientNetwork.updateGame(gameId, playerId);
+                    GameStateEgg gameStateEgg = (GameStateEgg) JsonParser.parseToDataEgg(s, GAME_STATE_EGG);
+                    isGameStarted = gameStateEgg.isGameHasStarted();
+
                     if(!isGameStarted){
                         continue;
                     }
 
 
                     Gson gson = new Gson();
-                    String s = clientNetwork.updateGame(gameId, playerId);
+
                     if(s == null){
                         continue;
                     }
@@ -594,8 +600,6 @@ public class GamePage extends JPanel {
                         continue;
                     }
 
-                    GameStateEgg gameStateEgg = gson.fromJson(s, GameStateEgg.class);
-                    isGameStarted = gameStateEgg.isGameHasStarted();
                     gameLevel = gameStateEgg.getCurrentRound();
                     Hand hand = gameStateEgg.getHandOfCurrentPlayer();
                     cardsForPlayer = (ArrayList<NumberedCard>) hand.getNumberedCardsList();
