@@ -113,7 +113,6 @@ public class GamePage extends JPanel {
                     }
                 }
 
-
             }
 
             public void mouseReleased(MouseEvent e) {
@@ -565,8 +564,14 @@ public class GamePage extends JPanel {
                 while(true){
 
                     Gson gson = new Gson();
-
-                    GameStateEgg gameStateEgg = gson.fromJson(clientNetwork.updateGame(gameId, playerId), GameStateEgg.class);
+                    String s = clientNetwork.updateGame(gameId, playerId);
+                    if(s == null){
+                        return;
+                    }
+                    else if(s.equals("")){
+                        return;
+                    }
+                    GameStateEgg gameStateEgg = gson.fromJson(s, GameStateEgg.class);
                     isGameStarted = gameStateEgg.isGameHasStarted();
                     gameLevel = gameStateEgg.getCurrentRound();
                     Hand hand = gameStateEgg.getHandOfCurrentPlayer();

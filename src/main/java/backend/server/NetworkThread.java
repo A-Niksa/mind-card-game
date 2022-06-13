@@ -1,6 +1,7 @@
 package backend.server;
 
 import api.API;
+import backend.server.AuthTokenGenerator;
 import utils.config.DefaultConfig;
 
 import java.io.DataInputStream;
@@ -8,10 +9,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+
 public class NetworkThread implements Runnable{
     private int id;
     private static int idCounter = 0;
     private Socket socket;
+    private String authToken;
+
 
     public NetworkThread(Socket socket) {
         this.socket = socket;
@@ -32,10 +36,29 @@ public class NetworkThread implements Runnable{
         }
 
         boolean notBroken = true;
+
+        authToken = AuthTokenGenerator.nextToken();
+        System.out.println(authToken);
+        try {
+            outputStream.writeUTF(authToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         while (notBroken){
+
             String input = "";
 
             try {
+                if(inputStream.readUTF().equals(authToken)){
+                    outputStream.writeBoolean(true);
+                }
+                else{
+                    outputStream.writeBoolean(false);
+                    continue;
+                }
+
                 input = inputStream.readUTF();
                 System.out.println(input);
                 checkConditionAndDoAction(input, inputStream, outputStream);
@@ -126,6 +149,7 @@ public class NetworkThread implements Runnable{
                 e.printStackTrace();
             }
         }
+
         else if(input.equals(DefaultConfig.SendRequest)){
             try {
                 API.sendNinjaRequest(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
@@ -133,6 +157,7 @@ public class NetworkThread implements Runnable{
                 e.printStackTrace();
             }
         }
+
         else if(input.equals(DefaultConfig.UseNinjaCard)){
             try {
                 API.useNinjaCard(inputStream.readInt(), inputStream.readInt());

@@ -12,8 +12,10 @@ public class ClientNetwork {
 
     DataInputStream inputStream = null;
     DataOutputStream outputStream = null;
+    String authToken;
 
     public ClientNetwork() {
+
         try {
             socket = new Socket(DefaultConfig.IP, DefaultConfig.PORT);
         } catch (IOException e) {
@@ -29,12 +31,24 @@ public class ClientNetwork {
             e.printStackTrace();
         }
 
+        try {
+            authToken = inputStream.readUTF();
+            System.out.println(authToken);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
 
     public boolean testConnection(){
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+               return false;
+            }
             outputStream.writeUTF(DefaultConfig.TestConnection);
             boolean b = true;
 
@@ -57,6 +71,11 @@ public class ClientNetwork {
 
     public void noAction(){
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return;
+            }
+
             outputStream.writeUTF(DefaultConfig.NoAction);
         }
         catch (IOException e) {
@@ -68,6 +87,11 @@ public class ClientNetwork {
     public int addNewPlayer(){
 
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return -1;
+            }
+
             outputStream.writeUTF(DefaultConfig.AddNewPlayerInNetwork);
             return inputStream.readInt();
 
@@ -81,6 +105,11 @@ public class ClientNetwork {
 
     public String creatNewGame(int numberOfBots, int playerId){
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return "";
+            }
+
             outputStream.writeUTF(DefaultConfig.AddNewGame);
             outputStream.writeInt(numberOfBots);
             outputStream.writeInt(playerId);
@@ -95,6 +124,11 @@ public class ClientNetwork {
     public boolean joinGame(int idGame){
 
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return false;
+            }
+
             outputStream.writeUTF(DefaultConfig.JoinGame);
             return inputStream.readBoolean();
         }
@@ -109,6 +143,11 @@ public class ClientNetwork {
     public String allJoinableGames(){
 
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return "";
+            }
+
             outputStream.writeUTF(DefaultConfig.AllJoinableGames);
             return inputStream.readUTF();
         }
@@ -123,6 +162,11 @@ public class ClientNetwork {
     public String updateGame(int gameId, int currentHumanId){
 
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return "";
+            }
+
             outputStream.writeUTF(DefaultConfig.UpdateGame);
             outputStream.writeInt(gameId);
             outputStream.writeInt(currentHumanId);
@@ -139,6 +183,11 @@ public class ClientNetwork {
     public String makeMove(int gameId, int playerId, int cardNumber){
 
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return "";
+            }
+
             outputStream.writeUTF(DefaultConfig.UpdateGame);
             outputStream.writeInt(gameId);
             outputStream.writeInt(playerId);
@@ -156,6 +205,11 @@ public class ClientNetwork {
     public boolean makeGameUnjoinable(int gameId){
 
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return false;
+            }
+
             outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
             outputStream.writeInt(gameId);
             return inputStream.readBoolean();
@@ -171,6 +225,11 @@ public class ClientNetwork {
     public void useNinjaCard(int gameId, int playerId){
 
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return;
+            }
+
             outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
             outputStream.writeInt(gameId);
             outputStream.writeInt(playerId);
@@ -185,6 +244,11 @@ public class ClientNetwork {
     public void sendRequest(boolean requestStatus, int playerId, int gameId){
 
         try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return;
+            }
+
             outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
             outputStream.writeBoolean(requestStatus);
             outputStream.writeInt(playerId);
