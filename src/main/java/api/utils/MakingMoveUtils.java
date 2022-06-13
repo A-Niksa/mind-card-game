@@ -22,8 +22,9 @@ public class MakingMoveUtils {
 
     private static NumberedCard getCardAndRemoveByIndex(Game game, int playerId, int cardIndex) {
         Player player = getPlayerById(game, playerId);
+        NumberedCard numberedCard = getCardByIndex(player, cardIndex);;
         player.getHand().removeCard(cardIndex);
-        return getCardByIndex(player, cardIndex);
+        return numberedCard;
     }
 
     private static NumberedCard getCardByIndex(Player player, int cardIndex) {
