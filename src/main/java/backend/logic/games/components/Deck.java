@@ -32,6 +32,9 @@ public class Deck {
         numberedCardsList = new ArrayList<>();
         ninjaCardsList = new ArrayList<>();
         healthCardsList = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            healthCardsList.add(new HealthCard());
+        }
     }
 
     private void addCardsToLists() {

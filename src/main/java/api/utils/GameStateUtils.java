@@ -47,6 +47,8 @@ public class GameStateUtils {
         for (Player player : playersList) {
             if (playerId != player.getPlayerId()) {
                 HandEgg handEgg = new HandEgg(player.getPlayerId(), player.getHand());
+                handEggsList.add(handEgg);
+
             }
         }
 

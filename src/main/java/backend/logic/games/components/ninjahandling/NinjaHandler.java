@@ -78,7 +78,10 @@ public class NinjaHandler {
     public NinjaRequestStatus getRequestStatus() {
         NinjaRequest request = ninjaRequestsStack.peek();
 
-        if (request.allHumanVotesHaveBeenCast()) {
+        if(request == null){
+
+        }
+        else if (request.allHumanVotesHaveBeenCast()) {
             if (request.allHumansHaveAgreedOnNinjaRequest()) {
                 return NinjaRequestStatus.ACCEPTED;
             } else {

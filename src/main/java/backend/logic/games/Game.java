@@ -41,9 +41,11 @@ public class Game {
         initializeLists();
         currentRound = 1;
 
+
         gameHasBeenStarted = false;
         gameHasEnded = false;
         gameHasResultedInLoss = false;
+
     }
 
     private void generateGameId() {

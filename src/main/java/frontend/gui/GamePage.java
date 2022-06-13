@@ -44,20 +44,14 @@ public class GamePage extends JPanel {
         numberOfCardForOtherPlayers = new ArrayList<>();
         cardsForPlayer = new ArrayList<>();
 
-        heart = 2;
-        isGameStarted = true;
-        lastCardInGround = 5;
-        hostId = 0;
-        for (int i = 0; i < 5; i++) {
-            cardsForPlayer.add(new NumberedCard(10 * i));
-        }
-
         this.gameId = gameId;
         this.playerId = playerId;
-
+        isGameStarted = false;
         isOnGameStartButton = false;
 
         this.clientNetwork = clientNetwork;
+
+        threadsForRepaint();
 
         initializeFrame();
 
@@ -135,7 +129,7 @@ public class GamePage extends JPanel {
                 int x = e.getX();
                 int y = e.getY();
 
-                System.out.println(x + "  " + y);
+//                System.out.println(x + "  " + y);
                 if(!isGameStarted){
                     if(hostId == playerId){
                         if(isOnGameStartButtonBeforeGameStared(x, y)){
@@ -149,9 +143,6 @@ public class GamePage extends JPanel {
 
 
                         repaint();
-                    }
-                    else{
-
                     }
                 }
                 else{
@@ -178,7 +169,6 @@ public class GamePage extends JPanel {
             }
         });
 
-//        threadsForRepaint();
 
     }
 
@@ -557,20 +547,35 @@ public class GamePage extends JPanel {
     }
 
     public void threadsForRepaint(){
+
         new Thread(new Runnable() {
             @Override
             public void run() {
 
                 while(true){
 
+                    try {
+                        Thread.sleep(100);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(!isGameStarted){
+                        continue;
+                    }
+
+                    System.out.println(isGameStarted);
+
                     Gson gson = new Gson();
                     String s = clientNetwork.updateGame(gameId, playerId);
                     if(s == null){
-                        return;
+                        continue;
                     }
                     else if(s.equals("")){
-                        return;
+                        continue;
                     }
+
                     GameStateEgg gameStateEgg = gson.fromJson(s, GameStateEgg.class);
                     isGameStarted = gameStateEgg.isGameHasStarted();
                     gameLevel = gameStateEgg.getCurrentRound();
@@ -588,12 +593,7 @@ public class GamePage extends JPanel {
 
                     repaint();
 
-                    try {
-                        Thread.sleep(100);
-                    }
-                    catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+
 
 
                 }

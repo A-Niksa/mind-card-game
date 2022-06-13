@@ -29,8 +29,19 @@ public class GameStateEgg extends DataEgg {
         numberOfHealthCards = game.getDeck().getNumberOfHealthCards();
         numberOfPlayers = game.getNumberOfPlayers();
 
-        lastCardNumberOnGround = game.getDroppingGround()
-                .peek().getCardNumber();
+        if(game.getDroppingGround() == null){
+            lastCardNumberOnGround = -1;
+        }
+
+        if(game.getDroppingGround().getNumberOfCardsOnGround() == 0){
+            lastCardNumberOnGround = -1;
+        }
+
+        else{
+            lastCardNumberOnGround = game.getDroppingGround()
+                    .peek().getCardNumber();
+        }
+
         numberOfCardsOnGround = game.getDroppingGround()
                 .getNumberOfCardsOnGround();
 
