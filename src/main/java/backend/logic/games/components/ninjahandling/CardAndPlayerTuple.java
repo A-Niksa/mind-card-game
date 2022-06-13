@@ -2,7 +2,7 @@ package backend.logic.games.components.ninjahandling;
 
 import backend.logic.models.cards.NumberedCard;
 
-public class CardAndPlayerTuple {
+public class CardAndPlayerTuple implements Comparable<CardAndPlayerTuple> {
     private NumberedCard card;
     private int playerId;
 
@@ -17,5 +17,10 @@ public class CardAndPlayerTuple {
 
     public int getPlayerId() {
         return playerId;
+    }
+
+    @Override
+    public int compareTo(CardAndPlayerTuple cardAndPlayerTuple) {
+        return card.getCardNumber() - cardAndPlayerTuple.getCard().getCardNumber();
     }
 }
