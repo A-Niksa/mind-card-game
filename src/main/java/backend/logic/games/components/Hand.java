@@ -29,6 +29,10 @@ public class Hand {
         numberedCardsList.remove(0);
     }
 
+    public void sortHand() {
+        numberedCardsList.sort(comparator);
+    }
+
     public NumberedCard getSmallestCard() { // removes the smallest card from the hand as well
         if (numberedCardsList.isEmpty()) {
             return null;

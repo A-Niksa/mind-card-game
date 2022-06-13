@@ -20,6 +20,7 @@ public class HandEgg extends DataEgg {
     }
 
     public Hand getPlayerHand() {
+        playerHand.sortHand();
         return playerHand;
     }
 }
