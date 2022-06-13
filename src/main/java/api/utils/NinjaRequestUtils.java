@@ -21,7 +21,6 @@ public class NinjaRequestUtils {
                 return (Human) player;
             }
         }
-
         return null;
     }
 }

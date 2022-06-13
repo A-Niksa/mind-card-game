@@ -261,7 +261,7 @@ public class GamePage extends JPanel {
 
         }
 
-        for (int i = heart; i < 4; i++) {
+        for (int i = heart; i < numberOfOtherPlayer; i++) {
             BufferedImage imageCard = null;
             try {
                 File file = new File(DefaultConfig.publicNameForPath + "BrokenHeart.png");
