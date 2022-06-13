@@ -12,12 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateUtils {
-    public static NinjaRequestStatus getNinjaRequestStatus(int gameId) {
-        Game game = GameManager.getGameById(gameId);
-        NinjaHandler ninjaHandler = game.getNinjaHandler();
-        return ninjaHandler.getRequestStatus();
-    }
-
     public static boolean thereHasBeenANinjaRequestInGame(int gameId) {
         Game game = GameManager.getGameById(gameId);
         NinjaHandler ninjaHandler = game.getNinjaHandler();

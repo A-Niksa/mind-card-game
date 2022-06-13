@@ -49,7 +49,6 @@ public class GameStateEgg extends DataEgg {
         handsOfOtherPlayersList = GameStateUtils.getHandsOfPlayersOtherThanCurrentById(game, playerId);
 
         thereHasBeenANinjaRequest = GameStateUtils.thereHasBeenANinjaRequestInGame(game.getGameId());
-        ninjaRequestStatus = GameStateUtils.getNinjaRequestStatus(game.getGameId());
     }
 
     public boolean isGameHasStarted() {
