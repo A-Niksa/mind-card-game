@@ -10,8 +10,7 @@ public abstract class Player {
     protected int playerId;
     protected boolean isBot;
 
-    protected Player(Hand hand, boolean isBot) {
-        this.hand = hand;
+    protected Player(boolean isBot) {
         this.isBot = isBot;
 
         playerId = globalPlayerId;

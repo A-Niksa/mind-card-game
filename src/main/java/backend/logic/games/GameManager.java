@@ -12,9 +12,11 @@ import java.util.Map;
 public class GameManager {
     private static GameManager manager;
 
+    private Lobby lobby;
     private Map<Integer, Game> gamesMap;
 
     private GameManager() {
+        lobby = new Lobby();
         gamesMap = new HashMap<>();
     }
 
@@ -39,13 +41,24 @@ public class GameManager {
         return game.hasHealthCardsLeft();
     }
 
-    public static void joinGame(int gameId, Player player) {
+    public static Human createNewHumanInLobby() {
+        Human human = new Human();
+        getInstance().lobby.addHuman(human);
+        return human;
+    }
+
+    public static Human removePlayerFromLobbyById(int playerId) {
+        Human human = getInstance().lobby.removeHumanById(playerId);
+        return human;
+    }
+
+    public static void joinGame(int gameId, int playerId) {
         Game game = getGameById(gameId);
         if (game == null) {
             return;
         }
 
-        game.addPlayer(player);
+        game.addHuman(playerId);
     }
 
     public static boolean canJoinGame(int gameId) {
@@ -54,7 +67,8 @@ public class GameManager {
             return false;
         }
 
-        return !game.gameHasBeenStarted();
+        boolean gameIsFull = game.getNumberOfPlayers() >= 4;
+        return !game.gameHasBeenStarted() && !gameIsFull;
     }
 
     public static boolean thereHasBeenANinjaRequest(int gameId) {

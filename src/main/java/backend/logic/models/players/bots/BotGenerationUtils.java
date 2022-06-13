@@ -20,13 +20,13 @@ public class BotGenerationUtils {
         switch (numberOfRequestedBots) {
             // did not add break on purpose:
             case 3:
-                ThirdBot thirdBot = new ThirdBot(deck.getRandomHand(numberOfCardsPerHand), currentGameId);
+                ThirdBot thirdBot = new ThirdBot(currentGameId);
                 requestedBotsList.add(thirdBot);
             case 2:
-                SecondBot secondBot = new SecondBot(deck.getRandomHand(numberOfCardsPerHand), currentGameId);
+                SecondBot secondBot = new SecondBot(currentGameId);
                 requestedBotsList.add(secondBot);
             case 1:
-                FirstBot firstBot = new FirstBot(deck.getRandomHand(numberOfCardsPerHand), currentGameId);
+                FirstBot firstBot = new FirstBot(currentGameId);
                 requestedBotsList.add(firstBot);
         }
 

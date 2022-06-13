@@ -12,14 +12,15 @@ import api.utils.NinjaRequestUtils;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
-import backend.logic.games.components.ninjahandling.NinjaRequest;
 import backend.logic.models.players.Human;
-import backend.logic.models.players.Player;
 
 import java.util.ArrayList;
 
 public class API {
-    public static int addNewPlayer() { return 0; // TODO returning id
+    public static int addNewPlayerToLobby() {
+        // returning Id
+        Human human = GameManager.createNewHumanInLobby();
+        return human.getPlayerId();
     }
 
     public static String addNewGame(int numberOfBots, int currentHumanId) {
@@ -34,8 +35,7 @@ public class API {
         // returns: can join game or not
         boolean canJoinGame = GameManager.canJoinGame(gameId);
         if (canJoinGame) {
-            Human human = NinjaRequestUtils.createHumanPlayer(gameId);
-            GameManager.joinGame(gameId, human);
+            GameManager.joinGame(gameId, playerId);
         }
 
         return canJoinGame;

@@ -7,13 +7,6 @@ import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 
 public class NinjaRequestUtils {
-    public static Human createHumanPlayer(int gameId) {
-        Game game = GameManager.getGameById(gameId);
-        Deck deck = game.getDeck();
-        Human human = new Human(deck.getRandomHand(game.getCurrentRound()));
-        return human;
-    }
-
     public static Human getHumanById(int gameId, int playerId) {
         Game game = GameManager.getGameById(gameId);
         for (Player player : game.getPlayersList()) {
