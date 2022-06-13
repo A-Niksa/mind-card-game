@@ -7,6 +7,8 @@ import frontend.gui.firstMenuPage.ChooseNumOfBot;
 import frontend.gui.firstMenuPage.JoinGamePage;
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
+import utils.jsonparsing.JsonParser;
+import utils.jsonparsing.literals.dataeggs.DataEggType;
 import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.HandEgg;
@@ -101,8 +103,8 @@ public class GamePage extends JPanel {
 
                     if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
                         Gson gson = new Gson();
-                        String s = clientNetwork.makeMove(gameId, playerId, cardsForPlayer.get(0).getCardNumber());
-                        MakingMoveEgg makingMoveEgg = gson.fromJson(s, MakingMoveEgg.class);
+                        String s = clientNetwork.makeMove(gameId, playerId, 0);
+                        MakingMoveEgg makingMoveEgg = (MakingMoveEgg) JsonParser.parseToDataEgg(s, DataEggType.MAKING_MOVE_EGG);
                         if(!makingMoveEgg.moveWasValid()){
                             JOptionPane.showMessageDialog(null, "Move wasn't valid", "Error!!" , JOptionPane.ERROR_MESSAGE);
                         }
