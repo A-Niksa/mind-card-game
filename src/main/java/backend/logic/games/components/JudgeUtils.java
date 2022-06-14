@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JudgeUtils {
-    public static void scorchSmallerCards(Game game, NumberedCard droppedCard) {
+    public static synchronized void scorchSmallerCards(Game game, NumberedCard droppedCard) {
         ArrayList<Hand> handsList = getHandsOfAllPlayers(game);
         for (Hand hand : handsList) {
             for (NumberedCard card : hand.getNumberedCardsList()) {
