@@ -40,6 +40,7 @@ public class GamePage extends JPanel {
     ArrayList<Integer> numberOfCardForOtherPlayers;
     ArrayList<NumberedCard> cardsForPlayer;
     int numberOfAllPlayers;
+    boolean hasThereAnyNinjaRequest;
 
     boolean isCauseLooseOfHeartBecauseOfOtherPlayer;
     int numCardCauseLooseOfHeartBecauseOfOtherPlayer;
@@ -48,6 +49,7 @@ public class GamePage extends JPanel {
 
 
     public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
+        hasThereAnyNinjaRequest = false;
         isCauseLooseOfHeartBecauseOfOtherPlayer = false;
         numberOfShurikens = 0;
         heart = 1;
@@ -770,6 +772,7 @@ public class GamePage extends JPanel {
                     lastCardInGround = gameStateEgg.getLastCardNumberOnGround();
                     numberOfAllPlayers = gameStateEgg.getNumberOfPlayers();
                     numberOfOtherPlayer = numberOfAllPlayers - 1;
+                    hasThereAnyNinjaRequest = gameStateEgg.isThereHasBeenANinjaRequest();
                     ArrayList<HandEgg> handDataEggs = (ArrayList<HandEgg>) gameStateEgg.getHandsOfOtherPlayersList();
                     numberOfCardForOtherPlayers.clear();
 
@@ -777,10 +780,11 @@ public class GamePage extends JPanel {
                         numberOfCardForOtherPlayers.add(handDataEggs.get(i).getPlayerHand().getNumberedCardsList().size());
                     }
 
+                    if(hasThereAnyNinjaRequest){
+//                        TODO
+                    }
+
                     repaint();
-
-
-
 
                 }
 

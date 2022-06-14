@@ -55,7 +55,6 @@ public class API {
         return game.gameHasBeenStarted();
     }
 
-
     public static String getUpdatedGameState(int gameId, int currentHumanId) {
         // TODO: updates game and returns Gson of GameState ->
         // isGameStarted, has there any ninja request, level, num of hearts, last card game on ground, num of players, number of cards on ground, hands (my player) , opponents hand meta data (sorted by id)
@@ -93,7 +92,8 @@ public class API {
         return GameManager.startGameById(gameId);
     }
 
-    public static String useNinjaCard(int gameId, int playerId){ // welp: should remove playerId
+    public static String useNinjaCard(int gameId, int playerId){
+        // welp: should remove playerId
         ArrayList<CardAndPlayerTuple> smallestCardsList = GameManager.dropNinjaCardInGame(gameId);
 
         NinjaMoveEgg dataEgg = new NinjaMoveEgg(smallestCardsList);
