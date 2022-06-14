@@ -733,6 +733,8 @@ public class GamePage extends JPanel {
 
     public void threadsForRepaint(){
 
+        hostId = clientNetwork.getHostId(gameId);
+
         new Thread(new Runnable() {
             @Override
             public void run() {

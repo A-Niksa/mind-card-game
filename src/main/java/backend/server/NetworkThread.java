@@ -172,6 +172,13 @@ public class NetworkThread implements Runnable{
             }
         }
 
+        else if(input.equals(DefaultConfig.getHostId)){
+            try {
+                outputStream.writeInt(API.getHostId(inputStream.readInt()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }

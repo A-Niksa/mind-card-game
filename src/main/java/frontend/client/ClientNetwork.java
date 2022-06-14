@@ -244,6 +244,26 @@ public class ClientNetwork {
 
     }
 
+    public int getHostId(int gameId){
+
+        try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return -1;
+            }
+
+            outputStream.writeUTF(DefaultConfig.getHostId);
+            outputStream.writeInt(gameId);
+            return inputStream.readInt();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+
+    }
+
     public void useNinjaCard(int gameId, int playerId){
 
         try {
