@@ -146,7 +146,7 @@ public class Game {
 
     private void initializeGameComponents() {
         droppingGround = new DroppingGround();
-        actionLogger = new ActionLogger();
+        actionLogger = new ActionLogger(gameId);
         deck = new Deck(getNumberOfPlayers());
         BotGenerationUtils.giveHandsToPlayersFromDeck(playersList, deck, currentRound);
 
@@ -172,6 +172,25 @@ public class Game {
             Thread thread = new Thread(botsList.get(i));
             botThreadsList.add(thread);
         }
+    }
+
+    public void restartThreads() {
+        interruptThreads();
+        reconnectThreadsToBots();
+    }
+
+    private void interruptThreads() {
+        for (Thread thread : botThreadsList) {
+            thread.interrupt();
+        }
+    }
+
+    private void reconnectThreadsToBots() {
+        botThreadsList.clear();
+
+        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound, gameId);
+        connectThreadsToBots(botsList);
+        startBotThreads();
     }
 
     public boolean hasHealthCardsLeft() {

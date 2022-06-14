@@ -1,17 +1,22 @@
 package backend.logic.games.actionlogger;
 
+import backend.logic.games.GameManager;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class ActionLogger {
     private final int INITIAL_TIME_DIFFERENCE = 5000; // in ms
 
+    private int gameId;
     private Deque<Action> actionsStack;
     private long penultimateTimeStamp;
     private long latestTimeStamp;
     private long latestTimeDifference;
 
-    public ActionLogger() {
+    public ActionLogger(int gameId) {
+        this.gameId = gameId;
+
         actionsStack = new ArrayDeque<>();
         penultimateTimeStamp = 0; // initial value
         latestTimeStamp = 0; // initial value
@@ -22,6 +27,11 @@ public class ActionLogger {
         actionsStack.push(action);
 
         updateTimeKeepers();
+        makeBotsKnowAboutNewAction();
+    }
+
+    private void makeBotsKnowAboutNewAction() {
+        GameManager.restartGameThreads(gameId);
     }
 
     private void updateTimeKeepers() {
