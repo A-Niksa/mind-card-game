@@ -10,7 +10,7 @@ public class NewGameEgg extends DataEgg {
         this.idOfCreatedGame = idOfCreatedGame;
     }
 
-    public boolean isCreatingNewGameWasSuccessful() {
+    public boolean creatingNewGameWasSuccessful() {
         return creatingNewGameWasSuccessful;
     }
 

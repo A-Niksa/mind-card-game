@@ -758,7 +758,7 @@ public class GamePage extends JPanel {
 
                     String s = clientNetwork.updateGame(gameId, playerId);
                     GameStateEgg gameStateEgg = (GameStateEgg) JsonParser.parseToDataEgg(s, GAME_STATE_EGG);
-                    isGameStarted = gameStateEgg.isGameHasStarted();
+                    isGameStarted = gameStateEgg.gameHasStarted();
 
                     if(s == null){
                         continue;
@@ -774,7 +774,7 @@ public class GamePage extends JPanel {
                     lastCardInGround = gameStateEgg.getLastCardNumberOnGround();
                     numberOfAllPlayers = gameStateEgg.getNumberOfPlayers();
                     numberOfOtherPlayer = numberOfAllPlayers - 1;
-                    hasThereAnyNinjaRequest = gameStateEgg.isThereHasBeenANinjaRequest();
+                    hasThereAnyNinjaRequest = gameStateEgg.thereHasBeenANinjaRequest();
                     ArrayList<HandEgg> handDataEggs = (ArrayList<HandEgg>) gameStateEgg.getHandsOfOtherPlayersList();
                     numberOfCardForOtherPlayers.clear();
 

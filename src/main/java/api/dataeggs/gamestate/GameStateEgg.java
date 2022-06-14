@@ -59,7 +59,7 @@ public class GameStateEgg extends DataEgg {
         smallestCardNumberThatHasCausedLoss = game.getActionLogger().getSmallestCardNumberThatCausedLoss();
     }
 
-    public boolean isGameHasStarted() {
+    public boolean gameHasStarted() {
         return gameHasStarted;
     }
 
@@ -92,7 +92,7 @@ public class GameStateEgg extends DataEgg {
         return handsOfOtherPlayersList;
     }
 
-    public boolean isThereHasBeenANinjaRequest() {
+    public boolean thereHasBeenANinjaRequest() {
         return thereHasBeenANinjaRequest;
     }
 

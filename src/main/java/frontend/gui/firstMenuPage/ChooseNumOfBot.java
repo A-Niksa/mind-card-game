@@ -44,7 +44,7 @@ public class ChooseNumOfBot extends JPanel{
                     String output = clientNetwork.creatNewGame(1, playerId);
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
-                    boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
+                    boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
@@ -60,7 +60,7 @@ public class ChooseNumOfBot extends JPanel{
                     String output = clientNetwork.creatNewGame(2, playerId);
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
-                    boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
+                    boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
@@ -75,7 +75,7 @@ public class ChooseNumOfBot extends JPanel{
                     String output = clientNetwork.creatNewGame(3, playerId);
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
-                    boolean isCreatingNewGameWasSuccessful = newGameEgg.isCreatingNewGameWasSuccessful();
+                    boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
                     if(isCreatingNewGameWasSuccessful){
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
