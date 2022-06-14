@@ -90,6 +90,7 @@ public class Game {
                 return;
             }
 
+            restartThreads();
             resetComponents();
             goToNextRound();
             return;
