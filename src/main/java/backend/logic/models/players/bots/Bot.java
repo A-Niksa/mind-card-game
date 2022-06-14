@@ -7,7 +7,7 @@ import backend.logic.models.players.Player;
 
 public abstract class Bot extends Player implements Runnable {
     protected final double AVERAGING_DIVISION_CONSTANT;
-    protected final int ADDITIONAL_WAITING_CONSTANT;
+    protected final int ADDITIONAL_WAITING_CONSTANT; // in seconds
     protected int joinedGameId;
 
     protected Bot(int joinedGameId, double averagingDivisionConstant, int additionalWaitingConstant) {
@@ -61,7 +61,7 @@ public abstract class Bot extends Player implements Runnable {
         long latestActionTimeDifference = GameManager.getLatestActionTimeDifferenceOfGame(joinedGameId);
         double calculatedSleepTime = (latestActionTimeDifference +
                 (getNumberOfCards() * 1.0 / AVERAGING_DIVISION_CONSTANT)) / 2 +
-                ADDITIONAL_WAITING_CONSTANT;
+                ADDITIONAL_WAITING_CONSTANT * 1000;
 
         return (int) calculatedSleepTime;
     }
