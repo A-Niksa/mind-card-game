@@ -16,14 +16,11 @@ public class MakingMoveUtils {
         GameManager.dropCardInGame(game.getGameId(), playerId, card);
     }
 
-    private static void dropNinjaCardInGameManager(Game game, int playerId, int cardIndex) {
-
-    }
-
     private static NumberedCard getCardAndRemoveByIndex(Game game, int playerId, int cardIndex) {
         Player player = getPlayerById(game, playerId);
+        NumberedCard numberedCard = getCardByIndex(player, cardIndex);;
         player.getHand().removeCard(cardIndex);
-        return getCardByIndex(player, cardIndex);
+        return numberedCard;
     }
 
     private static NumberedCard getCardByIndex(Player player, int cardIndex) {
@@ -47,12 +44,19 @@ public class MakingMoveUtils {
     public static boolean moveRespectsGroundOrder(Game game, int playerId) {
         int cardNumber = getCardNumberByIndex(game, playerId);
         int topCardNumber = getTopCardNumber(game);
+        if (topCardNumber == -1) {
+            return true;
+        }
 
         return topCardNumber < cardNumber;
     }
 
     private static int getTopCardNumber(Game game) {
         NumberedCard topCard = game.getDroppingGround().peek();
+        if (topCard == null) {
+            return -1;
+        }
+
         return topCard.getCardNumber();
     }
 

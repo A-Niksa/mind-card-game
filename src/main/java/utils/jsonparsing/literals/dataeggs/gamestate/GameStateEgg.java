@@ -10,6 +10,7 @@ import utils.jsonparsing.literals.utils.GameStateUtils;
 import java.util.List;
 
 public class GameStateEgg extends DataEgg {
+    private int hostId;
     private boolean gameHasStarted;
     private int currentRound;
     private int numberOfHealthCards;
@@ -20,10 +21,13 @@ public class GameStateEgg extends DataEgg {
     private List<HandEgg> handsOfOtherPlayersList;
     private boolean thereHasBeenANinjaRequest;
     private NinjaRequestStatus ninjaRequestStatus;
+    private boolean latestActionHasCausedLoss;
+    private int smallestCardNumberThatHasCausedLoss;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
 
+        hostId = game.getHostHumanId();
         gameHasStarted = game.gameHasBeenStarted();
         currentRound = game.getCurrentRound();
         numberOfHealthCards = game.getDeck().getNumberOfHealthCards();
@@ -49,6 +53,9 @@ public class GameStateEgg extends DataEgg {
         handsOfOtherPlayersList = GameStateUtils.getHandsOfPlayersOtherThanCurrentById(game, playerId);
 
         thereHasBeenANinjaRequest = GameStateUtils.thereHasBeenANinjaRequestInGame(game.getGameId());
+
+        latestActionHasCausedLoss = game.getActionLogger().latestActionHasCausedLoss();
+        smallestCardNumberThatHasCausedLoss = game.getActionLogger().getSmallestCardNumberThatCausedLoss();
     }
 
     public boolean isGameHasStarted() {
@@ -76,6 +83,7 @@ public class GameStateEgg extends DataEgg {
     }
 
     public Hand getHandOfCurrentPlayer() {
+        handOfCurrentPlayer.sortHand();
         return handOfCurrentPlayer;
     }
 
@@ -89,5 +97,17 @@ public class GameStateEgg extends DataEgg {
 
     public NinjaRequestStatus getNinjaRequestStatus() {
         return ninjaRequestStatus;
+    }
+
+    public int getHostId() {
+        return hostId;
+    }
+
+    public boolean latestActionHasCausedLoss() {
+        return latestActionHasCausedLoss;
+    }
+
+    public int getSmallestCardNumberThatHasCausedLoss() {
+        return smallestCardNumberThatHasCausedLoss;
     }
 }

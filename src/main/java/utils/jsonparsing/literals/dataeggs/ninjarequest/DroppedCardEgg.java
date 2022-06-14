@@ -3,7 +3,7 @@ package utils.jsonparsing.literals.dataeggs.ninjarequest;
 import utils.jsonparsing.literals.dataeggs.DataEgg;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
 
-public class DroppedCardEgg extends DataEgg {
+public class DroppedCardEgg extends DataEgg implements Comparable<DroppedCardEgg> {
     private int playerId;
     private int cardNumber;
 
@@ -20,5 +20,10 @@ public class DroppedCardEgg extends DataEgg {
 
     public int getCardNumber() {
         return cardNumber;
+    }
+
+    @Override
+    public int compareTo(DroppedCardEgg droppedCardEgg) {
+        return cardNumber - droppedCardEgg.getCardNumber();
     }
 }
