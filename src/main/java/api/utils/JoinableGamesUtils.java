@@ -12,9 +12,15 @@ public class JoinableGamesUtils {
 
         Map<Integer, Game> gamesMap = GameManager.getGamesMap();
         for (Game game : gamesMap.values()) {
-            dataEgg.addJoinableGame(game);
+            if (gameIsJoinable(game)) {
+                dataEgg.addJoinableGame(game);
+            }
         }
 
         return dataEgg;
+    }
+
+    private static boolean gameIsJoinable(Game game) {
+        return !game.gameHasBeenStarted() && game.getNumberOfPlayers() >= 4;
     }
 }
