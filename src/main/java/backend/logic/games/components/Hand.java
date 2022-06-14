@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Hand {
-    private int playerId;
     private List<NumberedCard> numberedCardsList;
     private NumberedCardComparator comparator;
 
@@ -54,7 +53,6 @@ public class Hand {
     @Override
     public String toString() {
         return "Hand{" +
-                "playerId=" + playerId +
                 ", numberedCardsList=" + numberedCardsList +
                 '}';
     }
