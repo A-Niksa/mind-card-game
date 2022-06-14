@@ -17,6 +17,11 @@ import backend.logic.models.players.Human;
 import java.util.ArrayList;
 
 public class API {
+    public static int getHostId(int gameId) {
+        Game game = GameManager.getGameById(gameId);
+        return game.getHostHumanId();
+    }
+
     public static int addNewPlayerToLobby() {
         // returning Id
         Human human = GameManager.createNewHumanInLobby();

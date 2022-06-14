@@ -244,4 +244,8 @@ public class Game {
     public int getCurrentRound() {
         return currentRound;
     }
+
+    public int getHostHumanId() {
+        return hostHumanId;
+    }
 }
