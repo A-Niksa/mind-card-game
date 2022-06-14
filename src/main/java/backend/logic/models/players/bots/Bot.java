@@ -68,6 +68,7 @@ public abstract class Bot extends Player implements Runnable {
                 (getNumberOfCards() * 1.0 / AVERAGING_DIVISION_CONSTANT)) / 2 +
                 ADDITIONAL_WAITING_CONSTANT;
 
+        System.out.println((int) calculatedSleepTime * 1000);
         return (int) calculatedSleepTime * 1000;
     }
 
