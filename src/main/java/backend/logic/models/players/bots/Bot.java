@@ -48,7 +48,12 @@ public abstract class Bot extends Player implements Runnable {
                 GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
             }
             else {
-                sleepFor(100);
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    break;
+                }
             }
         }
     }
@@ -61,9 +66,9 @@ public abstract class Bot extends Player implements Runnable {
         long latestActionTimeDifference = GameManager.getLatestActionTimeDifferenceOfGame(joinedGameId);
         double calculatedSleepTime = (latestActionTimeDifference +
                 (getNumberOfCards() * 1.0 / AVERAGING_DIVISION_CONSTANT)) / 2 +
-                ADDITIONAL_WAITING_CONSTANT * 1000;
+                ADDITIONAL_WAITING_CONSTANT;
 
-        return (int) calculatedSleepTime;
+        return (int) calculatedSleepTime * 1000;
     }
 
     private void sleepFor(int milliseconds) {

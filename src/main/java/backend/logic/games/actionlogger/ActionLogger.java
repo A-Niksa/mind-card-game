@@ -1,5 +1,7 @@
 package backend.logic.games.actionlogger;
 
+import api.utils.MakingMoveUtils;
+import backend.logic.games.Game;
 import backend.logic.games.GameManager;
 import backend.logic.models.cards.NumberedCard;
 
@@ -34,9 +36,11 @@ public class ActionLogger {
         makeBotsKnowAboutNewAction();
     }
 
-    public void logLossOfHealthCard(NumberedCard droppedCard) {
+    public void logLossOfHealthCard() {
         latestActionHasCausedLoss = true;
-        smallestCardNumberThatCausedLoss = droppedCard.getCardNumber();
+
+        Game game = GameManager.getGameById(gameId);
+        smallestCardNumberThatCausedLoss = MakingMoveUtils.getSmallestCardInPlayersHands(game);
     }
 
     private void makeBotsKnowAboutNewAction() {
