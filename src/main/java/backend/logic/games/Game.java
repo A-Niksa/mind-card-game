@@ -83,6 +83,8 @@ public class Game {
 
     public synchronized void dropCard(int playerId, NumberedCard cardToDrop) {
         if (!JudgeUtils.cardToDropIsTheMinOfAllPlayers(this, cardToDrop)) {
+            actionLogger.logLossOfHealthCard(cardToDrop);
+
             removeOneHealthCardFromDeck();
             if (JudgeUtils.checkIfPlayersHaveLost(this)) {
                 return;
@@ -247,5 +249,9 @@ public class Game {
 
     public int getHostHumanId() {
         return hostHumanId;
+    }
+
+    public ActionLogger getActionLogger() {
+        return actionLogger;
     }
 }

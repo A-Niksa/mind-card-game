@@ -1,6 +1,7 @@
 package backend.logic.games.actionlogger;
 
 import backend.logic.games.GameManager;
+import backend.logic.models.cards.NumberedCard;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -13,6 +14,8 @@ public class ActionLogger {
     private long penultimateTimeStamp;
     private long latestTimeStamp;
     private long latestTimeDifference;
+    private boolean latestActionHasCausedLoss;
+    private int smallestCardNumberThatCausedLoss;
 
     public ActionLogger(int gameId) {
         this.gameId = gameId;
@@ -21,6 +24,7 @@ public class ActionLogger {
         penultimateTimeStamp = 0; // initial value
         latestTimeStamp = 0; // initial value
         latestTimeDifference = INITIAL_TIME_DIFFERENCE; // initial value
+        latestActionHasCausedLoss = false;
     }
 
     public void addAction(Action action) {
@@ -28,6 +32,11 @@ public class ActionLogger {
 
         updateTimeKeepers();
         makeBotsKnowAboutNewAction();
+    }
+
+    public void logLossOfHealthCard(NumberedCard droppedCard) {
+        latestActionHasCausedLoss = true;
+        smallestCardNumberThatCausedLoss = droppedCard.getCardNumber();
     }
 
     private void makeBotsKnowAboutNewAction() {
@@ -56,5 +65,17 @@ public class ActionLogger {
 
     public long getLatestTimeDifference() {
         return latestTimeDifference;
+    }
+
+    public boolean latestActionHasCausedLoss() {
+        return latestActionHasCausedLoss;
+    }
+
+    public void setLatestActionHasCausedLoss(boolean latestActionHasCausedLoss) {
+        this.latestActionHasCausedLoss = latestActionHasCausedLoss;
+    }
+
+    public int getSmallestCardNumberThatCausedLoss() {
+        return smallestCardNumberThatCausedLoss;
     }
 }

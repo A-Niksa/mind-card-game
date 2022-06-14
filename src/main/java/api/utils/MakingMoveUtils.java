@@ -16,10 +16,6 @@ public class MakingMoveUtils {
         GameManager.dropCardInGame(game.getGameId(), playerId, card);
     }
 
-    private static void dropNinjaCardInGameManager(Game game, int playerId, int cardIndex) {
-
-    }
-
     private static NumberedCard getCardAndRemoveByIndex(Game game, int playerId, int cardIndex) {
         Player player = getPlayerById(game, playerId);
         NumberedCard numberedCard = getCardByIndex(player, cardIndex);;
