@@ -7,12 +7,14 @@ import backend.logic.models.players.Player;
 
 public abstract class Bot extends Player implements Runnable {
     protected final double AVERAGING_DIVISION_CONSTANT;
+    protected final int ADDITIONAL_WAITING_CONSTANT;
     protected int joinedGameId;
 
-    protected Bot(int joinedGameId, double averagingDivisionConstant) {
+    protected Bot(int joinedGameId, double averagingDivisionConstant, int additionalWaitingConstant) {
         super(true);
         this.joinedGameId = joinedGameId;
         AVERAGING_DIVISION_CONSTANT = averagingDivisionConstant;
+        ADDITIONAL_WAITING_CONSTANT = additionalWaitingConstant;
     }
 
     @Override
@@ -58,7 +60,8 @@ public abstract class Bot extends Player implements Runnable {
     private int getTimeToSleep() {
         long latestActionTimeDifference = GameManager.getLatestActionTimeDifferenceOfGame(joinedGameId);
         double calculatedSleepTime = (latestActionTimeDifference +
-                (getNumberOfCards() * 1.0 / AVERAGING_DIVISION_CONSTANT)) / 2;
+                (getNumberOfCards() * 1.0 / AVERAGING_DIVISION_CONSTANT)) / 2 +
+                ADDITIONAL_WAITING_CONSTANT;
 
         return (int) calculatedSleepTime;
     }

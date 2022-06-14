@@ -4,6 +4,6 @@ import backend.logic.games.components.Hand;
 
 public class SecondBot extends Bot {
     protected SecondBot(int joinedGameId) {
-        super(joinedGameId, 20);
+        super(joinedGameId, 20, 8);
     }
 }
