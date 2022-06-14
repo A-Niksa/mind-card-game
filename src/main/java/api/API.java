@@ -31,7 +31,8 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static boolean joinGame(int gameId, int playerId) { // shouldn't have playerId
+    public static boolean joinGame(int gameId, int playerId) {
+        // shouldn't have playerId
         // returns: can join game or not
         boolean canJoinGame = GameManager.canJoinGame(gameId);
         if (canJoinGame) {
@@ -53,6 +54,7 @@ public class API {
         Game game = GameManager.getGameById(gameId);
         return game.gameHasBeenStarted();
     }
+
 
     public static String getUpdatedGameState(int gameId, int currentHumanId) {
         // TODO: updates game and returns Gson of GameState ->
