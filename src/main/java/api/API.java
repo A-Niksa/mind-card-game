@@ -31,7 +31,7 @@ public class API {
     public static String addNewGame(int numberOfBots, int currentHumanId) {
         // returning Gson -> can make game or not // gameWasSuccessfullyCreated, gameId
         Game game = new Game(numberOfBots, currentHumanId);
-        NewGameEgg dataEgg = new NewGameEgg(true, currentHumanId);
+        NewGameEgg dataEgg = new NewGameEgg(true, game.getGameId());
         GameManager.addGame(game);
         return GsonUtils.getJsonString(dataEgg);
     }
