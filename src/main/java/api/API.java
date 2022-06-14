@@ -68,6 +68,8 @@ public class API {
         Game game = GameManager.getGameById(gameId);
         GameStateEgg dataEgg = new GameStateEgg(game, currentHumanId);
 
+        game.getActionLogger().setLatestActionHasCausedLoss(false);
+
         return GsonUtils.getJsonString(dataEgg);
     }
 
