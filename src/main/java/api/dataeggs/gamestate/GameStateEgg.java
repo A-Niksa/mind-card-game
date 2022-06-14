@@ -79,6 +79,7 @@ public class GameStateEgg extends DataEgg {
     }
 
     public Hand getHandOfCurrentPlayer() {
+        handOfCurrentPlayer.sortHand();
         return handOfCurrentPlayer;
     }
 
