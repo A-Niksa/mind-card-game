@@ -93,4 +93,8 @@ public class GameStateEgg extends DataEgg {
     public NinjaRequestStatus getNinjaRequestStatus() {
         return ninjaRequestStatus;
     }
+
+    public void setHostId(int hostId) {
+        this.hostId = hostId;
+    }
 }
