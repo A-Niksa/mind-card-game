@@ -10,6 +10,7 @@ import backend.logic.games.components.Hand;
 import java.util.List;
 
 public class GameStateEgg extends DataEgg {
+    private int hostId;
     private boolean gameHasStarted;
     private int currentRound;
     private int numberOfHealthCards;
@@ -24,6 +25,7 @@ public class GameStateEgg extends DataEgg {
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
 
+        hostId = game.getHostHumanId();
         gameHasStarted = game.gameHasBeenStarted();
         currentRound = game.getCurrentRound();
         numberOfHealthCards = game.getDeck().getNumberOfHealthCards();
