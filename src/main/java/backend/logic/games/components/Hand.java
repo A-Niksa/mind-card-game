@@ -50,4 +50,12 @@ public class Hand {
     public List<NumberedCard> getNumberedCardsList() {
         return numberedCardsList;
     }
+
+    @Override
+    public String toString() {
+        return "Hand{" +
+                "playerId=" + playerId +
+                ", numberedCardsList=" + numberedCardsList +
+                '}';
+    }
 }

@@ -15,4 +15,9 @@ public class NumberedCard extends Card implements Comparable<NumberedCard> {
     public int compareTo(NumberedCard numberedCard) {
         return cardNumber - numberedCard.getCardNumber();
     }
+
+    @Override
+    public String toString() {
+        return "cardNumber: " + cardNumber;
+    }
 }

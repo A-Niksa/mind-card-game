@@ -77,7 +77,9 @@ public class Deck {
             randomNumberedCardsList.add(getRandomNumberedCard());
         }
 
-        return new Hand(randomNumberedCardsList);
+        Hand hand = new Hand(randomNumberedCardsList);
+        System.out.println(hand);
+        return hand;
     }
 
     private NumberedCard getRandomNumberedCard() {
