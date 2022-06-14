@@ -91,8 +91,7 @@ public class Game {
             }
 
             restartThreads();
-            resetComponents();
-            goToNextRound();
+            JudgeUtils.scorchSmallerCards(this, cardToDrop);
             return;
         }
 
@@ -191,7 +190,7 @@ public class Game {
     private void reconnectThreadsToBots() {
         botThreadsList.clear();
 
-        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound, gameId);
+        ArrayList<Bot> botsList = BotGenerationUtils.getBotsList(playersList);
         connectThreadsToBots(botsList);
         startBotThreads();
     }

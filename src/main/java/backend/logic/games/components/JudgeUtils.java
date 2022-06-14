@@ -9,6 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JudgeUtils {
+    public static void scorchSmallerCards(Game game, NumberedCard droppedCard) {
+        ArrayList<Hand> handsList = getHandsOfAllPlayers(game);
+        for (Hand hand : handsList) {
+            for (NumberedCard card : hand.getNumberedCardsList()) {
+                if (card.getCardNumber() < droppedCard.getCardNumber()) {
+                    hand.removeCard(card);
+                }
+            }
+        }
+    }
+
+    private static ArrayList<Hand> getHandsOfAllPlayers(Game game) {
+        List<Player> playersList = game.getPlayersList();
+
+        ArrayList<Hand> handsList = new ArrayList<>();
+        for (Player player : playersList) {
+            handsList.add(player.getHand());
+        }
+        return handsList;
+    }
+
     public static boolean allCardsHaveBeenDropped(Game game) {
         ArrayList<NumberedCard> cardsOfAllPlayersList = getCardsOfAllPlayersList(game);
         return cardsOfAllPlayersList.size() < 1;
