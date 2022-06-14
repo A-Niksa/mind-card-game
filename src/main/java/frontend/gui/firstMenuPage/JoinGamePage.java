@@ -153,6 +153,9 @@ public class JoinGamePage extends JPanel{
         for (int i = 0; i < arrayListIds.size(); i++) {
             BufferedImage imageID = null;
             try {
+                if(arrayListStringType.size() == 0){
+                    continue;
+                }
                 File file1 = new File(DefaultConfig.publicNameForPath + arrayListStringType.get(i));
                 imageID = ImageIO.read(file1);
             }
