@@ -109,6 +109,7 @@ public class Game {
     }
 
     public ArrayList<CardAndPlayerTuple> dropNinjaCard() {
+        restartThreads();
         return ninjaHandler.carryOutRequestAndReturnDroppedCards();
     }
 
