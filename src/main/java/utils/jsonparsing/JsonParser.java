@@ -6,8 +6,12 @@ import utils.jsonparsing.literals.dataeggs.DataEgg;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
 import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
 import utils.jsonparsing.literals.dataeggs.NewGameEgg;
+import utils.jsonparsing.literals.dataeggs.gamestate.EmojiEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
+import utils.jsonparsing.literals.dataeggs.gamestate.HandEgg;
+import utils.jsonparsing.literals.dataeggs.gamestate.NinjaRequestEgg;
 import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGamesEgg;
+import utils.jsonparsing.literals.dataeggs.ninjarequest.DroppedCardEgg;
 
 public class JsonParser {
     private static JsonParser parser;
@@ -43,6 +47,14 @@ public class JsonParser {
                 return JoinableGamesEgg.class;
             case GAME_STATE_EGG:
                 return GameStateEgg.class;
+            case HAND_EGG:
+                return HandEgg.class;
+            case DROPPED_CARD_EGG:
+                return DroppedCardEgg.class;
+            case EMOJI_EGG:
+                return EmojiEgg.class;
+            case NINJA_REQUEST_EGG:
+                return NinjaRequestEgg.class;
         }
 
         return null;

@@ -94,7 +94,7 @@ public class NinjaHandler {
         NinjaRequest request = ninjaRequestsStack.peek();
 
         if(request == null){
-
+            return NinjaRequestStatus.WAITING;
         }
         else if (request.allHumanVotesHaveBeenCast()) {
             if (request.allHumansHaveAgreedOnNinjaRequest()) {
