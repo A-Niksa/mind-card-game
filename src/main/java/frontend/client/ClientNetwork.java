@@ -265,7 +265,7 @@ public class ClientNetwork {
 
     }
 
-    public void useNinjaCard(int gameId, int playerId){
+    public void useNinjaCard(int gameId){
 
         try {
             outputStream.writeUTF(authToken);
@@ -275,7 +275,6 @@ public class ClientNetwork {
 
             outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
             outputStream.writeInt(gameId);
-            outputStream.writeInt(playerId);
         }
 
         catch (IOException e) {
@@ -284,7 +283,7 @@ public class ClientNetwork {
 
     }
 
-    public void sendRequest(boolean requestStatus, int playerId, int gameId){
+    public void castNinjaVote(boolean agreesWithRequest, int playerId, int gameId){
 
         try {
             outputStream.writeUTF(authToken);
@@ -292,8 +291,8 @@ public class ClientNetwork {
                 return;
             }
 
-            outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
-            outputStream.writeBoolean(requestStatus);
+            outputStream.writeUTF(DefaultConfig.castNinjaCard);
+            outputStream.writeBoolean(agreesWithRequest);
             outputStream.writeInt(playerId);
             outputStream.writeInt(gameId);
         }

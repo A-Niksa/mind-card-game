@@ -8,10 +8,8 @@ import frontend.client.ClientNetwork;
 import utils.jsonparsing.JsonParser;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
 import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.Emoji;
-import utils.jsonparsing.literals.dataeggs.gamestate.EmojiEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.HandEgg;
+import utils.jsonparsing.literals.dataeggs.gamestate.*;
+import utils.jsonparsing.literals.dataeggs.ninjarequest.NinjaRequestStatus;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -49,6 +47,7 @@ public class GamePage extends JPanel {
     int numberOfShurikens;
     ArrayList<String> shurikensStatus;
     ArrayList<EmojiEgg> lastStatusOfPlayers;
+    EmojiEgg myEmoji;
 
 
     public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
@@ -142,6 +141,8 @@ public class GamePage extends JPanel {
                     else if((x - 445) * (x - 445) + (y - 665) * (y - 665) <= 45 * 45){
                         clientNetwork.setEmoji(gameId, playerId, api.dataeggs.gamestate.Emoji.LOVING);
                     }
+
+//                    TODO
 
                     else if(cardsForPlayer.size() == 0){
                         return;
@@ -431,17 +432,18 @@ public class GamePage extends JPanel {
             double wCard = 140.0 * 6 / 10;
             double hCard = 121.0 * 6 / 10;
             if(i == 0){
-                g.drawImage(imageCard, (int) (21.0 * 6 / 10), (int) (850.0 * 6 / 10), (int) wCard, (int) hCard, null);
-            }
-            else if(i == 1){
-                g.drawImage(imageCard, (int) (21.0 * 6 / 10), (int) (32.0 * 6 / 10), (int) wCard, (int) hCard, null);
-            }
-            else if(i == 2){
-                g.drawImage(imageCard, (int) (840.0 * 6 / 10), (int) (32.0 * 6 / 10), (int) wCard, (int) hCard, null);
-            }
-            else if(i == 3){
                 g.drawImage(imageCard, (int) (840.0 * 6 / 10), (int) (850.0 * 6 / 10), (int) wCard, (int) hCard, null);
             }
+            else if(i == 1){
+                g.drawImage(imageCard, (int) (21.0 * 6 / 10), (int) (850.0 * 6 / 10), (int) wCard, (int) hCard, null);
+            }
+            else if(i == 2){
+                g.drawImage(imageCard, (int) (21.0 * 6 / 10), (int) (32.0 * 6 / 10), (int) wCard, (int) hCard, null);
+            }
+            else if(i == 3){
+                g.drawImage(imageCard, (int) (840.0 * 6 / 10), (int) (32.0 * 6 / 10), (int) wCard, (int) hCard, null);
+            }
+
         }
     }
 
@@ -856,11 +858,31 @@ public class GamePage extends JPanel {
                     }
 
                     lastStatusOfPlayers.clear();
+                    myEmoji = gameStateEgg.getEmojiEggOfCurrentPlayer();
+
+                    lastStatusOfPlayers.add(myEmoji);
                     for (int i = 0; i < gameStateEgg.getPlayerEmojisList().size(); i++) {
                         lastStatusOfPlayers.add(gameStateEgg.getPlayerEmojisList().get(i));
                     }
 
+                    myEmoji = gameStateEgg.getEmojiEggOfCurrentPlayer();
 
+                    if(gameStateEgg.thereHasBeenANinjaRequest()){
+                        ArrayList<NinjaRequestEgg> requestStates = (ArrayList) gameStateEgg.getNinjaRequestsList();
+                        for (int i = 0; i < requestStates.size(); i++) {
+                            if(requestStates.get(i).getPlayerId() == playerId & requestStates.get(i).getStatus() == NinjaRequestStatus.WAITING){
+                                int result = JOptionPane.showConfirmDialog(null,"Ninja card request" , "ninja card", JOptionPane.YES_NO_OPTION);;
+                                boolean state = false;
+                                if(result == JOptionPane.YES_OPTION){
+                                    clientNetwork.castNinjaVote(true, playerId, gameId);
+                                }
+                                else{
+                                    clientNetwork.castNinjaVote(false, playerId, gameId);
+                                }
+                            }
+                        }
+
+                    }
 
 
 

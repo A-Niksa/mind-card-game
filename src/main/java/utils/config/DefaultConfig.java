@@ -25,4 +25,5 @@ public class DefaultConfig {
     public static String IsGameStarted = "Is game started";
     public static String getHostId = "Get hos id";
     public static String setEmoji = "Set emoji";
+    public static String castNinjaCard = "Cast ninja card";
 }

@@ -158,7 +158,7 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(DefaultConfig.UseNinjaCard)){
             try {
-                API.useNinjaCard(inputStream.readInt(), inputStream.readInt());
+                API.useNinjaCard(inputStream.readInt());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -183,6 +183,14 @@ public class NetworkThread implements Runnable{
         else if(input.equals(DefaultConfig.setEmoji)){
             try {
                 API.setEmoji(inputStream.readInt(), inputStream.readInt(), inputStream.readUTF());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(input.equals(DefaultConfig.castNinjaCard)){
+            try {
+                API.castNinjaVote(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
             } catch (IOException e) {
                 e.printStackTrace();
             }
