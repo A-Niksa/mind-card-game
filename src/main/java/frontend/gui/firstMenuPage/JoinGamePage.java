@@ -71,7 +71,9 @@ public class JoinGamePage extends JPanel{
                     boolean can = clientNetwork.joinGame(arrayListIds.get(index), playerId);
                     if(can){
                         notClicked = false;
-                        new GamePage(clientNetwork, arrayListIds.get(index), playerId);
+                        int gameId = arrayListIds.get(index);
+                        System.out.println("gameId is : " + gameId);
+                        new GamePage(clientNetwork, gameId, playerId);
                         frame.dispose();
                     }
                     else{

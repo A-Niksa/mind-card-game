@@ -313,8 +313,8 @@ public class ClientNetwork {
             }
 
             outputStream.writeUTF(DefaultConfig.setEmoji);
-            outputStream.writeInt(playerId);
             outputStream.writeInt(gameId);
+            outputStream.writeInt(playerId);
             outputStream.writeUTF(emoji.name());
 
         }

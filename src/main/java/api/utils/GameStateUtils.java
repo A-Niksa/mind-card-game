@@ -63,4 +63,24 @@ public class GameStateUtils {
 
         return handEggsList;
     }
+
+    public static Emoji stringToEnum(String  emojiString){
+        Emoji emoji;
+        if(emojiString.toLowerCase().equals("ANGRY".toLowerCase())){
+            emoji = Emoji.ANGRY;
+        }
+        else if(emojiString.toLowerCase().equals("LAUGHING".toLowerCase())){
+            emoji = Emoji.LAUGHING;
+        }
+        else if(emojiString.toLowerCase().equals("LOVING".toLowerCase())){
+            emoji = Emoji.LOVING;
+        }
+        else if(emojiString.toLowerCase().equals("CRYING".toLowerCase())){
+            emoji = Emoji.CRYING;
+        }
+        else{
+            emoji = Emoji.NOTHING;
+        }
+        return emoji;
+    }
 }

@@ -130,19 +130,19 @@ public class GamePage extends JPanel {
                     else if(cardsForPlayer == null){
                         return;
                     }
-                    else if((x - 145) * (x - 145) + (y - 665) + (y - 665) <= 45 * 45){
-                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    else if((x - 145) * (x - 145) + (y - 665) * (y - 665) <= 45 * 45){
+                        clientNetwork.setEmoji(gameId, playerId, api.dataeggs.gamestate.Emoji.CRYING);
                     }
-                    else if((x - 245) * (x - 245) + (y - 665) + (y - 665) <= 45 * 45){
-                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    else if((x - 245) * (x - 245) + (y - 665) * (y - 665) <= 45 * 45){
+                        clientNetwork.setEmoji(gameId, playerId, api.dataeggs.gamestate.Emoji.ANGRY);
                     }
-                    else if((x - 350) * (x - 350) + (y - 665) + (y - 665) <= 45 * 45){
-                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    else if((x - 350) * (x - 350) + (y - 665) * (y - 665) <= 45 * 45){
+                        clientNetwork.setEmoji(gameId, playerId, api.dataeggs.gamestate.Emoji.LAUGHING);
                     }
-                    else if((x - 445) * (x - 445) + (y - 665) + (y - 665) <= 45 * 45){
-                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    else if((x - 445) * (x - 445) + (y - 665) * (y - 665) <= 45 * 45){
+                        clientNetwork.setEmoji(gameId, playerId, api.dataeggs.gamestate.Emoji.LOVING);
                     }
-                    
+
                     else if(cardsForPlayer.size() == 0){
                         return;
                     }
@@ -246,16 +246,16 @@ public class GamePage extends JPanel {
                     if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
-                    else if((x - 145) * (x - 145) + (y - 665) + (y - 665) <= 45 * 45){
+                    else if((x - 145) * (x - 145) + (y - 665) * (y - 665) <= 45 * 45){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
-                    else if((x - 245) * (x - 245) + (y - 665) + (y - 665) <= 45 * 45){
+                    else if((x - 245) * (x - 245) + (y - 665) * (y - 665) <= 45 * 45){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
-                    else if((x - 350) * (x - 350) + (y - 665) + (y - 665) <= 45 * 45){
+                    else if((x - 350) * (x - 350) + (y - 665) * (y - 665) <= 45 * 45){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
-                    else if((x - 445) * (x - 445) + (y - 665) + (y - 665) <= 45 * 45){
+                    else if((x - 445) * (x - 445) + (y - 665) * (y - 665) <= 45 * 45){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
                     else if(shurikensStatus.size() == 4){

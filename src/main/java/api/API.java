@@ -20,7 +20,9 @@ public class API {
         return game.getHostHumanId();
     }
 
-    public static void setEmoji(int gameId, int playerId, Emoji emoji) {
+    public static void setEmoji(int gameId, int playerId, String emojiString) {
+        Emoji emoji = GameStateUtils.stringToEnum(emojiString);
+
         Game game = GameManager.getGameById(gameId);
         GameStateUtils.setEmojiById(game, playerId, emoji);
     }
