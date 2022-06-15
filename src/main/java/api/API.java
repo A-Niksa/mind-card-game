@@ -64,7 +64,7 @@ public class API {
         // TODO: updates game and returns Gson of GameState ->
         // actionHasCausedLoss, smallestLossyCardNumber, hostId, isGameStarted, has there any ninja request, level, num of hearts, last card game on ground, num of players, number of cards on ground, hands (my player) , opponents hand meta data (sorted by id)
         //                                                                                                              exm:  60, 17 ,40 ,2 , 0 : 6 , 1 : 7 , 3 : 2
-        //
+
         Game game = GameManager.getGameById(gameId);
         GameStateEgg dataEgg = new GameStateEgg(game, currentHumanId);
 

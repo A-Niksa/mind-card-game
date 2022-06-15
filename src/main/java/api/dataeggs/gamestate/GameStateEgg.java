@@ -23,6 +23,7 @@ public class GameStateEgg extends DataEgg {
     private NinjaRequestStatus ninjaRequestStatus;
     private boolean latestActionHasCausedLoss;
     private int smallestCardNumberThatHasCausedLoss;
+    private int playerIdOfLatestAction;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -57,6 +58,7 @@ public class GameStateEgg extends DataEgg {
 
         latestActionHasCausedLoss = game.getActionLogger().latestActionHasCausedLoss();
         smallestCardNumberThatHasCausedLoss = game.getActionLogger().getSmallestCardNumberThatCausedLoss();
+        playerIdOfLatestAction = game.getActionLogger().getPlayerIdOfLatestAction();
     }
 
     public boolean gameHasStarted() {
@@ -110,5 +112,9 @@ public class GameStateEgg extends DataEgg {
 
     public int getSmallestCardNumberThatHasCausedLoss() {
         return smallestCardNumberThatHasCausedLoss;
+    }
+
+    public int getPlayerIdOfLatestAction() {
+        return playerIdOfLatestAction;
     }
 }

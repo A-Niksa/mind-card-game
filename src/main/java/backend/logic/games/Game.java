@@ -94,7 +94,7 @@ public class Game {
             JudgeUtils.scorchSmallerCards(this, cardToDrop);
         } else {
             droppingGround.dropCardOnGround(cardToDrop);
-            actionLogger.addAction(new Action()); // logs timestamp of the latest action
+            actionLogger.addAction(new Action(playerId)); // logs timestamp of the latest action
         }
 
 

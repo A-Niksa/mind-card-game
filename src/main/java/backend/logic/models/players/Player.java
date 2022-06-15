@@ -17,10 +17,6 @@ public abstract class Player {
         globalPlayerId++;
     }
 
-    public void getBackRejectedCard(NumberedCard card) {
-        hand.addCard(card);
-    }
-
     public void setHand(Hand hand) {
         this.hand = hand;
     }

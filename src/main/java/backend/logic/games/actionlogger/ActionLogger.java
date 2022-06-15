@@ -82,4 +82,13 @@ public class ActionLogger {
     public int getSmallestCardNumberThatCausedLoss() {
         return smallestCardNumberThatCausedLoss;
     }
+
+    public int getPlayerIdOfLatestAction() {
+        Action latestAction = actionsStack.peek();
+        if (latestAction == null) {
+            return -1;
+        }
+
+        return latestAction.getPlayerId();
+    }
 }
