@@ -21,6 +21,6 @@ public class JoinableGamesUtils {
     }
 
     private static boolean gameIsJoinable(Game game) {
-        return !game.gameHasBeenStarted() && game.getNumberOfPlayers() >= 4;
+        return !game.gameHasBeenStarted() && game.getNumberOfPlayers() < 4;
     }
 }
