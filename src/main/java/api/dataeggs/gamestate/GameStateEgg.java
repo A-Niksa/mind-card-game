@@ -2,11 +2,16 @@ package api.dataeggs.gamestate;
 
 import api.dataeggs.DataEgg;
 import api.dataeggs.DataEggType;
+import api.dataeggs.comparators.EmojiEggComparator;
+import api.dataeggs.comparators.HandEggComparator;
 import api.dataeggs.ninjarequest.NinjaRequestStatus;
 import api.utils.GameStateUtils;
 import backend.logic.games.Game;
 import backend.logic.games.components.Hand;
+import backend.logic.models.players.Human;
+import backend.logic.models.players.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateEgg extends DataEgg {
@@ -24,6 +29,7 @@ public class GameStateEgg extends DataEgg {
     private boolean latestActionHasCausedLoss;
     private int smallestCardNumberThatHasCausedLoss;
     private int playerIdOfLatestAction;
+    private List<EmojiEgg> playerEmojisList;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -59,6 +65,18 @@ public class GameStateEgg extends DataEgg {
         latestActionHasCausedLoss = game.getActionLogger().latestActionHasCausedLoss();
         smallestCardNumberThatHasCausedLoss = game.getActionLogger().getSmallestCardNumberThatCausedLoss();
         playerIdOfLatestAction = game.getActionLogger().getPlayerIdOfLatestAction();
+
+        initializeAndFillPlayerEmojisList(game);
+    }
+
+    private void initializeAndFillPlayerEmojisList(Game game) {
+        playerEmojisList = new ArrayList<>();
+        for (Player player : game.getPlayersList()) {
+            if (!player.isBot()) {
+                Human human = (Human) player;
+                playerEmojisList.add(new EmojiEgg(human.getPlayerId(), human.getSelectedEmoji()));
+            }
+        }
     }
 
     public boolean gameHasStarted() {
@@ -91,6 +109,7 @@ public class GameStateEgg extends DataEgg {
     }
 
     public List<HandEgg> getHandsOfOtherPlayersList() {
+        handsOfOtherPlayersList.sort(new HandEggComparator());
         return handsOfOtherPlayersList;
     }
 
@@ -116,5 +135,10 @@ public class GameStateEgg extends DataEgg {
 
     public int getPlayerIdOfLatestAction() {
         return playerIdOfLatestAction;
+    }
+
+    public List<EmojiEgg> getPlayerEmojisList() {
+        playerEmojisList.sort(new EmojiEggComparator());
+        return playerEmojisList;
     }
 }
