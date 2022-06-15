@@ -74,7 +74,7 @@ public class GameStateEgg extends DataEgg {
         shouldShowSmallestCards = game.getNinjaHandler().shouldShowSmallestCards();
         smallestCardsList = game.getNinjaHandler().getSmallestCardsList();
 
-        numberOfNinjaCards = game.getDeck().getNumberOfNinjaCards(); // dummy push
+        numberOfNinjaCards = game.getDeck().getNumberOfNinjaCards();
     }
 
     public int getNumberOfHumans() {
