@@ -80,8 +80,9 @@ public class NinjaHandler {
         } else {
             NinjaRequest request = ninjaRequestsStack.peek();
             request.addVote(human, agreesWithRequest);
-            if (agreesWithRequest) {
+            if (!agreesWithRequest) {
                 ninjaRequestsStack.remove();
+                GameManager.restartGameThreads(gameId);
             }
         }
     }
