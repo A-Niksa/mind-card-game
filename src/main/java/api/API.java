@@ -78,11 +78,6 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static String useNinjaCard(int gameId) {
-        // TODO: moveWasValid, ... ?
-        return "";
-    }
-
     public static String makeMove(int gameId, int playerId, int cardIndex) {
         // moveWasValid, doesMoveCauseLossOfHeart, smallestCardThatHasCausedLoss (if the second boolean is true)
         Game game = GameManager.getGameById(gameId);
@@ -104,7 +99,7 @@ public class API {
         return GameManager.startGameById(gameId);
     }
 
-    public static String useNinjaCard(int gameId, int playerId){
+    public static String useNinjaCard(int gameId){
         // welp: should remove playerId
         ArrayList<CardAndPlayerTuple> smallestCardsList = GameManager.dropNinjaCardInGame(gameId);
 
