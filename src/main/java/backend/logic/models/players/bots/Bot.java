@@ -64,12 +64,12 @@ public abstract class Bot extends Player implements Runnable {
 
     private int getTimeToSleep() {
         long latestActionTimeDifference = GameManager.getLatestActionTimeDifferenceOfGame(joinedGameId);
-        double calculatedSleepTime = (latestActionTimeDifference / 1000.0 +
-                (getNumberOfCards() * 1.0 / AVERAGING_DIVISION_CONSTANT)) / 2 +
-                ADDITIONAL_WAITING_CONSTANT;
+        double calculatedSleepTime = (latestActionTimeDifference +
+                (getNumberOfCards() * 1000.0 / AVERAGING_DIVISION_CONSTANT)) / 2 +
+                ADDITIONAL_WAITING_CONSTANT * 1000.0;
 
-        System.out.println((int) calculatedSleepTime * 1000);
-        return (int) calculatedSleepTime * 1000;
+        System.out.println((int) calculatedSleepTime);
+        return (int) calculatedSleepTime;
     }
 
     private void sleepFor(int milliseconds) {

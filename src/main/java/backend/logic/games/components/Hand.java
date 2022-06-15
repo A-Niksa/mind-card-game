@@ -29,6 +29,10 @@ public class Hand {
         numberedCardsList.remove(0);
     }
 
+    public void removeCard(NumberedCard card) {
+        numberedCardsList.remove(card);
+    }
+
     public void sortHand() {
         numberedCardsList.sort(comparator);
     }
