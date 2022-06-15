@@ -1,6 +1,7 @@
 package api.utils;
 
 import api.dataeggs.gamestate.Emoji;
+import api.dataeggs.gamestate.EmojiEgg;
 import api.dataeggs.gamestate.HandEgg;
 import api.dataeggs.gamestate.NinjaRequestEgg;
 import api.dataeggs.ninjarequest.NinjaRequestStatus;
@@ -18,6 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 public class GameStateUtils {
+    public static EmojiEgg getEmojiById(Game game, int playerId) {
+        Human human = (Human) getPlayerById(game, playerId);
+        return new EmojiEgg(playerId, human.getSelectedEmoji());
+    }
+
     public static ArrayList<NinjaRequestEgg> getNinjaRequestsList(Game game) {
         ArrayList<NinjaRequestEgg> ninjaRequestEggsList = new ArrayList<>();
 
