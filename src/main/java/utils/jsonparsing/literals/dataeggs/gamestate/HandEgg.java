@@ -4,7 +4,7 @@ import backend.logic.games.components.Hand;
 import utils.jsonparsing.literals.dataeggs.DataEgg;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
 
-public class HandEgg extends DataEgg {
+public class HandEgg extends DataEgg implements Comparable<HandEgg> {
     private int playerId;
     private Hand playerHand;
 
@@ -22,5 +22,10 @@ public class HandEgg extends DataEgg {
     public Hand getPlayerHand() {
         playerHand.sortHand();
         return playerHand;
+    }
+
+    @Override
+    public int compareTo(HandEgg handEgg) {
+        return playerId - handEgg.getPlayerId();
     }
 }

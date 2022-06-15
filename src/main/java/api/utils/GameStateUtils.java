@@ -1,17 +1,26 @@
 package api.utils;
 
+import api.dataeggs.gamestate.Emoji;
 import api.dataeggs.gamestate.HandEgg;
 import api.dataeggs.ninjarequest.NinjaRequestStatus;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
 import backend.logic.games.components.Hand;
 import backend.logic.games.components.ninjahandling.NinjaHandler;
+import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateUtils {
+    public static void setEmojiById(Game game, int playerId,  Emoji emoji) {
+        Player player = getPlayerById(game, playerId);
+        if (!player.isBot()) {
+            ((Human) player).setSelectedEmoji(emoji);
+        }
+    }
+
     public static NinjaRequestStatus getNinjaRequestStatus(int gameId) {
         Game game = GameManager.getGameById(gameId);
         NinjaHandler ninjaHandler = game.getNinjaHandler();

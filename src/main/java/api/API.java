@@ -2,13 +2,11 @@ package api;
 
 import api.dataeggs.MakingMoveEgg;
 import api.dataeggs.NewGameEgg;
+import api.dataeggs.gamestate.Emoji;
 import api.dataeggs.gamestate.GameStateEgg;
 import api.dataeggs.joinablegames.JoinableGamesEgg;
 import api.dataeggs.ninjarequest.NinjaMoveEgg;
-import api.utils.GsonUtils;
-import api.utils.JoinableGamesUtils;
-import api.utils.MakingMoveUtils;
-import api.utils.NinjaRequestUtils;
+import api.utils.*;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
@@ -20,6 +18,11 @@ public class API {
     public static int getHostId(int gameId) {
         Game game = GameManager.getGameById(gameId);
         return game.getHostHumanId();
+    }
+
+    public static void setEmoji(int gameId, int playerId, Emoji emoji) {
+        Game game = GameManager.getGameById(gameId);
+        GameStateUtils.setEmojiById(game, playerId, emoji);
     }
 
     public static int addNewPlayerToLobby() {

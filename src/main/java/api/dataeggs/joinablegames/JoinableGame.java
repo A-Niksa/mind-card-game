@@ -1,6 +1,6 @@
 package api.dataeggs.joinablegames;
 
-public class JoinableGame {
+public class JoinableGame implements Comparable<JoinableGame> {
     private int gameId;
     private int numberOfFreePlayers;
     private int numberOfBots;
@@ -21,5 +21,10 @@ public class JoinableGame {
 
     public int getNumberOfBots() {
         return numberOfBots;
+    }
+
+    @Override
+    public int compareTo(JoinableGame joinableGame) {
+        return gameId - joinableGame.getGameId();
     }
 }

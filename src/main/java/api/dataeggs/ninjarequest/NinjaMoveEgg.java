@@ -1,6 +1,6 @@
 package api.dataeggs.ninjarequest;
 
-import api.dataeggs.gamestate.HandEgg;
+import api.dataeggs.comparators.DroppedCardComparator;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 
 import java.util.ArrayList;

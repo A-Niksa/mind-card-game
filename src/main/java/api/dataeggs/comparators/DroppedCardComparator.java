@@ -1,4 +1,6 @@
-package api.dataeggs.ninjarequest;
+package api.dataeggs.comparators;
+
+import api.dataeggs.ninjarequest.DroppedCardEgg;
 
 import java.util.Comparator;
 

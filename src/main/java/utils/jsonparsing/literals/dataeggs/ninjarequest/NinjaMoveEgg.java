@@ -1,6 +1,7 @@
 package utils.jsonparsing.literals.dataeggs.ninjarequest;
 
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
+import utils.jsonparsing.literals.dataeggs.comparators.DroppedCardComparator;
 
 import java.util.ArrayList;
 import java.util.List;
