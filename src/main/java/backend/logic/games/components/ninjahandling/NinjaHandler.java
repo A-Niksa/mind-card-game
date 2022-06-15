@@ -80,8 +80,9 @@ public class NinjaHandler {
         } else {
             NinjaRequest request = ninjaRequestsStack.peek();
             request.addVote(human, agreesWithRequest);
-            if (agreesWithRequest) {
+            if (!agreesWithRequest) {
                 ninjaRequestsStack.remove();
+                GameManager.restartGameThreads(gameId);
             }
         }
     }
@@ -94,7 +95,7 @@ public class NinjaHandler {
         NinjaRequest request = ninjaRequestsStack.peek();
 
         if(request == null){
-
+            return NinjaRequestStatus.WAITING;
         }
         else if (request.allHumanVotesHaveBeenCast()) {
             if (request.allHumansHaveAgreedOnNinjaRequest()) {
