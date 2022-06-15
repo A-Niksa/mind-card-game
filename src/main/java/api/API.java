@@ -116,6 +116,6 @@ public class API {
         Human human = NinjaRequestUtils.getHumanById(gameId, playerId);
         GameManager.castVoteForNinjaRequestInGame(gameId, human, agreesWithRequest);
 
-        return NinjaRequestUtils.ninjaRequestHasBeenCompleted(gameId);
+        return NinjaRequestUtils.ninjaRequestHasBeenCompleted(gameId); // dummy welp
     }
 }
