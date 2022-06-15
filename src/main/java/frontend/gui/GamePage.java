@@ -201,7 +201,7 @@ public class GamePage extends JPanel {
 
                     }
 
-                    System.out.println(x + " " + (start + counter));
+//                    System.out.println(x + " " + (start + counter));
 
 
                     if(heart == 0){
@@ -782,6 +782,11 @@ public class GamePage extends JPanel {
                         numberOfCardForOtherPlayers.add(handDataEggs.get(i).getPlayerHand().getNumberedCardsList().size());
                     }
 
+                    isCauseLooseOfHeartBecauseOfOtherPlayer = gameStateEgg.latestActionHasCausedLoss();
+                    if(isCauseLooseOfHeartBecauseOfOtherPlayer){
+                        JOptionPane.showMessageDialog(null, "Cause lost of heart because card of "
+                                + gameStateEgg.getSmallestCardNumberThatHasCausedLoss(), "Lose heart" , JOptionPane.INFORMATION_MESSAGE);
+                    }
                     if(hasThereAnyNinjaRequest){
 //                        TODO
                     }
