@@ -1,23 +1,30 @@
 package backend.logic.games.components.ninjahandling;
 
+import api.dataeggs.ninjarequest.NinjaRequestStatus;
 import backend.logic.models.players.Human;
 
 import java.util.HashMap;
 
+import static api.dataeggs.ninjarequest.NinjaRequestStatus.*;
+
 public class NinjaRequest {
     private int numberOfHumansInGame;
-    private HashMap<Human, Boolean> humanVotesMap;
+    private HashMap<Human, NinjaRequestStatus> humanVotesMap;
 
     public NinjaRequest(Human human, int numberOfHumansInGame) {
         humanVotesMap = new HashMap<>();
-        humanVotesMap.put(human, Boolean.TRUE);
+        humanVotesMap.put(human, WAITING);
 
         this.numberOfHumansInGame = numberOfHumansInGame;
     }
 
     public void addVote(Human human, boolean agreesToNinjaRequest) {
         if (!humanVotesMap.containsKey(human)) {
-            humanVotesMap.put(human, agreesToNinjaRequest);
+            if (agreesToNinjaRequest) {
+                humanVotesMap.put(human, ACCEPTED);
+            } else {
+                humanVotesMap.put(human, REJECTED);
+            }
         }
     }
 
@@ -26,12 +33,16 @@ public class NinjaRequest {
     }
 
     public boolean allHumansHaveAgreedOnNinjaRequest() {
-        for (Boolean humanHasAgreed : humanVotesMap.values()) {
-            if (!humanHasAgreed) {
+        for (NinjaRequestStatus requestStatus : humanVotesMap.values()) {
+            if (requestStatus != ACCEPTED) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    public HashMap<Human, NinjaRequestStatus> getHumanVotesMap() {
+        return humanVotesMap;
     }
 }

@@ -25,6 +25,18 @@ public class NinjaHandler {
         this.numberOfHumansInGame = numberOfHumansInGame;
         this.playersList = playersList;
         ninjaRequestsStack = new ArrayDeque<>();
+        fillNinjaRequestsStack();
+    }
+
+    private void fillNinjaRequestsStack() {
+        Game game = GameManager.getGameById(gameId);
+        int numberOfHumans = game.getNumberOfPlayers() - game.getNumberOfBots();
+        for (Player player : playersList) {
+            if (!player.isBot()) {
+                Human human = (Human) player;
+                ninjaRequestsStack.offer(new NinjaRequest(human, numberOfHumans));
+            }
+        }
     }
 
     public ArrayList<CardAndPlayerTuple> carryOutRequestAndReturnDroppedCards() {
@@ -68,6 +80,9 @@ public class NinjaHandler {
         } else {
             NinjaRequest request = ninjaRequestsStack.peek();
             request.addVote(human, agreesWithRequest);
+            if (agreesWithRequest) {
+                ninjaRequestsStack.remove();
+            }
         }
     }
 
@@ -90,5 +105,9 @@ public class NinjaHandler {
         }
 
         return NinjaRequestStatus.WAITING;
+    }
+
+    public Deque<NinjaRequest> getNinjaRequestsStack() {
+        return ninjaRequestsStack;
     }
 }

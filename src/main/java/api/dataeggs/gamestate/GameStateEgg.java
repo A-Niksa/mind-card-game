@@ -25,7 +25,7 @@ public class GameStateEgg extends DataEgg {
     private Hand handOfCurrentPlayer;
     private List<HandEgg> handsOfOtherPlayersList;
     private boolean thereHasBeenANinjaRequest;
-    private NinjaRequestStatus ninjaRequestStatus;
+    private List<NinjaRequestEgg> ninjaRequestsList;
     private boolean latestActionHasCausedLoss;
     private int smallestCardNumberThatHasCausedLoss;
     private int playerIdOfLatestAction;
@@ -60,7 +60,7 @@ public class GameStateEgg extends DataEgg {
         handsOfOtherPlayersList = GameStateUtils.getHandsOfPlayersOtherThanCurrentById(game, playerId);
 
         thereHasBeenANinjaRequest = GameStateUtils.thereHasBeenANinjaRequestInGame(game.getGameId());
-        ninjaRequestStatus = GameStateUtils.getNinjaRequestStatus(game.getGameId());
+        ninjaRequestsList = GameStateUtils.getNinjaRequestsList(game);
 
         latestActionHasCausedLoss = game.getActionLogger().latestActionHasCausedLoss();
         smallestCardNumberThatHasCausedLoss = game.getActionLogger().getSmallestCardNumberThatCausedLoss();
@@ -119,8 +119,8 @@ public class GameStateEgg extends DataEgg {
         return thereHasBeenANinjaRequest;
     }
 
-    public NinjaRequestStatus getNinjaRequestStatus() {
-        return ninjaRequestStatus;
+    public List<NinjaRequestEgg> getNinjaRequestsList() {
+        return ninjaRequestsList;
     }
 
     public int getHostId() {
