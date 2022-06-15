@@ -12,6 +12,8 @@ public class BotGenerationUtils {
     public static void giveHandsToPlayersFromDeck(List<Player> playersList, Deck deck, int numberOfCardsPerHand) {
         for (Player player : playersList) {
             player.setHand(deck.getRandomHand(numberOfCardsPerHand));
+
+
         }
     }
 

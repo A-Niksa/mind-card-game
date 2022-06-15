@@ -28,7 +28,8 @@ public abstract class Bot extends Player implements Runnable {
                 } catch (InterruptedException e) {
                     break;
                 }
-            } else if (hand.hasAnyCards()) {
+            }
+            else if (hand.hasAnyCards()) {
                 try {
                     Thread.sleep(getTimeToSleep());
                 } catch (InterruptedException e) {
@@ -47,8 +48,8 @@ public abstract class Bot extends Player implements Runnable {
 
                 GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
             }
-            else {
 
+            else {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

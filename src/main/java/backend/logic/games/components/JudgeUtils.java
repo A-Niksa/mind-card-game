@@ -12,9 +12,9 @@ public class JudgeUtils {
     public static synchronized void scorchSmallerCards(Game game, NumberedCard droppedCard) {
         ArrayList<Hand> handsList = getHandsOfAllPlayers(game);
         for (Hand hand : handsList) {
-            for (NumberedCard card : hand.getNumberedCardsList()) {
-                if (card.getCardNumber() < droppedCard.getCardNumber()) {
-                    hand.removeCard(card);
+            for (int i = 0; i < hand.getNumberedCardsList().size(); i++) {
+                if (hand.getNumberedCardsList().get(i).getCardNumber() < droppedCard.getCardNumber()) {
+                    hand.removeCard(hand.getNumberedCardsList().get(i));
                 }
             }
         }
@@ -62,6 +62,9 @@ public class JudgeUtils {
         NumberedCardComparator comparator = new NumberedCardComparator();
         cardsOfAllPlayersList.sort(comparator);
 
+        if(cardsOfAllPlayersList.size() == 0){
+            return true;
+        }
         return cardsOfAllPlayersList.get(0).getCardNumber() == cardToDrop.getCardNumber();
     }
 
@@ -69,6 +72,7 @@ public class JudgeUtils {
         ArrayList<NumberedCard> cardsOfAllPlayersList = new ArrayList<>();
         List<NumberedCard> cardsOfEachPlayerList;
         for (Player player : game.getPlayersList()) {
+
             cardsOfEachPlayerList = player.getHand().getNumberedCardsList();
             cardsOfAllPlayersList.addAll(cardsOfEachPlayerList);
         }

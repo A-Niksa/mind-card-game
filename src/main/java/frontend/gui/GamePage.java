@@ -142,6 +142,7 @@ public class GamePage extends JPanel {
                             JOptionPane.showMessageDialog(null, "Move wasn't valid", "Error!!" , JOptionPane.ERROR_MESSAGE);
                         }
                         else if(makingMoveEgg.moveCausesLossOfHealth()){
+                            System.out.println(makingMoveEgg.getNumberOfSmallestCardThatHasCausedLoss());
                             JOptionPane.showMessageDialog(null, "Cause lost of heart because card of " + makingMoveEgg.getNumberOfSmallestCardThatHasCausedLoss() , "Lose heart" , JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
