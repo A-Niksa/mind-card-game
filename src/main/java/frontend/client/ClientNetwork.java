@@ -1,5 +1,6 @@
 package frontend.client;
 
+import api.dataeggs.gamestate.Emoji;
 import utils.config.DefaultConfig;
 
 import java.io.DataInputStream;
@@ -295,6 +296,27 @@ public class ClientNetwork {
             outputStream.writeBoolean(requestStatus);
             outputStream.writeInt(playerId);
             outputStream.writeInt(gameId);
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setEmoji(int gameId, int playerId, Emoji emoji){
+
+        try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return;
+            }
+
+            outputStream.writeUTF(DefaultConfig.setEmoji);
+            outputStream.writeInt(playerId);
+            outputStream.writeInt(gameId);
+            outputStream.writeUTF(emoji.name());
+
         }
 
         catch (IOException e) {

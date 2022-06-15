@@ -180,5 +180,13 @@ public class NetworkThread implements Runnable{
             }
         }
 
+        else if(input.equals(DefaultConfig.setEmoji)){
+            try {
+                outputStream.writeInt(API.setEmoji(inputStream.readInt(), inputStream.readInt(), inputStream.readUTF())));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

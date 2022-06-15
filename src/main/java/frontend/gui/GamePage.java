@@ -8,6 +8,8 @@ import frontend.client.ClientNetwork;
 import utils.jsonparsing.JsonParser;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
 import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
+import utils.jsonparsing.literals.dataeggs.gamestate.Emoji;
+import utils.jsonparsing.literals.dataeggs.gamestate.EmojiEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
 import utils.jsonparsing.literals.dataeggs.gamestate.HandEgg;
 
@@ -46,7 +48,7 @@ public class GamePage extends JPanel {
     int numCardCauseLooseOfHeartBecauseOfOtherPlayer;
     int numberOfShurikens;
     ArrayList<String> shurikensStatus;
-    ArrayList<String> lastStatusOfPlayers;
+    ArrayList<EmojiEgg> lastStatusOfPlayers;
 
 
     public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
@@ -55,6 +57,7 @@ public class GamePage extends JPanel {
         numberOfShurikens = 0;
         heart = 1;
         shurikensStatus = new ArrayList<>();
+        lastStatusOfPlayers = new ArrayList<>();
 
         for (int i = 0; i < numberOfShurikens; i++) {
             shurikensStatus.add("shuriken.png");
@@ -127,7 +130,19 @@ public class GamePage extends JPanel {
                     else if(cardsForPlayer == null){
                         return;
                     }
-
+                    else if((x - 145) * (x - 145) + (y - 665) + (y - 665) <= 45 * 45){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    else if((x - 245) * (x - 245) + (y - 665) + (y - 665) <= 45 * 45){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    else if((x - 350) * (x - 350) + (y - 665) + (y - 665) <= 45 * 45){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    else if((x - 445) * (x - 445) + (y - 665) + (y - 665) <= 45 * 45){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    
                     else if(cardsForPlayer.size() == 0){
                         return;
                     }
@@ -170,7 +185,6 @@ public class GamePage extends JPanel {
             public void mouseMoved(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-
 
                 if(!isGameStarted){
                     if(hostId == playerId){
@@ -230,6 +244,18 @@ public class GamePage extends JPanel {
 
 
                     if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    else if((x - 145) * (x - 145) + (y - 665) + (y - 665) <= 45 * 45){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    else if((x - 245) * (x - 245) + (y - 665) + (y - 665) <= 45 * 45){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    else if((x - 350) * (x - 350) + (y - 665) + (y - 665) <= 45 * 45){
+                        setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    else if((x - 445) * (x - 445) + (y - 665) + (y - 665) <= 45 * 45){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
                     else if(shurikensStatus.size() == 4){
@@ -376,9 +402,47 @@ public class GamePage extends JPanel {
             printGameLevel(g);
             printLastCardInGround(g);
             printShuriken(g);
-
+            printEmojis(g);
         }
 
+    }
+
+    public void printEmojis(Graphics g){
+        for (int i = 0; i < lastStatusOfPlayers.size(); i++) {
+            if(lastStatusOfPlayers.get(i).getPlayerId() == -1){
+                continue;
+            }
+            else if(lastStatusOfPlayers.get(i).getEmoji() == Emoji.NOTHING){
+                continue;
+            }
+
+            BufferedImage imageCard = null;
+            try {
+                File file = new File(DefaultConfig.publicNameForPath + lastStatusOfPlayers.get(i).getEmoji() + ".png");
+                imageCard = ImageIO.read(file);
+            }
+
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            double start = 160.0 * 6 / 10;
+
+            double wCard = 140.0 * 6 / 10;
+            double hCard = 121.0 * 6 / 10;
+            if(i == 0){
+                g.drawImage(imageCard, (int) (21.0 * 6 / 10), (int) (850.0 * 6 / 10), (int) wCard, (int) hCard, null);
+            }
+            else if(i == 1){
+                g.drawImage(imageCard, (int) (21.0 * 6 / 10), (int) (32.0 * 6 / 10), (int) wCard, (int) hCard, null);
+            }
+            else if(i == 2){
+                g.drawImage(imageCard, (int) (840.0 * 6 / 10), (int) (32.0 * 6 / 10), (int) wCard, (int) hCard, null);
+            }
+            else if(i == 3){
+                g.drawImage(imageCard, (int) (840.0 * 6 / 10), (int) (850.0 * 6 / 10), (int) wCard, (int) hCard, null);
+            }
+        }
     }
 
     public void printShuriken(Graphics g){
@@ -791,7 +855,12 @@ public class GamePage extends JPanel {
                         }
                     }
 
-                    
+                    lastStatusOfPlayers.clear();
+                    for (int i = 0; i < gameStateEgg.getPlayerEmojisList().size(); i++) {
+                        lastStatusOfPlayers.add(gameStateEgg.getPlayerEmojisList().get(i));
+                    }
+
+
 
 
 
