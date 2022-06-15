@@ -112,8 +112,10 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static void castNinjaVote(boolean agreesWithRequest, int playerId, int gameId) {
+    public static boolean castNinjaVote(boolean agreesWithRequest, int playerId, int gameId) {
         Human human = NinjaRequestUtils.getHumanById(gameId, playerId);
         GameManager.castVoteForNinjaRequestInGame(gameId, human, agreesWithRequest);
+
+        return NinjaRequestUtils.ninjaRequestHasBeenCompleted(gameId);
     }
 }
