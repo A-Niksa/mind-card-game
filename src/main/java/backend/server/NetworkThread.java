@@ -150,7 +150,7 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(DefaultConfig.SendRequest)){
             try {
-                API.sendNinjaRequest(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
+                API.castNinjaVote(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
             } catch (IOException e) {
                 e.printStackTrace();
             }

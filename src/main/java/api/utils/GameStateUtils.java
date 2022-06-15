@@ -1,19 +1,44 @@
 package api.utils;
 
 import api.dataeggs.gamestate.Emoji;
+import api.dataeggs.gamestate.EmojiEgg;
 import api.dataeggs.gamestate.HandEgg;
+import api.dataeggs.gamestate.NinjaRequestEgg;
 import api.dataeggs.ninjarequest.NinjaRequestStatus;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
 import backend.logic.games.components.Hand;
 import backend.logic.games.components.ninjahandling.NinjaHandler;
+import backend.logic.games.components.ninjahandling.NinjaRequest;
 import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 
 public class GameStateUtils {
+    public static EmojiEgg getEmojiById(Game game, int playerId) {
+        Human human = (Human) getPlayerById(game, playerId);
+        return new EmojiEgg(playerId, human.getSelectedEmoji());
+    }
+
+    public static ArrayList<NinjaRequestEgg> getNinjaRequestsList(Game game) {
+        ArrayList<NinjaRequestEgg> ninjaRequestEggsList = new ArrayList<>();
+
+        NinjaHandler handler = game.getNinjaHandler();
+        Deque<NinjaRequest> ninjaRequestsStack = handler.getNinjaRequestsStack();
+        NinjaRequest ninjaRequest = ninjaRequestsStack.peek();
+        for (Map.Entry<Human, NinjaRequestStatus> entry : ninjaRequest.getHumanVotesMap().entrySet()) {
+            NinjaRequestEgg requestEgg = new NinjaRequestEgg(entry.getKey().getPlayerId(),
+                    entry.getValue());
+            ninjaRequestEggsList.add(requestEgg);
+        }
+
+        return ninjaRequestEggsList;
+    }
+
     public static void setEmojiById(Game game, int playerId,  Emoji emoji) {
         Player player = getPlayerById(game, playerId);
         if (!player.isBot()) {

@@ -4,7 +4,6 @@ import api.dataeggs.DataEgg;
 import api.dataeggs.DataEggType;
 import api.dataeggs.comparators.EmojiEggComparator;
 import api.dataeggs.comparators.HandEggComparator;
-import api.dataeggs.ninjarequest.NinjaRequestStatus;
 import api.utils.GameStateUtils;
 import backend.logic.games.Game;
 import backend.logic.games.components.Hand;
@@ -25,11 +24,12 @@ public class GameStateEgg extends DataEgg {
     private Hand handOfCurrentPlayer;
     private List<HandEgg> handsOfOtherPlayersList;
     private boolean thereHasBeenANinjaRequest;
-    private NinjaRequestStatus ninjaRequestStatus;
+    private List<NinjaRequestEgg> ninjaRequestsList;
     private boolean latestActionHasCausedLoss;
     private int smallestCardNumberThatHasCausedLoss;
     private int playerIdOfLatestAction;
     private List<EmojiEgg> playerEmojisList;
+    private EmojiEgg emojiEggOfCurrentPlayer;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -60,23 +60,26 @@ public class GameStateEgg extends DataEgg {
         handsOfOtherPlayersList = GameStateUtils.getHandsOfPlayersOtherThanCurrentById(game, playerId);
 
         thereHasBeenANinjaRequest = GameStateUtils.thereHasBeenANinjaRequestInGame(game.getGameId());
-        ninjaRequestStatus = GameStateUtils.getNinjaRequestStatus(game.getGameId());
+        ninjaRequestsList = GameStateUtils.getNinjaRequestsList(game);
 
         latestActionHasCausedLoss = game.getActionLogger().latestActionHasCausedLoss();
         smallestCardNumberThatHasCausedLoss = game.getActionLogger().getSmallestCardNumberThatCausedLoss();
         playerIdOfLatestAction = game.getActionLogger().getPlayerIdOfLatestAction();
 
-        initializeAndFillPlayerEmojisList(game);
+        initializeAndFillPlayerEmojisList(game, playerId);
+        emojiEggOfCurrentPlayer = GameStateUtils.getEmojiById(game, playerId);
     }
 
-    private void initializeAndFillPlayerEmojisList(Game game) {
+    private void initializeAndFillPlayerEmojisList(Game game, int playerId) {
         playerEmojisList = new ArrayList<>();
         for (Player player : game.getPlayersList()) {
-            if (!player.isBot()) {
-                Human human = (Human) player;
-                playerEmojisList.add(new EmojiEgg(human.getPlayerId(), human.getSelectedEmoji()));
-            } else {
-                playerEmojisList.add(new EmojiEgg(-1, Emoji.NOTHING));
+            if (playerId != player.getPlayerId()) { // we just add players except the current client player
+                if (!player.isBot()) {
+                    Human human = (Human) player;
+                    playerEmojisList.add(new EmojiEgg(human.getPlayerId(), human.getSelectedEmoji()));
+                } else {
+                    playerEmojisList.add(new EmojiEgg(-1, Emoji.NOTHING));
+                }
             }
         }
     }
@@ -119,8 +122,8 @@ public class GameStateEgg extends DataEgg {
         return thereHasBeenANinjaRequest;
     }
 
-    public NinjaRequestStatus getNinjaRequestStatus() {
-        return ninjaRequestStatus;
+    public List<NinjaRequestEgg> getNinjaRequestsList() {
+        return ninjaRequestsList;
     }
 
     public int getHostId() {
@@ -142,5 +145,9 @@ public class GameStateEgg extends DataEgg {
     public List<EmojiEgg> getPlayerEmojisList() {
         playerEmojisList.sort(new EmojiEggComparator());
         return playerEmojisList;
+    }
+
+    public EmojiEgg getEmojiEggOfCurrentPlayer() {
+        return emojiEggOfCurrentPlayer;
     }
 }

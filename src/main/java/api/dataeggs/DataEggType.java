@@ -7,5 +7,6 @@ public enum DataEggType {
     JOINABLE_GAMES_EGG,
     HAND_EGG,
     DROPPED_CARD_EGG,
-    EMOJI_EGG
+    EMOJI_EGG,
+    NINJA_REQUEST_EGG
 }
