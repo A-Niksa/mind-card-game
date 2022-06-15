@@ -2,6 +2,7 @@ package utils.jsonparsing.literals.dataeggs.gamestate;
 
 import backend.logic.games.Game;
 import backend.logic.games.components.Hand;
+import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 import utils.jsonparsing.literals.dataeggs.DataEgg;
@@ -31,6 +32,9 @@ public class GameStateEgg extends DataEgg {
     private int playerIdOfLatestAction;
     private List<EmojiEgg> playerEmojisList;
     private EmojiEgg emojiEggOfCurrentPlayer;
+    private boolean shouldShowSmallestCards;
+    private List<CardAndPlayerTuple> smallestCardsList;
+    private int numberOfNinjaCards;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -66,6 +70,11 @@ public class GameStateEgg extends DataEgg {
         latestActionHasCausedLoss = game.getActionLogger().latestActionHasCausedLoss();
         smallestCardNumberThatHasCausedLoss = game.getActionLogger().getSmallestCardNumberThatCausedLoss();
         playerIdOfLatestAction = game.getActionLogger().getPlayerIdOfLatestAction();
+
+        shouldShowSmallestCards = game.getNinjaHandler().shouldShowSmallestCards();
+        smallestCardsList = game.getNinjaHandler().getSmallestCardsList();
+
+        numberOfNinjaCards = game.getDeck().getNumberOfNinjaCards();
     }
 
     public int getNumberOfHumans() {
@@ -137,5 +146,17 @@ public class GameStateEgg extends DataEgg {
 
     public EmojiEgg getEmojiEggOfCurrentPlayer() {
         return emojiEggOfCurrentPlayer;
+    }
+
+    public boolean shouldShowSmallestCards() {
+        return shouldShowSmallestCards;
+    }
+
+    public List<CardAndPlayerTuple> getSmallestCardsList() {
+        return smallestCardsList;
+    }
+
+    public int getNumberOfNinjaCards() {
+        return numberOfNinjaCards;
     }
 }

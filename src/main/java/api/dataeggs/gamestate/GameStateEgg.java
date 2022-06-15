@@ -173,4 +173,8 @@ public class GameStateEgg extends DataEgg {
     public List<CardAndPlayerTuple> getSmallestCardsList() {
         return smallestCardsList;
     }
+
+    public int getNumberOfNinjaCards() {
+        return numberOfNinjaCards;
+    }
 }
