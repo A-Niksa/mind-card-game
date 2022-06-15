@@ -142,14 +142,17 @@ public class GamePage extends JPanel {
                         clientNetwork.setEmoji(gameId, playerId, api.dataeggs.gamestate.Emoji.LOVING);
                     }
 
-//                    TODO
 
                     else if(cardsForPlayer.size() == 0){
                         return;
                     }
+
+
                     if(cardsForPlayer.size() == 1){
                         counter = (int) (distance / (2));
                     }
+
+
 
                     if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
 
@@ -161,6 +164,26 @@ public class GamePage extends JPanel {
                         else if(makingMoveEgg.moveCausesLossOfHealth()){
                             System.out.println(makingMoveEgg.getNumberOfSmallestCardThatHasCausedLoss());
                             JOptionPane.showMessageDialog(null, "Cause lost of heart because card of " + makingMoveEgg.getNumberOfSmallestCardThatHasCausedLoss() , "Lose heart" , JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                    if(y >= 440 & y <= 485 & x >= 240 & x < 300){
+                        if(numberOfShurikens >= 4){
+                            clientNetwork.castNinjaVote(true, playerId, gameId);
+                        }
+                    }
+                    else if(y >= 440 & y <= 485 & x >= 300 & x < 360){
+                        if(numberOfShurikens >= 3){
+                            clientNetwork.castNinjaVote(true, playerId, gameId);
+                        }
+                    }
+                    else if(y >= 440 & y <= 485 & x >= 360 & x < 420){
+                        if(numberOfShurikens >= 2){
+                            clientNetwork.castNinjaVote(true, playerId, gameId);
+                        }
+                    }
+                    else if(y >= 440 & y <= 485 & x >= 420 & x < 480){
+                        if(numberOfShurikens >= 1){
+                            clientNetwork.castNinjaVote(true, playerId, gameId);
                         }
                     }
                 }
@@ -218,7 +241,6 @@ public class GamePage extends JPanel {
 
                     }
 
-//                    System.out.println(x + " " + (start + counter));
 
 
                     if(heart == 0){
@@ -865,6 +887,12 @@ public class GamePage extends JPanel {
                         lastStatusOfPlayers.add(gameStateEgg.getPlayerEmojisList().get(i));
                     }
 
+
+
+//                  TODO numberOfShurikens
+
+
+
                     myEmoji = gameStateEgg.getEmojiEggOfCurrentPlayer();
 
                     if(gameStateEgg.thereHasBeenANinjaRequest()){
@@ -881,13 +909,6 @@ public class GamePage extends JPanel {
                                 }
                             }
                         }
-
-                    }
-
-
-
-                    if(hasThereAnyNinjaRequest){
-//                        TODO
                     }
 
                     repaint();
