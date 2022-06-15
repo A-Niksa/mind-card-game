@@ -75,6 +75,8 @@ public class GameStateEgg extends DataEgg {
             if (!player.isBot()) {
                 Human human = (Human) player;
                 playerEmojisList.add(new EmojiEgg(human.getPlayerId(), human.getSelectedEmoji()));
+            } else {
+                playerEmojisList.add(new EmojiEgg(-1, Emoji.NOTHING));
             }
         }
     }

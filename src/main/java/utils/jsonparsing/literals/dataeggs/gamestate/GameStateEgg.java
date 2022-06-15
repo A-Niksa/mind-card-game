@@ -2,11 +2,16 @@ package utils.jsonparsing.literals.dataeggs.gamestate;
 
 import backend.logic.games.Game;
 import backend.logic.games.components.Hand;
+import backend.logic.models.players.Human;
+import backend.logic.models.players.Player;
 import utils.jsonparsing.literals.dataeggs.DataEgg;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
+import utils.jsonparsing.literals.dataeggs.comparators.EmojiEggComparator;
+import utils.jsonparsing.literals.dataeggs.comparators.HandEggComparator;
 import utils.jsonparsing.literals.dataeggs.ninjarequest.NinjaRequestStatus;
 import utils.jsonparsing.literals.utils.GameStateUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateEgg extends DataEgg {
@@ -24,6 +29,7 @@ public class GameStateEgg extends DataEgg {
     private boolean latestActionHasCausedLoss;
     private int smallestCardNumberThatHasCausedLoss;
     private int playerIdOfLatestAction;
+    private List<EmojiEgg> playerEmojisList;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -90,6 +96,7 @@ public class GameStateEgg extends DataEgg {
     }
 
     public List<HandEgg> getHandsOfOtherPlayersList() {
+        handsOfOtherPlayersList.sort(new HandEggComparator());
         return handsOfOtherPlayersList;
     }
 
@@ -115,5 +122,10 @@ public class GameStateEgg extends DataEgg {
 
     public int getPlayerIdOfLatestAction() {
         return playerIdOfLatestAction;
+    }
+
+    public List<EmojiEgg> getPlayerEmojisList() {
+        playerEmojisList.sort(new EmojiEggComparator());
+        return playerEmojisList;
     }
 }

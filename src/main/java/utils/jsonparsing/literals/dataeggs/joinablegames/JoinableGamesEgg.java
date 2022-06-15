@@ -3,6 +3,7 @@ package utils.jsonparsing.literals.dataeggs.joinablegames;
 import backend.logic.games.Game;
 import utils.jsonparsing.literals.dataeggs.DataEgg;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
+import utils.jsonparsing.literals.dataeggs.comparators.JoinableGameComparator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class JoinableGamesEgg extends DataEgg {
     }
 
     public List<JoinableGame> getJoinableGamesList() {
+        joinableGamesList.sort(new JoinableGameComparator());
         return joinableGamesList;
     }
 }

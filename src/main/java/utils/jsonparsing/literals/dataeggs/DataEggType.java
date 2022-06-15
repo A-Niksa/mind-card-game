@@ -6,5 +6,6 @@ public enum DataEggType {
     GAME_STATE_EGG,
     JOINABLE_GAMES_EGG,
     HAND_EGG,
-    DROPPED_CARD_EGG
+    DROPPED_CARD_EGG,
+    EMOJI_EGG
 }

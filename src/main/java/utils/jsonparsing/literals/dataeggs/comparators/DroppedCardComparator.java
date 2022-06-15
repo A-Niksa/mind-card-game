@@ -1,4 +1,6 @@
-package utils.jsonparsing.literals.dataeggs.ninjarequest;
+package utils.jsonparsing.literals.dataeggs.comparators;
+
+import utils.jsonparsing.literals.dataeggs.ninjarequest.DroppedCardEgg;
 
 import java.util.Comparator;
 
