@@ -24,4 +24,5 @@ public class DefaultConfig {
     public static String SendRequest = "Send request for ninja card";
     public static String IsGameStarted = "Is game started";
     public static String getHostId = "Get hos id";
+    public static String setEmoji = "Set emoji";
 }
