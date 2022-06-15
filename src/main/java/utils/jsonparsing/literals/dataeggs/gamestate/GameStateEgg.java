@@ -8,7 +8,6 @@ import utils.jsonparsing.literals.dataeggs.DataEgg;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
 import utils.jsonparsing.literals.dataeggs.comparators.EmojiEggComparator;
 import utils.jsonparsing.literals.dataeggs.comparators.HandEggComparator;
-import utils.jsonparsing.literals.dataeggs.ninjarequest.NinjaRequestStatus;
 import utils.jsonparsing.literals.utils.GameStateUtils;
 
 import java.util.ArrayList;
@@ -25,11 +24,12 @@ public class GameStateEgg extends DataEgg {
     private Hand handOfCurrentPlayer;
     private List<HandEgg> handsOfOtherPlayersList;
     private boolean thereHasBeenANinjaRequest;
-    private NinjaRequestStatus ninjaRequestStatus;
+    private List<NinjaRequestEgg> ninjaRequestsList;
     private boolean latestActionHasCausedLoss;
     private int smallestCardNumberThatHasCausedLoss;
     private int playerIdOfLatestAction;
     private List<EmojiEgg> playerEmojisList;
+    private EmojiEgg emojiEggOfCurrentPlayer;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -104,8 +104,8 @@ public class GameStateEgg extends DataEgg {
         return thereHasBeenANinjaRequest;
     }
 
-    public NinjaRequestStatus getNinjaRequestStatus() {
-        return ninjaRequestStatus;
+    public List<NinjaRequestEgg> getNinjaRequestsList() {
+        return ninjaRequestsList;
     }
 
     public int getHostId() {
@@ -127,5 +127,9 @@ public class GameStateEgg extends DataEgg {
     public List<EmojiEgg> getPlayerEmojisList() {
         playerEmojisList.sort(new EmojiEggComparator());
         return playerEmojisList;
+    }
+
+    public EmojiEgg getEmojiEggOfCurrentPlayer() {
+        return emojiEggOfCurrentPlayer;
     }
 }
