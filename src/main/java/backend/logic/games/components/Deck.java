@@ -91,6 +91,10 @@ public class Deck {
         return healthCardsList.size();
     }
 
+    public int getNumberOfNinjaCards() {
+        return ninjaCardsList.size();
+    }
+
     public List<HealthCard> getHealthCardsList() {
         return healthCardsList;
     }

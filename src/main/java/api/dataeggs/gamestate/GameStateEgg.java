@@ -34,6 +34,7 @@ public class GameStateEgg extends DataEgg {
     private EmojiEgg emojiEggOfCurrentPlayer;
     private boolean shouldShowSmallestCards;
     private List<CardAndPlayerTuple> smallestCardsList;
+    private int numberOfNinjaCards;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -76,6 +77,8 @@ public class GameStateEgg extends DataEgg {
 
         shouldShowSmallestCards = game.getNinjaHandler().shouldShowSmallestCards();
         smallestCardsList = game.getNinjaHandler().getSmallestCardsList();
+
+        numberOfNinjaCards = game.getDeck().getNumberOfNinjaCards();
     }
 
     private void initializeAndFillPlayerEmojisList(Game game, int playerId) {
