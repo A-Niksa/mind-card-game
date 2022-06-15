@@ -122,13 +122,13 @@ public class GameManager {
         game.castVoteForNinjaRequest(human, agreesWithRequest);
     }
 
-    public static ArrayList<CardAndPlayerTuple> dropNinjaCardInGame(int gameId) {
+    public static void dropNinjaCardInGame(int gameId) {
         Game game = getGameById(gameId);
         if (game == null) {
-            return new ArrayList<>();
+            return;
         }
 
-        return game.dropNinjaCard();
+        game.dropNinjaCard();
     }
 
     public static Game getGameById(int gameId) {

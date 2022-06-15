@@ -108,9 +108,11 @@ public class Game {
         ninjaHandler.addRequest(human, agreesWithRequest);
     }
 
-    public ArrayList<CardAndPlayerTuple> dropNinjaCard() {
+    public void dropNinjaCard() {
         restartThreads();
-        return ninjaHandler.carryOutRequestAndReturnDroppedCards();
+        List<CardAndPlayerTuple> smallestCardsList = ninjaHandler.carryOutRequestAndReturnDroppedCards();
+        ninjaHandler.setSmallestCardsList(smallestCardsList);
+        ninjaHandler.setShouldShowSmallestCards(true);
     }
 
     private void removeOneHealthCardFromDeck() {

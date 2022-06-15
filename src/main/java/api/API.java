@@ -10,6 +10,7 @@ import api.utils.*;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
+import backend.logic.games.components.ninjahandling.NinjaHandler;
 import backend.logic.models.players.Human;
 
 import java.util.ArrayList;
@@ -78,6 +79,12 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
+    public static void showedSmallestCards(int gameId) {
+        Game game = GameManager.getGameById(gameId);
+        NinjaHandler handler = game.getNinjaHandler();
+        handler.setShouldShowSmallestCards(false); // just saw the cards. so there's no need for displaying them
+    }
+
     public static String useNinjaCard(int gameId) {
         // TODO: moveWasValid, ... ?
         return "";
@@ -104,18 +111,15 @@ public class API {
         return GameManager.startGameById(gameId);
     }
 
-    public static String useNinjaCard(int gameId, int playerId){
-        // welp: should remove playerIdd
-        ArrayList<CardAndPlayerTuple> smallestCardsList = GameManager.dropNinjaCardInGame(gameId);
-
-        NinjaMoveEgg dataEgg = new NinjaMoveEgg(smallestCardsList);
-        return GsonUtils.getJsonString(dataEgg);
-    }
-
     public static synchronized boolean castNinjaVote(boolean agreesWithRequest, int playerId, int gameId) {
         Human human = NinjaRequestUtils.getHumanById(gameId, playerId);
         GameManager.castVoteForNinjaRequestInGame(gameId, human, agreesWithRequest);
 
-        return NinjaRequestUtils.ninjaRequestHasBeenCompleted(gameId); // dummy welp
+        boolean ninjaRequestHasBeenCompleted = NinjaRequestUtils.ninjaRequestHasBeenCompleted(gameId);
+        if (ninjaRequestHasBeenCompleted) {
+            GameManager.dropNinjaCardInGame(gameId);
+        }
+
+        return NinjaRequestUtils.ninjaRequestHasBeenCompleted(gameId);
     }
 }

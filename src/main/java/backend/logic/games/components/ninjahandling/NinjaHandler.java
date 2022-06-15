@@ -1,14 +1,10 @@
 package backend.logic.games.components.ninjahandling;
 
-import api.dataeggs.gamestate.HandEgg;
-import api.dataeggs.ninjarequest.DroppedCardEgg;
 import api.dataeggs.ninjarequest.NinjaRequestStatus;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
-import backend.logic.games.components.Deck;
 import backend.logic.games.components.Hand;
 import backend.logic.models.cards.NumberedCard;
-import backend.logic.models.cards.NumberedCardComparator;
 import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 
@@ -19,6 +15,8 @@ public class NinjaHandler {
     private int numberOfHumansInGame;
     private List<Player> playersList;
     private Deque<NinjaRequest> ninjaRequestsStack;
+    private boolean shouldShowSmallestCards;
+    List<CardAndPlayerTuple> smallestCardsList;
 
     public NinjaHandler(int gameId, int numberOfHumansInGame, List<Player> playersList) {
         this.gameId = gameId;
@@ -26,6 +24,7 @@ public class NinjaHandler {
         this.playersList = playersList;
         ninjaRequestsStack = new ArrayDeque<>();
         fillNinjaRequestsStack();
+        shouldShowSmallestCards = false;
     }
 
     private void fillNinjaRequestsStack() {
@@ -110,5 +109,21 @@ public class NinjaHandler {
 
     public Deque<NinjaRequest> getNinjaRequestsStack() {
         return ninjaRequestsStack;
+    }
+
+    public List<CardAndPlayerTuple> getSmallestCardsList() {
+        return smallestCardsList;
+    }
+
+    public void setSmallestCardsList(List<CardAndPlayerTuple> smallestCardsList) {
+        this.smallestCardsList = smallestCardsList;
+    }
+
+    public boolean shouldShowSmallestCards() {
+        return shouldShowSmallestCards;
+    }
+
+    public void setShouldShowSmallestCards(boolean shouldShowSmallestCards) {
+        this.shouldShowSmallestCards = shouldShowSmallestCards;
     }
 }

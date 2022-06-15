@@ -7,6 +7,7 @@ import api.dataeggs.comparators.HandEggComparator;
 import api.utils.GameStateUtils;
 import backend.logic.games.Game;
 import backend.logic.games.components.Hand;
+import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 
@@ -31,6 +32,8 @@ public class GameStateEgg extends DataEgg {
     private int playerIdOfLatestAction;
     private List<EmojiEgg> playerEmojisList;
     private EmojiEgg emojiEggOfCurrentPlayer;
+    private boolean shouldShowSmallestCards;
+    private List<CardAndPlayerTuple> smallestCardsList;
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);
@@ -70,6 +73,9 @@ public class GameStateEgg extends DataEgg {
 
         initializeAndFillPlayerEmojisList(game, playerId);
         emojiEggOfCurrentPlayer = GameStateUtils.getEmojiById(game, playerId);
+
+        shouldShowSmallestCards = game.getNinjaHandler().shouldShowSmallestCards();
+        smallestCardsList = game.getNinjaHandler().getSmallestCardsList();
     }
 
     private void initializeAndFillPlayerEmojisList(Game game, int playerId) {
@@ -155,5 +161,13 @@ public class GameStateEgg extends DataEgg {
 
     public EmojiEgg getEmojiEggOfCurrentPlayer() {
         return emojiEggOfCurrentPlayer;
+    }
+
+    public boolean shouldShowSmallestCards() {
+        return shouldShowSmallestCards;
+    }
+
+    public List<CardAndPlayerTuple> getSmallestCardsList() {
+        return smallestCardsList;
     }
 }
