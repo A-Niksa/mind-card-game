@@ -92,11 +92,11 @@ public class Game {
 
             restartThreads();
             JudgeUtils.scorchSmallerCards(this, cardToDrop);
-            return;
+        } else {
+            droppingGround.dropCardOnGround(cardToDrop);
+            actionLogger.addAction(new Action()); // logs timestamp of the latest action
         }
 
-        droppingGround.dropCardOnGround(cardToDrop);
-        actionLogger.addAction(new Action()); // logs timestamp of the latest action
 
         if (JudgeUtils.allCardsHaveBeenDropped(this)) {
             resetComponents();
