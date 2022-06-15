@@ -65,7 +65,7 @@ public class JudgeUtils {
         if(cardsOfAllPlayersList.size() == 0){
             return true;
         }
-        return cardsOfAllPlayersList.get(0).getCardNumber() == cardToDrop.getCardNumber();
+        return cardsOfAllPlayersList.get(0).getCardNumber() > cardToDrop.getCardNumber();
     }
 
     public static ArrayList<NumberedCard> getCardsOfAllPlayersList(Game game) {
