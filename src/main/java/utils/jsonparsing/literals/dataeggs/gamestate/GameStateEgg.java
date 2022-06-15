@@ -20,6 +20,7 @@ public class GameStateEgg extends DataEgg {
     private int numberOfHealthCards;
     private int lastCardNumberOnGround;
     private int numberOfPlayers;
+    private int numberOfHumans;
     private int numberOfCardsOnGround;
     private Hand handOfCurrentPlayer;
     private List<HandEgg> handsOfOtherPlayersList;
@@ -39,6 +40,7 @@ public class GameStateEgg extends DataEgg {
         currentRound = game.getCurrentRound();
         numberOfHealthCards = game.getDeck().getNumberOfHealthCards();
         numberOfPlayers = game.getNumberOfPlayers();
+        numberOfHumans = numberOfPlayers - game.getNumberOfBots();
 
         if(game.getDroppingGround() == null){
             lastCardNumberOnGround = -1;
@@ -64,6 +66,10 @@ public class GameStateEgg extends DataEgg {
         latestActionHasCausedLoss = game.getActionLogger().latestActionHasCausedLoss();
         smallestCardNumberThatHasCausedLoss = game.getActionLogger().getSmallestCardNumberThatCausedLoss();
         playerIdOfLatestAction = game.getActionLogger().getPlayerIdOfLatestAction();
+    }
+
+    public int getNumberOfHumans() {
+        return numberOfHumans;
     }
 
     public boolean gameHasStarted() {
