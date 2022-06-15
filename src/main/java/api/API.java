@@ -105,7 +105,7 @@ public class API {
     }
 
     public static String useNinjaCard(int gameId, int playerId){
-        // welp: should remove playerId
+        // welp: should remove playerIdd
         ArrayList<CardAndPlayerTuple> smallestCardsList = GameManager.dropNinjaCardInGame(gameId);
 
         NinjaMoveEgg dataEgg = new NinjaMoveEgg(smallestCardsList);
