@@ -45,7 +45,8 @@ public class GamePage extends JPanel {
     boolean isCauseLooseOfHeartBecauseOfOtherPlayer;
     int numCardCauseLooseOfHeartBecauseOfOtherPlayer;
     int numberOfShurikens;
-    ArrayList<String> ShurikensStatus;
+    ArrayList<String> shurikensStatus;
+    ArrayList<String> lastStatusOfPlayers;
 
 
     public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
@@ -53,10 +54,10 @@ public class GamePage extends JPanel {
         isCauseLooseOfHeartBecauseOfOtherPlayer = false;
         numberOfShurikens = 0;
         heart = 1;
-        ShurikensStatus = new ArrayList<>();
+        shurikensStatus = new ArrayList<>();
 
         for (int i = 0; i < numberOfShurikens; i++) {
-            ShurikensStatus.add("shuriken.png");
+            shurikensStatus.add("shuriken.png");
 
         }
 
@@ -196,9 +197,9 @@ public class GamePage extends JPanel {
                     int counter = (int) (distance /  ((int) (cardsForPlayer.size() / 2) + 1));
 
 
-                    ShurikensStatus.clear();
+                    shurikensStatus.clear();
                     for (int i = 0; i < numberOfShurikens; i++) {
-                        ShurikensStatus.add("shuriken.png");
+                        shurikensStatus.add("shuriken.png");
 
                     }
 
@@ -231,65 +232,65 @@ public class GamePage extends JPanel {
                     if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
-                    else if(ShurikensStatus.size() == 4){
+                    else if(shurikensStatus.size() == 4){
                         if(y >= 440 & y <= 485 & x >= 240 & x < 300){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-                            ShurikensStatus.set(3, "shurikenHigh.png");
+                            shurikensStatus.set(3, "shurikenHigh.png");
                         }
                         else if(y >= 440 & y <= 485 & x >= 300 & x < 360){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            ShurikensStatus.set(2, "shurikenHigh.png");
+                            shurikensStatus.set(2, "shurikenHigh.png");
                         }
                         else if(y >= 440 & y <= 485 & x >= 360 & x < 420){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-                            ShurikensStatus.set(1, "shurikenHigh.png");
+                            shurikensStatus.set(1, "shurikenHigh.png");
                         }
                         else if(y >= 440 & y <= 485 & x >= 420 & x < 480){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            ShurikensStatus.set(0, "shurikenHigh.png");
+                            shurikensStatus.set(0, "shurikenHigh.png");
                         }
                         else{
                             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         }
                     }
-                    else if(ShurikensStatus.size() == 3){
+                    else if(shurikensStatus.size() == 3){
                         if(y >= 440 & y <= 485 & x >= 300 & x < 360){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            ShurikensStatus.set(2, "shurikenHigh.png");
+                            shurikensStatus.set(2, "shurikenHigh.png");
                         }
                         else if(y >= 440 & y <= 485 & x >= 360 & x < 420){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-                            ShurikensStatus.set(1, "shurikenHigh.png");
+                            shurikensStatus.set(1, "shurikenHigh.png");
                         }
                         else if(y >= 440 & y <= 485 & x >= 420 & x < 480){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            ShurikensStatus.set(0, "shurikenHigh.png");
+                            shurikensStatus.set(0, "shurikenHigh.png");
                         }
                         else{
                             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         }
                     }
-                    else if(ShurikensStatus.size() == 2){
+                    else if(shurikensStatus.size() == 2){
                         if(y >= 440 & y <= 485 & x >= 360 & x < 420){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-                            ShurikensStatus.set(1, "shurikenHigh.png");
+                            shurikensStatus.set(1, "shurikenHigh.png");
                         }
                         else if(y >= 440 & y <= 485 & x >= 420 & x < 480){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            ShurikensStatus.set(0, "shurikenHigh.png");
+                            shurikensStatus.set(0, "shurikenHigh.png");
                         }
                         else{
                             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         }
                     }
-                    else if(ShurikensStatus.size() == 1){
+                    else if(shurikensStatus.size() == 1){
                         if(y >= 440 & y <= 485 & x >= 420 & x < 480){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            ShurikensStatus.set(0, "shurikenHigh.png");
+                            shurikensStatus.set(0, "shurikenHigh.png");
                         }
                         else{
                             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -376,12 +377,6 @@ public class GamePage extends JPanel {
             printLastCardInGround(g);
             printShuriken(g);
 
-            if(isCauseLooseOfHeartBecauseOfOtherPlayer){
-                JOptionPane.showMessageDialog(null, "Cause lost of heart because card of " + numCardCauseLooseOfHeartBecauseOfOtherPlayer, "Lose heart" , JOptionPane.INFORMATION_MESSAGE);
-                numCardCauseLooseOfHeartBecauseOfOtherPlayer = -1;
-                isCauseLooseOfHeartBecauseOfOtherPlayer = false;
-            }
-
         }
 
     }
@@ -390,7 +385,7 @@ public class GamePage extends JPanel {
         for (int i = 0; i < numberOfShurikens; i++) {
             BufferedImage imageCard = null;
             try {
-                File file = new File(DefaultConfig.publicNameForPath + ShurikensStatus.get(i));
+                File file = new File(DefaultConfig.publicNameForPath + shurikensStatus.get(i));
                 imageCard = ImageIO.read(file);
             }
             catch (IOException e) {
@@ -784,10 +779,22 @@ public class GamePage extends JPanel {
                     }
 
                     isCauseLooseOfHeartBecauseOfOtherPlayer = gameStateEgg.latestActionHasCausedLoss();
+
+
                     if(isCauseLooseOfHeartBecauseOfOtherPlayer){
-                        JOptionPane.showMessageDialog(null, "Cause lost of heart because card of "
-                                + gameStateEgg.getSmallestCardNumberThatHasCausedLoss(), "Lose heart" , JOptionPane.INFORMATION_MESSAGE);
+                        if(gameStateEgg.getPlayerIdOfLatestAction() != playerId){
+                            JOptionPane.showMessageDialog(null, "Cause lost of heart because card of "
+                                    + gameStateEgg.getSmallestCardNumberThatHasCausedLoss(), "Lose heart" , JOptionPane.INFORMATION_MESSAGE);
+                            numCardCauseLooseOfHeartBecauseOfOtherPlayer = -1;
+                            isCauseLooseOfHeartBecauseOfOtherPlayer = false;
+
+                        }
                     }
+
+                    
+
+
+
                     if(hasThereAnyNinjaRequest){
 //                        TODO
                     }
