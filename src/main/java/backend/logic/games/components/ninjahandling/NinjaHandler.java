@@ -65,6 +65,10 @@ public class NinjaHandler {
         ArrayList<CardAndPlayerTuple> smallestCardsList = new ArrayList<>();
         for (Player player : playersList) {
             Hand hand = player.getHand();
+            if (hand.hasAnyCards()){
+                continue;
+            }
+
             int playerId = player.getPlayerId();
             smallestCardsList.add(new CardAndPlayerTuple(hand.getSmallestCard(), playerId));
         }
