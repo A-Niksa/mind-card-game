@@ -31,7 +31,7 @@ public abstract class Bot extends Player implements Runnable {
             }
             else if (hand.hasAnyCards()) {
                 try {
-                    Thread.sleep(1000000);
+                    Thread.sleep(getTimeToSleep());
                 } catch (InterruptedException e) {
                     break;
                 }
