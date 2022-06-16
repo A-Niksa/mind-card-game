@@ -47,7 +47,7 @@ public class NinjaHandler {
 
         ArrayList<CardAndPlayerTuple> smallestCardsList = getSmallestCardsOfPlayersTuples();
         smallestCardsList.sort(new CardTupleComparator());
-        Collections.reverse(smallestCardsList);
+//        Collections.reverse(smallestCardsList);
         dropCardsOfList(smallestCardsList);
 
         return smallestCardsList;
