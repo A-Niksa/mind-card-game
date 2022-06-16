@@ -49,6 +49,8 @@ public class GamePage extends JPanel {
     ArrayList<EmojiEgg> lastStatusOfPlayers;
     EmojiEgg myEmoji;
 
+    boolean isOnNinjaRequest;
+
 
     public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
         hasThereAnyNinjaRequest = false;
@@ -57,6 +59,7 @@ public class GamePage extends JPanel {
         heart = 1;
         shurikensStatus = new ArrayList<>();
         lastStatusOfPlayers = new ArrayList<>();
+        isOnNinjaRequest = false;
 
         for (int i = 0; i < numberOfShurikens; i++) {
             shurikensStatus.add("shuriken.png");
@@ -178,11 +181,13 @@ public class GamePage extends JPanel {
                     else if(y >= 440 & y <= 485 & x >= 360 & x < 420){
                         if(numberOfShurikens >= 2){
                             clientNetwork.castNinjaVote(true, playerId, gameId);
+                            GameStateEgg.numberOfShows.add(playerId);
                         }
                     }
                     else if(y >= 440 & y <= 485 & x >= 420 & x < 480){
                         if(numberOfShurikens >= 1){
                             clientNetwork.castNinjaVote(true, playerId, gameId);
+                            GameStateEgg.numberOfShows.add(playerId);
                         }
                     }
                 }
@@ -850,7 +855,7 @@ public class GamePage extends JPanel {
 
                     myEmoji = gameStateEgg.getEmojiEggOfCurrentPlayer();
 
-                    if(gameStateEgg.thereHasBeenANinjaRequest()){
+                    if(gameStateEgg.thereHasBeenANinjaRequest() | gameStateEgg.shouldShowSmallestCards()){
                         ArrayList<NinjaRequestEgg> requestStates = (ArrayList) gameStateEgg.getNinjaRequestsList();
                         for (int i = 0; i < requestStates.size(); i++) {
                             if(requestStates.get(i).getPlayerId() == playerId & requestStates.get(i).getStatus() == NinjaRequestStatus.WAITING){
@@ -868,25 +873,22 @@ public class GamePage extends JPanel {
                             String show = "";
 
                             for (int i = 0; i < gameStateEgg.getSmallestCardsList().size(); i++) {
-                                show = show + gameStateEgg.getSmallestCardsList().get(i) + " - ";
-                            }
-                            int i = 0;
-                            for (i = 0; i < GameStateEgg.numberOfShows.size(); i++) {
-                                if(GameStateEgg.numberOfShows.get(i) == playerId){
-                                    break;
+                                if(i == gameStateEgg.getSmallestCardsList().size() - 1){
+                                    show = show + gameStateEgg.getSmallestCardsList().get(i).getCard().getCardNumber();
+                                    continue;
                                 }
-                            }
 
-                            if(i == GameStateEgg.numberOfShows.size()){
-                                JOptionPane.showMessageDialog(null, show, "Use ninja card" , JOptionPane.INFORMATION_MESSAGE);
-                                GameStateEgg.numberOfShows.add(playerId);
-                            }
+                                show = show + gameStateEgg.getSmallestCardsList().get(i).getCard().getCardNumber() + " - ";
 
 
-                            if(GameStateEgg.numberOfShows.size() == gameStateEgg.getNumberOfHumans()){
-                                GameStateEgg.numberOfShows.clear();
-                                clientNetwork.showedSmallestCards(gameId);
                             }
+
+                            JOptionPane.showMessageDialog(null, show, "Use ninja card" , JOptionPane.INFORMATION_MESSAGE);
+
+                            Timer timer = new Timer(1000, e -> {});
+                            timer.setRepeats(false);
+
+                            clientNetwork.showedSmallestCards(gameId);
 
                         }
                     }

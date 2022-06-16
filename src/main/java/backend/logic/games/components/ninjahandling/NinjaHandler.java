@@ -65,7 +65,7 @@ public class NinjaHandler {
         ArrayList<CardAndPlayerTuple> smallestCardsList = new ArrayList<>();
         for (Player player : playersList) {
             Hand hand = player.getHand();
-            if (hand.hasAnyCards()){
+            if (!hand.hasAnyCards()){
                 continue;
             }
 
