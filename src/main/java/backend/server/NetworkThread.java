@@ -156,13 +156,6 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.UseNinjaCard)){
-            try {
-                API.useNinjaCard(inputStream.readInt());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
         else if(input.equals(DefaultConfig.IsGameStarted)){
             try {
@@ -192,6 +185,15 @@ public class NetworkThread implements Runnable{
             try {
                 API.castNinjaVote(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(input.equals(DefaultConfig.showedSmallestCards)){
+            try {
+                API.showedSmallestCards(inputStream.readInt());
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }

@@ -324,6 +324,25 @@ public class ClientNetwork {
 
     }
 
+    public void showedSmallestCards(int gameId){
+
+        try {
+            outputStream.writeUTF(authToken);
+            if(!inputStream.readBoolean()){
+                return;
+            }
+
+            outputStream.writeUTF(DefaultConfig.showedSmallestCards);
+            outputStream.writeInt(gameId);
+
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
     

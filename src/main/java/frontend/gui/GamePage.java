@@ -53,14 +53,13 @@ public class GamePage extends JPanel {
     public GamePage(ClientNetwork clientNetwork, int gameId, int playerId) {
         hasThereAnyNinjaRequest = false;
         isCauseLooseOfHeartBecauseOfOtherPlayer = false;
-        numberOfShurikens = 0;
+        numberOfShurikens = 2;
         heart = 1;
         shurikensStatus = new ArrayList<>();
         lastStatusOfPlayers = new ArrayList<>();
 
         for (int i = 0; i < numberOfShurikens; i++) {
             shurikensStatus.add("shuriken.png");
-
         }
 
         numberOfCardForOtherPlayers = new ArrayList<>();
@@ -281,48 +280,9 @@ public class GamePage extends JPanel {
                     else if((x - 445) * (x - 445) + (y - 665) * (y - 665) <= 45 * 45){
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
-                    else if(shurikensStatus.size() == 4){
-                        if(y >= 440 & y <= 485 & x >= 240 & x < 300){
-                            setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-                            shurikensStatus.set(3, "shurikenHigh.png");
-                        }
-                        else if(y >= 440 & y <= 485 & x >= 300 & x < 360){
-                            setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            shurikensStatus.set(2, "shurikenHigh.png");
-                        }
-                        else if(y >= 440 & y <= 485 & x >= 360 & x < 420){
-                            setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-                            shurikensStatus.set(1, "shurikenHigh.png");
-                        }
-                        else if(y >= 440 & y <= 485 & x >= 420 & x < 480){
-                            setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            shurikensStatus.set(0, "shurikenHigh.png");
-                        }
-                        else{
-                            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                        }
-                    }
-                    else if(shurikensStatus.size() == 3){
-                        if(y >= 440 & y <= 485 & x >= 300 & x < 360){
-                            setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            shurikensStatus.set(2, "shurikenHigh.png");
-                        }
-                        else if(y >= 440 & y <= 485 & x >= 360 & x < 420){
-                            setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-                            shurikensStatus.set(1, "shurikenHigh.png");
-                        }
-                        else if(y >= 440 & y <= 485 & x >= 420 & x < 480){
-                            setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            shurikensStatus.set(0, "shurikenHigh.png");
-                        }
-                        else{
-                            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                        }
-                    }
                     else if(shurikensStatus.size() == 2){
+                        System.out.println(x + "  " + y);
                         if(y >= 440 & y <= 485 & x >= 360 & x < 420){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
 
@@ -889,8 +849,7 @@ public class GamePage extends JPanel {
 
 
 
-//                  TODO numberOfShurikens
-
+                    numberOfShurikens = gameStateEgg.getNumberOfNinjaCards();
 
 
                     myEmoji = gameStateEgg.getEmojiEggOfCurrentPlayer();
@@ -909,7 +868,36 @@ public class GamePage extends JPanel {
                                 }
                             }
                         }
+
+                        if(gameStateEgg.shouldShowSmallestCards()){
+                            String show = "";
+
+                            for (int i = 0; i < gameStateEgg.getSmallestCardsList().size(); i++) {
+                                show = show + gameStateEgg.getSmallestCardsList().get(i) + " - ";
+                            }
+                            int i = 0;
+                            for (i = 0; i < GameStateEgg.numberOfShows.size(); i++) {
+                                if(GameStateEgg.numberOfShows.get(i) == playerId){
+                                    break;
+                                }
+                            }
+
+                            if(i == GameStateEgg.numberOfShows.size()){
+                                JOptionPane.showMessageDialog(null, show, "Use ninja card" , JOptionPane.INFORMATION_MESSAGE);
+                                GameStateEgg.numberOfShows.add(playerId);
+                            }
+
+
+                            if(GameStateEgg.numberOfShows.size() == gameStateEgg.getNumberOfHumans()){
+                                GameStateEgg.numberOfShows.clear();
+                                clientNetwork.showedSmallestCards(gameId);
+                            }
+
+                        }
                     }
+
+
+
 
                     repaint();
 

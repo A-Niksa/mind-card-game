@@ -85,10 +85,6 @@ public class API {
         handler.setShouldShowSmallestCards(false); // just saw the cards. so there's no need for displaying them
     }
 
-    public static String useNinjaCard(int gameId) {
-        // TODO: moveWasValid, ... ?
-        return "";
-    }
 
     public static String makeMove(int gameId, int playerId, int cardIndex) {
         // moveWasValid, doesMoveCauseLossOfHeart, smallestCardThatHasCausedLoss (if the second boolean is true)
@@ -122,4 +118,5 @@ public class API {
 
         return NinjaRequestUtils.ninjaRequestHasBeenCompleted(gameId);
     }
+
 }

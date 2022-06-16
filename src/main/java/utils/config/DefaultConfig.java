@@ -26,4 +26,5 @@ public class DefaultConfig {
     public static String getHostId = "Get hos id";
     public static String setEmoji = "Set emoji";
     public static String castNinjaCard = "Cast ninja card";
+    public static String showedSmallestCards = "Showed smallest cards";
 }

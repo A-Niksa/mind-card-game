@@ -35,6 +35,7 @@ public class GameStateEgg extends DataEgg {
     private boolean shouldShowSmallestCards;
     private List<CardAndPlayerTuple> smallestCardsList;
     private int numberOfNinjaCards;
+    public static ArrayList<Integer> numberOfShows = new ArrayList<>();
 
     public GameStateEgg(Game game, int playerId) {
         super(DataEggType.GAME_STATE_EGG);

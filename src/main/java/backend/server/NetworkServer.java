@@ -11,12 +11,9 @@ public class NetworkServer {
 
     public static void main(String[] args) throws IOException {
         serverSocket = new ServerSocket(DefaultConfig.PORT);
-        System.out.println("server started");
-        while (true) {
-            System.out.println("Waiting for new client: ");
-            Socket socket = serverSocket.accept();
 
-            System.out.println("client with ip : " + socket.getRemoteSocketAddress().toString() + " is connected");
+        while (true) {
+            Socket socket = serverSocket.accept();
 
             new Thread(new NetworkThread(socket)).start();
         }
