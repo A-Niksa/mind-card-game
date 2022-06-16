@@ -83,7 +83,8 @@ public class NinjaHandler {
             }
 
             request.addVote(human, agreesWithRequest);
-            if (!agreesWithRequest) {
+
+            if (!agreesWithRequest || request.allHumansHaveAgreedOnNinjaRequest()) {
                 ninjaRequestsStack.remove();
                 GameManager.restartGameThreads(gameId);
             }
