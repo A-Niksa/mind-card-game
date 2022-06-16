@@ -71,6 +71,12 @@ public class Deck {
         }
     }
 
+    public void removeOneNinjaCard() {
+        if (ninjaCardsList.size() >= 1) {
+            ninjaCardsList.remove(0);
+        }
+    }
+
     public Hand getRandomHand(int sizeOfHand) {
         ArrayList<NumberedCard> randomNumberedCardsList = new ArrayList<>();
         for (int i = 0; i < sizeOfHand; i++) {

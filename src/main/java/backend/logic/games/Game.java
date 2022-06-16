@@ -113,6 +113,7 @@ public class Game {
         List<CardAndPlayerTuple> smallestCardsList = ninjaHandler.carryOutRequestAndReturnDroppedCards();
         ninjaHandler.setSmallestCardsList(smallestCardsList);
         ninjaHandler.setShouldShowSmallestCards(true);
+        deck.removeOneNinjaCard();
 
         if (JudgeUtils.allCardsHaveBeenDropped(this)) {
             resetComponents();
