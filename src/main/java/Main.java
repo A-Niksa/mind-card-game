@@ -44,7 +44,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        playMusic(DefaultConfig.publicNameForPath + "m.mp3", DefaultConfig.publicNameForPath + "m2.mp3");
+//        playMusic(DefaultConfig.publicNameForPath + "m.mp3", DefaultConfig.publicNameForPath + "m2.mp3");
 
         
         var clientNetwork = new ClientNetwork();

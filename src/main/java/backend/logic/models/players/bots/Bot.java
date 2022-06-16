@@ -20,7 +20,7 @@ public abstract class Bot extends Player implements Runnable {
     @Override
     public void run() {
 
-
+        outer:
         while (GameManager.gameHasHealthCardsLeft(joinedGameId)) {
             if(GameManager.thereHasBeenANinjaRequest(joinedGameId)){
                 try {
@@ -31,19 +31,27 @@ public abstract class Bot extends Player implements Runnable {
             }
             else if (hand.hasAnyCards()) {
                 try {
-                    Thread.sleep(getTimeToSleep());
+                    Thread.sleep(1000000);
                 } catch (InterruptedException e) {
                     break;
                 }
 
+                System.out.println("request is : " + GameManager.thereHasBeenANinjaRequest(joinedGameId));
                 if (GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
-                    while (!GameManager.thereHasBeenANinjaRequest(joinedGameId)){
+                    System.out.println("before middle while");
+
+
+                    while (GameManager.thereHasBeenANinjaRequest(joinedGameId)){
+                        System.out.println("in middle while");
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
-                            break;
+                            break outer;
                         }
                     }
+
+                    System.out.println("after middle while");
+
                 }
 
                 GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());

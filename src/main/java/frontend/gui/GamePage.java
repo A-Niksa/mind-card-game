@@ -282,7 +282,6 @@ public class GamePage extends JPanel {
                     }
 
                     else if(shurikensStatus.size() == 2){
-                        System.out.println(x + "  " + y);
                         if(y >= 440 & y <= 485 & x >= 360 & x < 420){
                             setCursor(new Cursor(Cursor.HAND_CURSOR));
 
@@ -859,7 +858,6 @@ public class GamePage extends JPanel {
                         for (int i = 0; i < requestStates.size(); i++) {
                             if(requestStates.get(i).getPlayerId() == playerId & requestStates.get(i).getStatus() == NinjaRequestStatus.WAITING){
                                 int result = JOptionPane.showConfirmDialog(null,"Ninja card request" , "ninja card", JOptionPane.YES_NO_OPTION);;
-                                boolean state = false;
                                 if(result == JOptionPane.YES_OPTION){
                                     clientNetwork.castNinjaVote(true, playerId, gameId);
                                 }
@@ -906,6 +904,5 @@ public class GamePage extends JPanel {
             }
         }).start();
     }
-
 
 }
