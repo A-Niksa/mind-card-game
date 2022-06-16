@@ -846,10 +846,7 @@ public class GamePage extends JPanel {
                         lastStatusOfPlayers.add(gameStateEgg.getPlayerEmojisList().get(i));
                     }
 
-
-
                     numberOfShurikens = gameStateEgg.getNumberOfNinjaCards();
-
 
                     myEmoji = gameStateEgg.getEmojiEggOfCurrentPlayer();
 
@@ -893,8 +890,6 @@ public class GamePage extends JPanel {
 
                         }
                     }
-
-
 
 
                     repaint();
