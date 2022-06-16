@@ -43,23 +43,27 @@ public class NinjaHandler {
             return new ArrayList<>();
         }
 
-        NinjaRequest request = ninjaRequestsStack.remove();
-
         ArrayList<CardAndPlayerTuple> smallestCardsList = getSmallestCardsOfPlayersTuples();
+        if (smallestCardsList.isEmpty()) {
+            return smallestCardsList;
+        }
+
         smallestCardsList.sort(new CardTupleComparator());
-//        Collections.reverse(smallestCardsList);
-        dropCardsOfList(smallestCardsList);
+        Collections.reverse(smallestCardsList);
+
+        CardAndPlayerTuple largestTuple = smallestCardsList.get(0);
+        GameManager.dropCardInGame(gameId, largestTuple.getPlayerId(), largestTuple.getCard());
 
         return smallestCardsList;
     }
 
-    private void dropCardsOfList(ArrayList<CardAndPlayerTuple> cardTuplesList) {
-        for (CardAndPlayerTuple cardTuple : cardTuplesList) {
-            int playerId = cardTuple.getPlayerId();
-            NumberedCard card = cardTuple.getCard();
-            GameManager.dropCardInGame(gameId, playerId, card);
-        }
-    }
+//    private void dropCardOnGame(ArrayList<CardAndPlayerTuple> cardTuplesList) {
+//        for (CardAndPlayerTuple cardTuple : cardTuplesList) {
+//            int playerId = cardTuple.getPlayerId();
+//            NumberedCard card = cardTuple.getCard();
+//            GameManager.dropCardInGame(gameId, playerId, card);
+//        }
+//    }
 
     private ArrayList<CardAndPlayerTuple> getSmallestCardsOfPlayersTuples() {
         ArrayList<CardAndPlayerTuple> smallestCardsList = new ArrayList<>();
