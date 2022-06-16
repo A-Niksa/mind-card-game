@@ -19,12 +19,10 @@ public class NinjaRequest {
     }
 
     public void addVote(Human human, boolean agreesToNinjaRequest) {
-        if (!humanVotesMap.containsKey(human)) {
-            if (agreesToNinjaRequest) {
-                humanVotesMap.put(human, ACCEPTED);
-            } else {
-                humanVotesMap.put(human, REJECTED);
-            }
+        if (agreesToNinjaRequest) {
+            humanVotesMap.put(human, ACCEPTED);
+        } else {
+            humanVotesMap.put(human, REJECTED);
         }
     }
 
