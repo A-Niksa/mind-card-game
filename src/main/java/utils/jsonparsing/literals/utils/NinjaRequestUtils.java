@@ -10,6 +10,10 @@ public class NinjaRequestUtils {
     public static boolean ninjaRequestHasBeenCompleted(int gameId) {
         Game game = GameManager.getGameById(gameId);
         NinjaRequest request = game.getNinjaHandler().getNinjaRequestsStack().peek();
+        if (request == null) {
+            return false;
+        }
+
         return request.allHumansHaveAgreedOnNinjaRequest();
     }
 

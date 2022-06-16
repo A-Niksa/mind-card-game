@@ -53,6 +53,10 @@ public class ActionLogger {
             return;
         }
 
+        if (actionsStack.isEmpty()) {
+            return;
+        }
+
         latestTimeDifference = actionsStack.peek().getTimeStamp() - latestTimeStamp;
 
         penultimateTimeStamp = latestTimeStamp;

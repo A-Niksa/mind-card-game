@@ -78,6 +78,10 @@ public class NinjaHandler {
             ninjaRequestsStack.offer(new NinjaRequest(human, numberOfHumansInGame));
         } else {
             NinjaRequest request = ninjaRequestsStack.peek();
+            if (request == null) {
+                return;
+            }
+
             request.addVote(human, agreesWithRequest);
             if (!agreesWithRequest) {
                 ninjaRequestsStack.remove();
