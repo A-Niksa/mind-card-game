@@ -30,6 +30,9 @@ public class GameStateUtils {
         NinjaHandler handler = game.getNinjaHandler();
         Deque<NinjaRequest> ninjaRequestsStack = handler.getNinjaRequestsStack();
         NinjaRequest ninjaRequest = ninjaRequestsStack.peek();
+        if (ninjaRequest == null) {
+            return ninjaRequestEggsList;
+        }
 
         for (Map.Entry<Human, NinjaRequestStatus> entry : ninjaRequest.getHumanVotesMap().entrySet()) {
             NinjaRequestEgg requestEgg = new NinjaRequestEgg(entry.getKey().getPlayerId(),

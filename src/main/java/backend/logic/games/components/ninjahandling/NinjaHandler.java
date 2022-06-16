@@ -23,20 +23,20 @@ public class NinjaHandler {
         this.numberOfHumansInGame = numberOfHumansInGame;
         this.playersList = playersList;
         ninjaRequestsStack = new ArrayDeque<>();
-        fillNinjaRequestsStack();
+//        fillNinjaRequestsStack();
         shouldShowSmallestCards = false;
     }
 
-    private void fillNinjaRequestsStack() {
-        Game game = GameManager.getGameById(gameId);
-        int numberOfHumans = game.getNumberOfPlayers() - game.getNumberOfBots();
-        for (Player player : playersList) {
-            if (!player.isBot()) {
-                Human human = (Human) player;
-                ninjaRequestsStack.offer(new NinjaRequest(human, numberOfHumans));
-            }
-        }
-    }
+//    private void fillNinjaRequestsStack() {
+//        Game game = GameManager.getGameById(gameId);
+//        int numberOfHumans = game.getNumberOfPlayers() - game.getNumberOfBots();
+//        for (Player player : playersList) {
+//            if (!player.isBot()) {
+//                Human human = (Human) player;
+//                ninjaRequestsStack.offer(new NinjaRequest(human, numberOfHumans));
+//            }
+//        }
+//    }
 
     public ArrayList<CardAndPlayerTuple> carryOutRequestAndReturnDroppedCards() {
         if (ninjaRequestsStack.isEmpty()) {
