@@ -13,7 +13,7 @@ public class NinjaRequest {
 
     public NinjaRequest(Human human, int numberOfHumansInGame) {
         humanVotesMap = new HashMap<>();
-        humanVotesMap.put(human, WAITING);
+        humanVotesMap.put(human, ACCEPTED);
 
         this.numberOfHumansInGame = numberOfHumansInGame;
     }
