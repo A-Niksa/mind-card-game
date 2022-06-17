@@ -31,6 +31,10 @@ public class NinjaRequest {
     }
 
     public boolean allHumansHaveAgreedOnNinjaRequest() {
+        if (!allHumanVotesHaveBeenCast()) {
+            return false;
+        }
+
         for (NinjaRequestStatus requestStatus : humanVotesMap.values()) {
             if (requestStatus != ACCEPTED) {
                 return false;
