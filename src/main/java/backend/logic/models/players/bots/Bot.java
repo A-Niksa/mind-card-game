@@ -23,6 +23,7 @@ public abstract class Bot extends Player implements Runnable {
         outer:
         while (GameManager.gameHasHealthCardsLeft(joinedGameId)) {
             if(GameManager.thereHasBeenANinjaRequest(joinedGameId)){
+                System.out.println("there has been a ninja request");
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -30,19 +31,22 @@ public abstract class Bot extends Player implements Runnable {
                 }
             }
             else if (hand.hasAnyCards()) {
+                System.out.println("have any card");
+                System.out.println("want to sleep");
                 try {
                     Thread.sleep(getTimeToSleep());
+                    System.out.println("awake from sleep");
                 } catch (InterruptedException e) {
                     break;
                 }
 
-                System.out.println("request is : " + GameManager.thereHasBeenANinjaRequest(joinedGameId));
+
                 if (GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
-                    System.out.println("before middle while");
+                    System.out.println("before middle while for ninja request");
 
 
                     while (GameManager.thereHasBeenANinjaRequest(joinedGameId)){
-                        System.out.println("in middle while");
+                        System.out.println("in middle while for ninja request");
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
@@ -50,14 +54,18 @@ public abstract class Bot extends Player implements Runnable {
                         }
                     }
 
-                    System.out.println("after middle while");
+                    System.out.println("after middle while for ninja request");
 
                 }
 
+                System.out.println("want to drop card");
                 GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
             }
 
             else {
+                System.out.println("don't have any card");
+
+
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

@@ -61,7 +61,8 @@ public class NetworkThread implements Runnable{
                 input = inputStream.readUTF();
                 checkConditionAndDoAction(input, inputStream, outputStream);
 
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
                 notBroken = false;
             }

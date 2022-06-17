@@ -2,6 +2,7 @@ package frontend.gui;
 
 import backend.logic.games.components.Hand;
 import backend.logic.models.cards.NumberedCard;
+import com.google.gson.Gson;
 import frontend.gui.firstMenuPage.FirstMenuPage;
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
@@ -37,7 +38,7 @@ public class GamePage extends JPanel {
     boolean isOnGameStartButton;
     int heart;
     int numberOfOtherPlayer;
-    ArrayList<Integer> numberOfCardForOtherPlayers;
+    ArrayList<Integer> numberCardForOtherPlayers;
     ArrayList<NumberedCard> cardsForPlayer;
     int numberOfAllPlayers;
     boolean hasThereAnyNinjaRequest;
@@ -65,7 +66,7 @@ public class GamePage extends JPanel {
             shurikensStatus.add("shuriken.png");
         }
 
-        numberOfCardForOtherPlayers = new ArrayList<>();
+        numberCardForOtherPlayers = new ArrayList<>();
         cardsForPlayer = new ArrayList<>();
 
         this.gameId = gameId;
@@ -159,7 +160,8 @@ public class GamePage extends JPanel {
                     if(x >= (start + counter) & x <= (start + counter) + wCard & y >= 500 & y <= 500 + hCard){
 
                         String s = clientNetwork.makeMove(gameId, playerId, 0);
-                        MakingMoveEgg makingMoveEgg = (MakingMoveEgg) JsonParser.parseToDataEgg(s, DataEggType.MAKING_MOVE_EGG);
+                        Gson gson = new Gson();
+                        MakingMoveEgg makingMoveEgg = gson.fromJson(s, MakingMoveEgg.class);
                         if(!makingMoveEgg.moveWasValid()){
                             JOptionPane.showMessageDialog(null, "Move wasn't valid", "Error!!" , JOptionPane.ERROR_MESSAGE);
                         }
@@ -255,14 +257,6 @@ public class GamePage extends JPanel {
                             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         }
 
-                        return;
-                    }
-                    else if(cardsForPlayer == null){
-                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                        return;
-                    }
-                    else if(cardsForPlayer.size() == 0){
-                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         return;
                     }
                     else if(cardsForPlayer.size() == 1){
@@ -379,9 +373,9 @@ public class GamePage extends JPanel {
 
             printCardsForDown(cardsForPlayer, g);
 
-            if(numberOfCardForOtherPlayers != null){
-                for (int i = 0; i < numberOfCardForOtherPlayers.size(); i++) {
-                    printCardsOtherPlayer(numberOfCardForOtherPlayers, i, g);
+            if(numberCardForOtherPlayers != null){
+                for (int i = 0; i < numberCardForOtherPlayers.size(); i++) {
+                    printCardsOtherPlayer(numberCardForOtherPlayers, i, g);
                 }
             }
 
@@ -647,7 +641,6 @@ public class GamePage extends JPanel {
                     File file = new File(DefaultConfig.publicNameForPath + "backCard2.png");
                     imageCard = ImageIO.read(file);
                 }
-
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -657,12 +650,12 @@ public class GamePage extends JPanel {
                 counter = (int) (distance / (numberOfCardForOtherPlayers.get(index) - (numberOfCardForOtherPlayers.get(index) / 2) + 1));
                 numHelp = 0;
                 if(index == 2){
-                    if(cardsForPlayer.size() != 1){
+                    if(numberOfCardForOtherPlayers.get(index) != 1){
                         num++;
                     }
                 }
                 else{
-                    if(cardsForPlayer.size() != 1){
+                    if(numberOfCardForOtherPlayers.get(index) != 1){
                         num--;
                     }
                 }
@@ -804,7 +797,8 @@ public class GamePage extends JPanel {
 
 
                     String s = clientNetwork.updateGame(gameId, playerId);
-                    GameStateEgg gameStateEgg = (GameStateEgg) JsonParser.parseToDataEgg(s, GAME_STATE_EGG);
+                    Gson gson = new Gson();
+                    GameStateEgg gameStateEgg = gson.fromJson(s , GameStateEgg.class);
                     isGameStarted = gameStateEgg.gameHasStarted();
 
                     if(s == null){
@@ -823,11 +817,13 @@ public class GamePage extends JPanel {
                     numberOfOtherPlayer = numberOfAllPlayers - 1;
                     hasThereAnyNinjaRequest = gameStateEgg.thereHasBeenANinjaRequest();
                     ArrayList<HandEgg> handDataEggs = (ArrayList<HandEgg>) gameStateEgg.getHandsOfOtherPlayersList();
-                    numberOfCardForOtherPlayers.clear();
+
+                    numberCardForOtherPlayers.clear();
 
                     for (int i = 0; i < numberOfOtherPlayer; i++) {
-                        numberOfCardForOtherPlayers.add(handDataEggs.get(i).getPlayerHand().getNumberedCardsList().size());
+                        numberCardForOtherPlayers.add(handDataEggs.get(i).getPlayerHand().getNumberedCardsList().size());
                     }
+
 
                     isCauseLooseOfHeartBecauseOfOtherPlayer = gameStateEgg.latestActionHasCausedLoss();
 
