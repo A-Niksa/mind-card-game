@@ -39,9 +39,6 @@ public class NinjaHandler {
 //    }
 
     public ArrayList<CardAndPlayerTuple> carryOutRequestAndReturnDroppedCards() {
-        if (ninjaRequestsStack.isEmpty()) {
-            return new ArrayList<>();
-        }
 
         ArrayList<CardAndPlayerTuple> smallestCardsList = getSmallestCardsOfPlayersTuples();
         if (smallestCardsList.isEmpty()) {
