@@ -681,7 +681,6 @@ public class GamePage extends JPanel {
                 g.drawImage(imageCard, (int) (start + counter  + (numHelp) * counter), 10 + 50 * num, (int) wCard, (int) hCard, null);
             }
             numHelp++;
-
         }
     }
 
