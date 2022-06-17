@@ -83,7 +83,7 @@ public class NinjaHandler {
 
     public void addRequest(Human human, boolean agreesWithRequest) {
         if (!thereHasBeenARequest()) {
-            ninjaRequestsStack.offer(new NinjaRequest(human, numberOfHumansInGame));
+            ninjaRequestsStack.offer(new NinjaRequest(human, numberOfHumansInGame, playersList));
         } else {
             NinjaRequest request = ninjaRequestsStack.peek();
             if (request == null) {
