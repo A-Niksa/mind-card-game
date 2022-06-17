@@ -21,7 +21,7 @@ public class NinjaRequest {
         this.numberOfHumansInGame = numberOfHumansInGame;
     }
 
-    private void putOtherHumansToMap(List<Player> playersList) {
+    private void putOtherHumansToMap(List<Player> playersList) { // to map humans to WAITING status
         for (Player player : playersList) {
             if (!player.isBot()) {
                 humanVotesMap.put((Human) player, WAITING);
