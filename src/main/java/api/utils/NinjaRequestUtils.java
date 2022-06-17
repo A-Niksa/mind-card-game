@@ -10,8 +10,13 @@ import backend.logic.models.players.Player;
 public class NinjaRequestUtils {
     public static boolean ninjaRequestHasBeenCompleted(int gameId) {
         Game game = GameManager.getGameById(gameId);
-        NinjaRequest request = game.getNinjaHandler().getNinjaRequestsStack().peek();
+        NinjaRequest request = game.getNinjaHandler().getNinjaRequestsStack().poll();
         if (request == null) {
+            return false;
+        }
+
+        if (!request.allHumanVotesHaveBeenCast()) {
+            game.getNinjaHandler().getNinjaRequestsStack().offer(request);
             return false;
         }
 

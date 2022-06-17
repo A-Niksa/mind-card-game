@@ -92,7 +92,11 @@ public class NinjaHandler {
 
             request.addVote(human, agreesWithRequest);
 
-            if (!agreesWithRequest || request.allHumansHaveAgreedOnNinjaRequest()) {
+//            if (!agreesWithRequest || request.allHumansHaveAgreedOnNinjaRequest()) {
+//                ninjaRequestsStack.remove();
+//                GameManager.restartGameThreads(gameId);
+//            }
+            if (!agreesWithRequest) {
                 ninjaRequestsStack.remove();
                 GameManager.restartGameThreads(gameId);
             }

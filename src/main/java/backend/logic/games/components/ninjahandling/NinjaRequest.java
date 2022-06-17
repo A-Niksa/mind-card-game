@@ -38,7 +38,13 @@ public class NinjaRequest {
     }
 
     public boolean allHumanVotesHaveBeenCast() {
-        return humanVotesMap.size() == numberOfHumansInGame;
+        for (NinjaRequestStatus requestStatus : humanVotesMap.values()) {
+            if (requestStatus == WAITING) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public boolean allHumansHaveAgreedOnNinjaRequest() {

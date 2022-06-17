@@ -19,6 +19,7 @@ import java.util.List;
 public class Game {
     private static int globalGameId = 0;
 
+    private boolean gameHasBeenCanceled;
     private boolean gameHasBeenStarted;
     private boolean gameHasEnded;
     private boolean gameHasResultedInLoss;
@@ -41,6 +42,7 @@ public class Game {
         initializeLists();
         currentRound = 1;
 
+        gameHasBeenCanceled = false;
         gameHasBeenStarted = false;
         gameHasEnded = false;
         gameHasResultedInLoss = false;

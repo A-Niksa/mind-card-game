@@ -119,4 +119,7 @@ public class API {
         return NinjaRequestUtils.ninjaRequestHasBeenCompleted(gameId);
     }
 
+    public static void cancelGame(int gameId, int playerId) {
+
+    }
 }
