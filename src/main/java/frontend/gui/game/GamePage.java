@@ -123,9 +123,7 @@ public class GamePage extends JPanel {
 
                     }
 
-                    else if(cardsForPlayer == null){
-                        return;
-                    }
+
                     else if((x - 145) * (x - 145) + (y - 665) * (y - 665) <= 45 * 45){
                         clientNetwork.setEmoji(gameId, playerId, api.dataeggs.gamestate.Emoji.CRYING);
                     }
@@ -139,10 +137,6 @@ public class GamePage extends JPanel {
                         clientNetwork.setEmoji(gameId, playerId, api.dataeggs.gamestate.Emoji.LOVING);
                     }
 
-
-                    else if(cardsForPlayer.size() == 0){
-                        return;
-                    }
 
 
                     if(cardsForPlayer.size() == 1){
