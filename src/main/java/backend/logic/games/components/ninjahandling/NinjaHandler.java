@@ -29,7 +29,7 @@ public class NinjaHandler {
 
 //    private void fillNinjaRequestsStack() {
 //        Game game = GameManager.getGameById(gameId);
-//        int numberOfHumans = game.getNumberOfPlayers() - game.getNumberOfBots();
+//        int numberOfHumans = game.getNumbexrOfPlayers() - game.getNumberOfBots();
 //        for (Player player : playersList) {
 //            if (!player.isBot()) {
 //                Human human = (Human) player;

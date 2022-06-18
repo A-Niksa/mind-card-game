@@ -4,7 +4,7 @@ import utils.jsonparsing.JsonParser;
 import utils.jsonparsing.literals.dataeggs.DataEggType;
 import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGamesEgg;
 import com.google.gson.Gson;
-import frontend.gui.GamePage;
+import frontend.gui.game.GamePage;
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
 import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGame;
