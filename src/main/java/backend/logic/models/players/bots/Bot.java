@@ -29,7 +29,7 @@ public abstract class Bot extends Player implements Runnable {
                 }
             }
             else if (hand.hasAnyCards()) {
-                if (!botIsTheOnlyPlayerWithCards()) {
+                if (botIsTheOnlyPlayerWithCards()) {
                     try {
                         Thread.sleep(1500);
                     } catch (InterruptedException e) {

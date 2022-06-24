@@ -125,7 +125,6 @@ public class FirstMenuPage extends JPanel{
     public void printBack(Graphics g){
         BufferedImage imageBack = null;
         try {
-            System.out.println(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + fileName + "*****");
             File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + fileName);
             imageBack = ImageIO.read(file1);
         }
