@@ -82,16 +82,6 @@ public class GameManager {
         game.restartThreads();
     }
 
-    public static boolean canJoinGame(int gameId) {
-        Game game = getGameById(gameId);
-        if (game == null) {
-            return false;
-        }
-
-        boolean gameIsFull = game.getNumberOfPlayers() >= 4;
-        return !game.gameHasBeenStarted() && !gameIsFull;
-    }
-
     public static boolean thereHasBeenANinjaRequest(int gameId) {
         Game game = getGameById(gameId);
         if (game == null) {

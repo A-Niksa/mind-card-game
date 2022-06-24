@@ -20,7 +20,7 @@ import java.util.List;
 public class Game {
     private static int globalGameId = 0;
 
-    private int numberOfTotalPlayers;
+    private int totalNumberOfPlayers;
     private boolean gameHasBeenCanceled;
     private boolean gameHasBeenStarted;
     private boolean gameHasEnded;
@@ -156,7 +156,7 @@ public class Game {
         // this class is 'lazy', in the sense that most components will be initialized if we start the game by this method
         initializeGame();
         gameHasBeenStarted = true;
-        numberOfTotalPlayers = playersList.size();
+        totalNumberOfPlayers = playersList.size();
     }
 
     public synchronized void dropCard(int playerId, NumberedCard cardToDrop) {
@@ -319,6 +319,10 @@ public class Game {
 
     public int getNumberOfBots() {
         return numberOfBots;
+    }
+
+    public int getTotalNumberOfPlayers() {
+        return totalNumberOfPlayers;
     }
 
     public int getGameId() {

@@ -22,8 +22,12 @@ public class JoinableGamesUtils {
         return dataEgg;
     }
 
-    private static boolean gameIsJoinable(Game game) {
-        return getNumberOfHumans(game) < 4;
+    public static boolean gameIsJoinable(Game game) {
+        if (game.gameHasBeenStarted()) {
+            return game.getTotalNumberOfPlayers() - getNumberOfHumans(game) > 0;
+        } else {
+            return getNumberOfHumans(game) < 4;
+        }
     }
 
     private static int getNumberOfHumans(Game game) {

@@ -38,10 +38,11 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static boolean joinGame(int gameId, int playerId) {
+    public static synchronized boolean joinGame(int gameId, int playerId) {
         // shouldn't have playerId
         // returns: can join game or not
-        boolean canJoinGame = GameManager.canJoinGame(gameId);
+        Game game = GameManager.getGameById(gameId);
+        boolean canJoinGame = JoinableGamesUtils.gameIsJoinable(game);
         if (canJoinGame) {
             GameManager.joinGame(gameId, playerId);
         }
