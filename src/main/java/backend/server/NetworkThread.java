@@ -144,7 +144,7 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.MAKE_GAME_UNJOINABLE))){
             try {
-                outputStream.writeBoolean(API.makeGameUnjoinable(inputStream.readInt()));
+                outputStream.writeBoolean(API.startGame(inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

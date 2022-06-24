@@ -140,4 +140,8 @@ public class NinjaHandler {
     public void setShouldShowSmallestCards(boolean shouldShowSmallestCards) {
         this.shouldShowSmallestCards = shouldShowSmallestCards;
     }
+
+    public void setNumberOfHumansInGame(int numberOfHumansInGame) {
+        this.numberOfHumansInGame = numberOfHumansInGame;
+    }
 }

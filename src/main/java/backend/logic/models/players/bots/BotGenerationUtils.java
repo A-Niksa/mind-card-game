@@ -7,6 +7,7 @@ import backend.logic.models.players.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class BotGenerationUtils {
@@ -21,7 +22,23 @@ public class BotGenerationUtils {
                 collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public static ArrayList<Bot> getSomeBots(int numberOfRequestedBots, Deck deck, int numberOfCardsPerHand,
+    public static Bot getARandomBot(int currentGameId) {
+        Random randomGenerator = new Random();
+        int randomBotNumber = randomGenerator.nextInt(2);
+
+        switch (randomBotNumber) {
+            case 0:
+                return new FirstBot(currentGameId);
+            case 1:
+                return new SecondBot(currentGameId);
+            case 2:
+                return new ThirdBot(currentGameId);
+        }
+
+        return null;
+    }
+
+    public static ArrayList<Bot> getSomeBots(int numberOfRequestedBots,
                                              int currentGameId) {
         ArrayList<Bot> requestedBotsList = new ArrayList<>();
 

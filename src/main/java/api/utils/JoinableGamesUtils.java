@@ -3,7 +3,9 @@ package api.utils;
 import api.dataeggs.joinablegames.JoinableGamesEgg;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
+import backend.logic.models.players.Player;
 
+import java.util.List;
 import java.util.Map;
 
 public class JoinableGamesUtils {
@@ -21,6 +23,19 @@ public class JoinableGamesUtils {
     }
 
     private static boolean gameIsJoinable(Game game) {
-        return !game.gameHasBeenStarted() && game.getNumberOfPlayers() < 4;
+        return getNumberOfHumans(game) < 4;
+    }
+
+    private static int getNumberOfHumans(Game game) {
+        List<Player> playersList = game.getPlayersList();
+
+        int numberOfHumans = 0;
+        for (Player player : playersList) {
+            if (!player.isBot()) {
+                numberOfHumans++;
+            }
+        }
+
+        return numberOfHumans;
     }
 }

@@ -5,15 +5,11 @@ import api.dataeggs.NewGameEgg;
 import api.dataeggs.gamestate.Emoji;
 import api.dataeggs.gamestate.GameStateEgg;
 import api.dataeggs.joinablegames.JoinableGamesEgg;
-import api.dataeggs.ninjarequest.NinjaMoveEgg;
 import api.utils.*;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
-import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.games.components.ninjahandling.NinjaHandler;
 import backend.logic.models.players.Human;
-
-import java.util.ArrayList;
 
 public class API {
     public static int getHostId(int gameId) {
@@ -82,7 +78,7 @@ public class API {
     public static void showedSmallestCards(int gameId) {
         Game game = GameManager.getGameById(gameId);
         NinjaHandler handler = game.getNinjaHandler();
-        handler.setShouldShowSmallestCards(false); // just saw the cards. so there's no need for displaying them
+        handler.setShouldShowSmallestCards(false); // has just seen the revealed cards. so there's no need for displaying them
     }
 
 
@@ -102,9 +98,17 @@ public class API {
         return GsonUtils.getJsonString(dataEgg);
     }
 
-    public static boolean makeGameUnjoinable(int gameId){
+    public static boolean startGame(int gameId){
         // return a boolean that can or not
         return GameManager.startGameById(gameId);
+    }
+
+    public static void disconnectHuman(int gameId, int playerId) {
+        GameManager.disconnectHumanFromGame(gameId, playerId);
+    }
+
+    public static void replaceBotByHuman(int gameId, int playerId) {
+        // TODO
     }
 
     public static synchronized boolean castNinjaVote(boolean agreesWithRequest, int playerId, int gameId) {

@@ -131,6 +131,15 @@ public class GameManager {
         game.dropNinjaCard();
     }
 
+    public static void disconnectHumanFromGame(int gameId, int playerId) {
+        Game game = getGameById(gameId);
+        if (game == null) {
+            return;
+        }
+
+        game.disconnectHuman(playerId);
+    }
+
     public static Game getGameById(int gameId) {
         return getInstance().gamesMap.getOrDefault(gameId, null);
     }

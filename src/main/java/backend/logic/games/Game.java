@@ -4,6 +4,7 @@ import backend.logic.games.actionlogger.Action;
 import backend.logic.games.actionlogger.ActionLogger;
 import backend.logic.games.components.Deck;
 import backend.logic.games.components.DroppingGround;
+import backend.logic.games.components.Hand;
 import backend.logic.games.components.JudgeUtils;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.games.components.ninjahandling.NinjaHandler;
@@ -19,6 +20,7 @@ import java.util.List;
 public class Game {
     private static int globalGameId = 0;
 
+    private int numberOfTotalPlayers;
     private boolean gameHasBeenCanceled;
     private boolean gameHasBeenStarted;
     private boolean gameHasEnded;
@@ -67,6 +69,56 @@ public class Game {
         }
     }
 
+    public void replaceBotWithHuman() {
+        Human human = new Human();
+        if (numberOfBots == 0) {
+            return;
+        }
+
+
+    }
+
+    public void disconnectHuman(int playerId) {
+        Player player = getPlayer(playerId);
+        removePlayer(playerId);
+
+        addBot(player.getHand());
+    }
+
+    private Player getPlayer(int playerId) {
+        for (Player player : playersList) {
+            if (playerId == player.getPlayerId()) {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    private void removePlayer(int playerId) {
+        int updatedNumberOfHumans = getNumberOfPlayers() - numberOfBots - 1;
+        ninjaHandler.setNumberOfHumansInGame(updatedNumberOfHumans);
+
+        Player player;
+        for (int i = 0; i < playersList.size(); i++) {
+            player = playersList.get(i);
+            if (playerId == player.getPlayerId()) {
+                playersList.remove(i);
+                return;
+            }
+        }
+    }
+
+    private void addBot(Hand hand) {
+        numberOfBots++;
+        Bot bot = BotGenerationUtils.getARandomBot(gameId);
+        bot.setHand(hand);
+
+        Thread thread = new Thread(bot);
+        botThreadsList.add(thread);
+        thread.start();
+    }
+
     private void generateGameId() {
         gameId = globalGameId;
         globalGameId++;
@@ -81,6 +133,7 @@ public class Game {
         // this class is 'lazy', in the sense that most components will be initialized if we start the game by this method
         initializeGame();
         gameHasBeenStarted = true;
+        numberOfTotalPlayers = playersList.size();
     }
 
     public synchronized void dropCard(int playerId, NumberedCard cardToDrop) {
@@ -173,7 +226,7 @@ public class Game {
     }
 
     private void initializeBots() {
-        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, deck, currentRound, gameId);
+        ArrayList<Bot> botsList = BotGenerationUtils.getSomeBots(numberOfBots, gameId);
         playersList.addAll(botsList);
 
         connectThreadsToBots(botsList);
