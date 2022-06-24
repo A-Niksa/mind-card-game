@@ -269,7 +269,7 @@ public class Game {
         reconnectThreadsToBots();
     }
 
-    private void interruptThreads() {
+    public void interruptThreads() {
         for (Thread thread : botThreadsList) {
             thread.interrupt();
         }

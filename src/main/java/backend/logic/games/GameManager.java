@@ -140,7 +140,22 @@ public class GameManager {
             return;
         }
 
-        game.disconnectHuman(playerId);
+        int numberOfHumans = game.getNumberOfPlayers() - game.getNumberOfBots();
+        if (numberOfHumans == 1) {
+            removeGame(game);
+        } else {
+            game.disconnectHuman(playerId);
+        }
+    }
+
+    private static void removeGame(Game game) {
+        game.interruptThreads();
+        for (Map.Entry<Integer, Game> entry : getGamesMap().entrySet()) {
+            if (entry.getValue() == game) {
+                getGamesMap().remove(entry.getKey());
+                return;
+            }
+        }
     }
 
     public static Game getGameById(int gameId) {
