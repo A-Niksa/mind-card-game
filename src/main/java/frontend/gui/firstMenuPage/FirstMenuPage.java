@@ -1,7 +1,9 @@
 package frontend.gui.firstMenuPage;
 
-import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
+import utils.config.ConfigFetcher;
+import utils.config.ConfigIdentifier;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -123,7 +125,7 @@ public class FirstMenuPage extends JPanel{
     public void printBack(Graphics g){
         BufferedImage imageBack = null;
         try {
-            File file1 = new File(DefaultConfig.publicNameForPath + fileName);
+            File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + fileName);
             imageBack = ImageIO.read(file1);
         }
         catch (IOException e) {

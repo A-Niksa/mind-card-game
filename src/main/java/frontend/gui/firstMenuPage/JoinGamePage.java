@@ -3,10 +3,11 @@ package frontend.gui.firstMenuPage;
 import api.dataeggs.DataEggType;
 import api.dataeggs.joinablegames.JoinableGame;
 import api.dataeggs.joinablegames.JoinableGamesEgg;
+import utils.config.ConfigFetcher;
+import utils.config.ConfigIdentifier;
 import utils.jsonparsing.JsonParser;
 import com.google.gson.Gson;
 import frontend.gui.game.GamePage;
-import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -157,7 +158,8 @@ public class JoinGamePage extends JPanel{
                 if(arrayListStringType.size() == 0){
                     continue;
                 }
-                File file1 = new File(DefaultConfig.publicNameForPath + arrayListStringType.get(i));
+                File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) +
+                        arrayListStringType.get(i));
                 imageID = ImageIO.read(file1);
             }
             catch (IOException e) {

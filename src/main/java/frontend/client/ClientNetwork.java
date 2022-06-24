@@ -1,7 +1,8 @@
 package frontend.client;
 
 import api.dataeggs.gamestate.Emoji;
-import utils.config.DefaultConfig;
+import utils.config.ConfigFetcher;
+import utils.config.ConfigIdentifier;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -18,7 +19,9 @@ public class ClientNetwork {
     public ClientNetwork() {
 
         try {
-            socket = new Socket(DefaultConfig.IP, DefaultConfig.PORT);
+            String ip = ConfigFetcher.fetch(ConfigIdentifier.IP);
+            int port = Integer.parseInt(ConfigFetcher.fetch(ConfigIdentifier.PORT));
+            socket = new Socket(ip, port);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,7 +53,7 @@ public class ClientNetwork {
             if(!inputStream.readBoolean()){
                return false;
             }
-            outputStream.writeUTF(DefaultConfig.TestConnection);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.TEST_CONNECTION));
             boolean b = true;
 
             try {
@@ -77,7 +80,7 @@ public class ClientNetwork {
                 return;
             }
 
-            outputStream.writeUTF(DefaultConfig.NoAction);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.NO_ACTION));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -93,7 +96,7 @@ public class ClientNetwork {
                 return -1;
             }
 
-            outputStream.writeUTF(DefaultConfig.AddNewPlayerInNetwork);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_PLAYER_IN_NETWORK));
             return inputStream.readInt();
 
         }
@@ -111,7 +114,7 @@ public class ClientNetwork {
                 return "";
             }
 
-            outputStream.writeUTF(DefaultConfig.AddNewGame);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_GAME));
             outputStream.writeInt(numberOfBots);
             outputStream.writeInt(playerId);
             return inputStream.readUTF();
@@ -130,7 +133,7 @@ public class ClientNetwork {
                 return false;
             }
 
-            outputStream.writeUTF(DefaultConfig.JoinGame);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.JOIN_GAME));
             outputStream.writeInt(idGame);
             outputStream.writeInt(playerId);
             return inputStream.readBoolean();
@@ -151,7 +154,7 @@ public class ClientNetwork {
                 return "";
             }
 
-            outputStream.writeUTF(DefaultConfig.AllJoinableGames);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.ALL_JOINABLE_GAMES));
             return inputStream.readUTF();
         }
 
@@ -170,7 +173,7 @@ public class ClientNetwork {
                 return "";
             }
 
-            outputStream.writeUTF(DefaultConfig.UpdateGame);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.UPDATE_GAME));
             outputStream.writeInt(gameId);
             outputStream.writeInt(currentHumanId);
             return inputStream.readUTF();
@@ -191,7 +194,7 @@ public class ClientNetwork {
                 return "";
             }
 
-            outputStream.writeUTF(DefaultConfig.MakeMoveACard);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.MOVE_A_CARD));
             outputStream.writeInt(gameId);
             outputStream.writeInt(playerId);
             outputStream.writeInt(cardNumber);
@@ -213,7 +216,7 @@ public class ClientNetwork {
                 return false;
             }
 
-            outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.MAKE_GAME_UNJOINABLE));
             outputStream.writeInt(gameId);
             return inputStream.readBoolean();
         }
@@ -233,7 +236,7 @@ public class ClientNetwork {
                 return false;
             }
 
-            outputStream.writeUTF(DefaultConfig.IsGameStarted);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.HAS_GAME_STARTED));
             outputStream.writeInt(gameId);
             return inputStream.readBoolean();
         }
@@ -253,7 +256,7 @@ public class ClientNetwork {
                 return -1;
             }
 
-            outputStream.writeUTF(DefaultConfig.getHostId);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.GET_HOST_ID));
             outputStream.writeInt(gameId);
             return inputStream.readInt();
         }
@@ -273,7 +276,7 @@ public class ClientNetwork {
                 return;
             }
 
-            outputStream.writeUTF(DefaultConfig.MakeGameUnjoinable);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.MAKE_GAME_UNJOINABLE));
             outputStream.writeInt(gameId);
         }
 
@@ -291,7 +294,7 @@ public class ClientNetwork {
                 return;
             }
 
-            outputStream.writeUTF(DefaultConfig.castNinjaCard);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.CAST_NINJA_CARD));
             outputStream.writeBoolean(agreesWithRequest);
             outputStream.writeInt(playerId);
             outputStream.writeInt(gameId);
@@ -311,7 +314,7 @@ public class ClientNetwork {
                 return;
             }
 
-            outputStream.writeUTF(DefaultConfig.setEmoji);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.SET_EMOJI));
             outputStream.writeInt(gameId);
             outputStream.writeInt(playerId);
             outputStream.writeUTF(emoji.name());
@@ -332,7 +335,7 @@ public class ClientNetwork {
                 return;
             }
 
-            outputStream.writeUTF(DefaultConfig.showedSmallestCards);
+            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.SHOWED_SMALLEST_CARDS));
             outputStream.writeInt(gameId);
 
         }

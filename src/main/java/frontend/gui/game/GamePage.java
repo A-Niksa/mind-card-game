@@ -10,7 +10,8 @@ import backend.logic.games.components.Hand;
 import backend.logic.models.cards.NumberedCard;
 import com.google.gson.Gson;
 import frontend.gui.firstMenuPage.FirstMenuPage;
-import utils.config.DefaultConfig;
+import utils.config.ConfigFetcher;
+import utils.config.ConfigIdentifier;
 import frontend.client.ClientNetwork;
 
 import javax.imageio.ImageIO;
@@ -328,11 +329,11 @@ public class GamePage extends JPanel {
                 try {
 
                     if(isOnGameStartButton){
-                        File file1 = new File(DefaultConfig.publicNameForPath + "StartHigh.png");
+                        File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "StartHigh.png");
                         imageStartButton = ImageIO.read(file1);
                     }
                     else{
-                        File file1 = new File(DefaultConfig.publicNameForPath + "Start.png");
+                        File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "Start.png");
                         imageStartButton = ImageIO.read(file1);
                     }
                 }
@@ -345,7 +346,7 @@ public class GamePage extends JPanel {
             }
             else{
                 BufferedImage imageWaitingText = null;
-                File file1 = new File(DefaultConfig.publicNameForPath + "Waiting.png");
+                File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "Waiting.png");
                 try {
                     imageWaitingText = ImageIO.read(file1);
                 } catch (IOException e) {

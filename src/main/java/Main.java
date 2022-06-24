@@ -1,19 +1,7 @@
-import MusicPlayer.MP3Player;
+import utils.musicplayer.MP3Player;
 import frontend.client.ClientNetwork;
 import frontend.gui.firstMenuPage.FirstMenuPage;
-import utils.config.ConfigFetcher;
-
-import javax.sound.sampled.*;
 import javax.swing.*;
-import java.awt.*;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import javazoom.jl.player.Player;
-import utils.config.DefaultConfig;
-
-import java.io.*;
 
 public class Main {
     private static JFrame frame;

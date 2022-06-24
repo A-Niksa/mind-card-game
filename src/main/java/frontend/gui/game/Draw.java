@@ -3,7 +3,8 @@ package frontend.gui.game;
 import api.dataeggs.gamestate.Emoji;
 import api.dataeggs.gamestate.EmojiEgg;
 import backend.logic.models.cards.NumberedCard;
-import utils.config.DefaultConfig;
+import utils.config.ConfigFetcher;
+import utils.config.ConfigIdentifier;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -24,7 +25,8 @@ public class Draw {
 
             BufferedImage imageCard = null;
             try {
-                File file = new File(DefaultConfig.publicNameForPath + lastStatusOfPlayers.get(i).getEmoji() + ".png");
+                File file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) +
+                        lastStatusOfPlayers.get(i).getEmoji() + ".png");
                 imageCard = ImageIO.read(file);
             }
 
@@ -56,7 +58,8 @@ public class Draw {
         for (int i = 0; i < numberOfShurikens; i++) {
             BufferedImage imageCard = null;
             try {
-                File file = new File(DefaultConfig.publicNameForPath + shurikensStatus.get(i));
+                File file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + 
+                        shurikensStatus.get(i));
                 imageCard = ImageIO.read(file);
             }
             catch (IOException e) {
@@ -76,7 +79,7 @@ public class Draw {
         for (int i = 0; i < heart; i++) {
             BufferedImage imageCard = null;
             try {
-                File file = new File(DefaultConfig.publicNameForPath + "Heart.png");
+                File file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "Heart.png");
                 imageCard = ImageIO.read(file);
             }
             catch (IOException e) {
@@ -95,7 +98,8 @@ public class Draw {
         for (int i = heart; i < numberOfAllPlayers; i++) {
             BufferedImage imageCard = null;
             try {
-                File file = new File(DefaultConfig.publicNameForPath + "BrokenHeart.png");
+                File file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) +
+                        "BrokenHeart.png");
                 imageCard = ImageIO.read(file);
             }
             catch (IOException e) {
@@ -154,7 +158,8 @@ public class Draw {
         if(heart == 0){
             BufferedImage imageBack = null;
             try {
-                File file1 = new File(DefaultConfig.publicNameForPath + "LostPage.png");
+                File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + 
+                        "LostPage.png");
                 imageBack = ImageIO.read(file1);
             }
             catch (IOException e) {
@@ -168,7 +173,8 @@ public class Draw {
         }
         BufferedImage imageBack = null;
         try {
-            File file1 = new File(DefaultConfig.publicNameForPath + "BackMainPage2.png");
+            File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + 
+                    "BackMainPage2.png");
             imageBack = ImageIO.read(file1);
         }
         catch (IOException e) {
@@ -259,11 +265,13 @@ public class Draw {
             BufferedImage imageCard = null;
             try {
                 if(index == 1){
-                    File file = new File(DefaultConfig.publicNameForPath + "backCard.png");
+                    File file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + 
+                            "backCard.png");
                     imageCard = ImageIO.read(file);
                 }
                 else {
-                    File file = new File(DefaultConfig.publicNameForPath + "backCard2.png");
+                    File file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + 
+                            "backCard2.png");
                     imageCard = ImageIO.read(file);
                 }
             }
@@ -305,34 +313,34 @@ public class Draw {
     public static File getFileOfNumber(int num){
         File file;
         if(num <= 10){
-            file = new File(DefaultConfig.publicNameForPath + "1-10.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "1-10.png");
         }
         else if(num <= 20){
-            file = new File(DefaultConfig.publicNameForPath + "11-20.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "11-20.png");
         }
         else if(num <= 30){
-            file = new File(DefaultConfig.publicNameForPath + "21-30.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "21-30.png");
         }
         else if(num <= 40){
-            file = new File(DefaultConfig.publicNameForPath + "31-40.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "31-40.png");
         }
         else if(num <= 50){
-            file = new File(DefaultConfig.publicNameForPath + "41-50.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "41-50.png");
         }
         else if(num <= 60){
-            file = new File(DefaultConfig.publicNameForPath + "51-60.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "51-60.png");
         }
         else if(num <= 70){
-            file = new File(DefaultConfig.publicNameForPath + "61-70.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "61-70.png");
         }
         else if(num <= 80){
-            file = new File(DefaultConfig.publicNameForPath + "71-80.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "71-80.png");
         }
         else if(num <= 90){
-            file = new File(DefaultConfig.publicNameForPath + "81-90.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "81-90.png");
         }
         else {
-            file = new File(DefaultConfig.publicNameForPath + "91-100.png");
+            file = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + "91-100.png");
         }
 
         return file;

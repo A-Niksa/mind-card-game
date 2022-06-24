@@ -1,7 +1,8 @@
 package backend.server;
 
 import api.API;
-import utils.config.DefaultConfig;
+import utils.config.ConfigFetcher;
+import utils.config.ConfigIdentifier;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -72,7 +73,7 @@ public class NetworkThread implements Runnable{
 
     public void checkConditionAndDoAction(String input, DataInputStream inputStream, DataOutputStream outputStream){
 
-        if(input.equals(DefaultConfig.TestConnection)){
+        if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.TEST_CONNECTION))){
             try {
                 var b = inputStream.readBoolean();
 
@@ -89,11 +90,11 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.NoAction)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.NO_ACTION))){
             //  No action
         }
 
-        else if(input.equals(DefaultConfig.AddNewPlayerInNetwork)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_PLAYER_IN_NETWORK))){
             try {
                 outputStream.writeInt(API.addNewPlayerToLobby());
             } catch (IOException e) {
@@ -101,7 +102,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.AddNewGame)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_GAME))){
             try {
                 outputStream.writeUTF(API.addNewGame(inputStream.readInt() , inputStream.readInt()));
             } catch (IOException e) {
@@ -109,7 +110,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.JoinGame)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.JOIN_GAME))){
             try {
                 outputStream.writeBoolean(API.joinGame(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
@@ -117,7 +118,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.AllJoinableGames)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.ALL_JOINABLE_GAMES))){
             try {
                 outputStream.writeUTF(API.getAllJoinableGames());
             } catch (IOException e) {
@@ -125,7 +126,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.UpdateGame)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.UPDATE_GAME))){
             try {
                 outputStream.writeUTF(API.getUpdatedGameState(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
@@ -133,7 +134,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.MakeMoveACard)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.MOVE_A_CARD))){
             try {
                 outputStream.writeUTF(API.makeMove(inputStream.readInt(), inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
@@ -141,7 +142,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.MakeGameUnjoinable)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.MAKE_GAME_UNJOINABLE))){
             try {
                 outputStream.writeBoolean(API.makeGameUnjoinable(inputStream.readInt()));
             } catch (IOException e) {
@@ -149,7 +150,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.SendRequest)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.SEND_REQUEST))){
             try {
                 API.castNinjaVote(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
             } catch (IOException e) {
@@ -158,7 +159,7 @@ public class NetworkThread implements Runnable{
         }
 
 
-        else if(input.equals(DefaultConfig.IsGameStarted)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.HAS_GAME_STARTED))){
             try {
                 outputStream.writeBoolean(API.gameHasStarted(inputStream.readInt()));
             } catch (IOException e) {
@@ -166,7 +167,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.getHostId)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.GET_HOST_ID))){
             try {
                 outputStream.writeInt(API.getHostId(inputStream.readInt()));
             } catch (IOException e) {
@@ -174,7 +175,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.setEmoji)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.SET_EMOJI))){
             try {
                 API.setEmoji(inputStream.readInt(), inputStream.readInt(), inputStream.readUTF());
             } catch (IOException e) {
@@ -182,7 +183,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.castNinjaCard)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.CAST_NINJA_CARD))){
             try {
                 API.castNinjaVote(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
             } catch (IOException e) {
@@ -190,7 +191,7 @@ public class NetworkThread implements Runnable{
             }
         }
 
-        else if(input.equals(DefaultConfig.showedSmallestCards)){
+        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.SHOWED_SMALLEST_CARDS))){
             try {
                 API.showedSmallestCards(inputStream.readInt());
             }

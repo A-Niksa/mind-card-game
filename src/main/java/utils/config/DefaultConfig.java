@@ -1,30 +1,22 @@
 package utils.config;
 
-public class DefaultConfig {
-    public static String IP = "127.0.0.1";
-    public static int PORT = 8000;
-    public static String AddNewPlayerInNetwork = "Add new player";
-    public static String TestConnection = "Test connection";
-    public static String AddNewGame = "Add new game";
-    public static String JoinGame = "Join game";
-    public static String AllJoinableGames = "Get all joinable games";
-    public static String UpdateGame = "Update game";
-    public static String NoAction = "No action";
-    public static String MakeMoveACard = "Move a card";
-
-    public static String publicNameForPath = ".\\src\\main\\resources\\";
-
-    public static int MenuPageFRAME_HEIGHT = 600;
-    public static int MenuPageFRAME_WIDTH = 900;
-
-
-//    new:
-    public static String MakeGameUnjoinable = "Make game unjoinable";
-    public static String UseNinjaCard = "Use ninja card";
-    public static String SendRequest = "Send request for ninja card";
-    public static String IsGameStarted = "Is game started";
-    public static String getHostId = "Get hos id";
-    public static String setEmoji = "Set emoji";
-    public static String castNinjaCard = "Cast ninja card";
-    public static String showedSmallestCards = "Showed smallest cards";
+class DefaultConfig {
+    static String IP = "127.0.0.1";
+    static int PORT = 8000;
+    static String addNewPlayerInNetwork = "Add new player";
+    static String testConnection = "Test connection";
+    static String addNewGame = "Add new game";
+    static String joinGame = "Join game";
+    static String allJoinableGames = "Get all joinable games";
+    static String updateGame = "Update game";
+    static String noAction = "No action";
+    static String moveACard = "Move a card";
+    static String privateNameForPath = ".\\src\\main\\resources\\";
+    static String makeGameUnjoinable = "Make game unjoinable";
+    static String sendRequest = "Send request for ninja card";
+    static String hasGameStarted = "Has game started";
+    static String getHostId = "Get hos id";
+    static String setEmoji = "Set emoji";
+    static String castNinjaCard = "Cast ninja card";
+    static String showedSmallestCards = "Showed the smallest cards";
 }
