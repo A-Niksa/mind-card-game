@@ -37,7 +37,6 @@ public class ClientNetwork {
 
         try {
             authToken = inputStream.readUTF();
-            System.out.println(authToken);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -111,7 +110,7 @@ public class ClientNetwork {
 
     }
 
-    public String creatNewGame(int numberOfBots, int playerId){
+    public String createNewGame(int numberOfBots, int playerId){
         try {
             outputStream.writeUTF(authToken);
             if(!inputStream.readBoolean()){

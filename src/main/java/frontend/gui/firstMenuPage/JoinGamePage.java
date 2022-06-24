@@ -197,7 +197,6 @@ public class JoinGamePage extends JPanel{
             public void run() {
                 while (notClicked){
                     String output = clientNetwork.allJoinableGames();
-                    Gson gson = new Gson();
                     JoinableGamesEgg joinableGamesEgg = (JoinableGamesEgg) JsonParser.parseToDataEgg(output, DataEggType.JOINABLE_GAMES_EGG);
 
                     ArrayList<JoinableGame> joinableGamesList = (ArrayList<JoinableGame>) joinableGamesEgg.getJoinableGamesList();

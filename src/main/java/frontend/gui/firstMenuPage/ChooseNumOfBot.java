@@ -43,7 +43,7 @@ public class ChooseNumOfBot extends JPanel{
                 int y = e.getY();
 
                 if (x >= 90 & x <= 320 & y >= 0 & y <= 174) {
-                    String output = clientNetwork.creatNewGame(1, playerId);
+                    String output = clientNetwork.createNewGame(1, playerId);
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
@@ -59,7 +59,7 @@ public class ChooseNumOfBot extends JPanel{
 
                 }
                 else if(x >= 90 & x <= 320 & y >= 175 & y <= 374){
-                    String output = clientNetwork.creatNewGame(2, playerId);
+                    String output = clientNetwork.createNewGame(2, playerId);
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
@@ -74,7 +74,7 @@ public class ChooseNumOfBot extends JPanel{
                     }
                 }
                 else if(x >= 90 & x <= 320 & y >= 375 & y <= 584){
-                    String output = clientNetwork.creatNewGame(3, playerId);
+                    String output = clientNetwork.createNewGame(3, playerId);
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
