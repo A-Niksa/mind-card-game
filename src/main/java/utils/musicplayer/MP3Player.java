@@ -23,7 +23,7 @@ public class MP3Player {
 
         new Thread() {
             public void run() {
-                while (true){
+                while (true) {
                     try {
                         jlPlayer.play();
                     } catch (Exception e) {

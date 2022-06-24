@@ -6,9 +6,9 @@ import api.dataeggs.joinablegames.JoinableGamesEgg;
 import utils.config.ConfigFetcher;
 import utils.config.ConfigIdentifier;
 import utils.jsonparsing.JsonParser;
-import com.google.gson.Gson;
 import frontend.gui.game.GamePage;
 import frontend.client.ClientNetwork;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import static javax.swing.SwingUtilities.isRightMouseButton;
 
-public class JoinGamePage extends JPanel{
+public class JoinGamePage extends JPanel {
     JFrame frame;
     ClientNetwork clientNetwork;
     final int playerId;
@@ -35,8 +35,7 @@ public class JoinGamePage extends JPanel{
     ArrayList<String> arrayListStringType;
 
 
-
-    public JoinGamePage(ClientNetwork clientNetwork, int playerId){
+    public JoinGamePage(ClientNetwork clientNetwork, int playerId) {
 
         notClicked = true;
         arrayListIds = new ArrayList<>();
@@ -57,26 +56,25 @@ public class JoinGamePage extends JPanel{
 
             }
 
-            public void mousePressed(MouseEvent e){
+            public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
 
-                if(isRightMouseButton(e)){
+                if (isRightMouseButton(e)) {
                     frame.dispose();
                     new FirstMenuPage(clientNetwork, playerId);
                     return;
                 }
-                if(y < arrayListIds.size() * 80){
+                if (y < arrayListIds.size() * 80) {
                     int index = y / 80;
                     boolean can = clientNetwork.joinGame(arrayListIds.get(index), playerId);
-                    if(can){
+                    if (can) {
                         notClicked = false;
                         int gameId = arrayListIds.get(index);
                         System.out.println("gameId is : " + gameId);
                         new GamePage(clientNetwork, gameId, playerId);
                         frame.dispose();
-                    }
-                    else{
+                    } else {
                         JOptionPane.showMessageDialog(frame, "Error!!!",
                                 "ypu can't join this game", JOptionPane.ERROR_MESSAGE);
                     }
@@ -101,7 +99,6 @@ public class JoinGamePage extends JPanel{
         addMouseMotionListener(new MouseAdapter() {
 
 
-
             public void mouseMoved(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
@@ -109,30 +106,27 @@ public class JoinGamePage extends JPanel{
                 for (int i = 0; i < arrayListIds.size(); i++) {
                     arrayListStringType.add("JoinGamePageText.png");
                 }
-                if(y < arrayListIds.size() * 80){
+                if (y < arrayListIds.size() * 80) {
                     int index = y / 80;
                     arrayListStringType.set(index, "JoinGamePageTextHigh.png");
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
                     repaint();
-                }
-
-                else{
+                } else {
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     repaint();
 
                 }
 
 
-
             }
         });
     }
 
-    public void initializeFrame(){
+    public void initializeFrame() {
         frame = new JFrame();
         frame.setTitle("Game");
         frame.setSize(414, 738);
-        frame.setLocation(0,0);
+        frame.setLocation(0, 0);
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.WHITE);
         this.setBackground(Color.WHITE);
@@ -150,19 +144,18 @@ public class JoinGamePage extends JPanel{
         printBack(g);
     }
 
-    public void printBack(Graphics g){
+    public void printBack(Graphics g) {
         int counter = 0;
         for (int i = 0; i < arrayListIds.size(); i++) {
             BufferedImage imageID = null;
             try {
-                if(arrayListStringType.size() == 0){
+                if (arrayListStringType.size() == 0) {
                     continue;
                 }
                 File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) +
                         arrayListStringType.get(i));
                 imageID = ImageIO.read(file1);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -188,14 +181,13 @@ public class JoinGamePage extends JPanel{
         }
 
 
-
     }
 
-    public void startThreads(){
+    public void startThreads() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (notClicked){
+                while (notClicked) {
                     String output = clientNetwork.allJoinableGames();
                     JoinableGamesEgg joinableGamesEgg = (JoinableGamesEgg) JsonParser.parseToDataEgg(output, DataEggType.JOINABLE_GAMES_EGG);
 
@@ -205,7 +197,7 @@ public class JoinGamePage extends JPanel{
                     arrayListFreePlayer.clear();
                     arrayListNumOfBot.clear();
 
-                    for (int i = 0; i < joinableGamesList.size() ; i++) {
+                    for (int i = 0; i < joinableGamesList.size(); i++) {
                         arrayListIds.add(joinableGamesList.get(i).getGameId());
                         arrayListFreePlayer.add(joinableGamesList.get(i).getNumberOfFreePlayers());
                         arrayListNumOfBot.add(joinableGamesList.get(i).getNumberOfBots());

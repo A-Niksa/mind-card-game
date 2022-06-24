@@ -1,6 +1,5 @@
 package backend.logic.games.components;
 
-import backend.logic.models.cards.Card;
 import backend.logic.models.cards.NumberedCard;
 
 import java.util.ArrayDeque;

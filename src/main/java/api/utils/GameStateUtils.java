@@ -43,7 +43,7 @@ public class GameStateUtils {
         return ninjaRequestEggsList;
     }
 
-    public static void setEmojiById(Game game, int playerId,  Emoji emoji) {
+    public static void setEmojiById(Game game, int playerId, Emoji emoji) {
         Player player = getPlayerById(game, playerId);
         if (!player.isBot()) {
             ((Human) player).setSelectedEmoji(emoji);
@@ -93,21 +93,17 @@ public class GameStateUtils {
         return handEggsList;
     }
 
-    public static Emoji stringToEnum(String  emojiString){
+    public static Emoji stringToEnum(String emojiString) {
         Emoji emoji;
-        if(emojiString.toLowerCase().equals("ANGRY".toLowerCase())){
+        if (emojiString.toLowerCase().equals("ANGRY".toLowerCase())) {
             emoji = Emoji.ANGRY;
-        }
-        else if(emojiString.toLowerCase().equals("LAUGHING".toLowerCase())){
+        } else if (emojiString.toLowerCase().equals("LAUGHING".toLowerCase())) {
             emoji = Emoji.LAUGHING;
-        }
-        else if(emojiString.toLowerCase().equals("LOVING".toLowerCase())){
+        } else if (emojiString.toLowerCase().equals("LOVING".toLowerCase())) {
             emoji = Emoji.LOVING;
-        }
-        else if(emojiString.toLowerCase().equals("CRYING".toLowerCase())){
+        } else if (emojiString.toLowerCase().equals("CRYING".toLowerCase())) {
             emoji = Emoji.CRYING;
-        }
-        else{
+        } else {
             emoji = Emoji.NOTHING;
         }
         return emoji;

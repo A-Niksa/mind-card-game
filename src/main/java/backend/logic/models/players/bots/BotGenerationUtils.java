@@ -1,7 +1,5 @@
 package backend.logic.models.players.bots;
 
-import backend.logic.games.Game;
-import backend.logic.games.GameManager;
 import backend.logic.games.components.Deck;
 import backend.logic.models.players.Player;
 

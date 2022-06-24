@@ -3,7 +3,6 @@ package backend.logic.games.actionlogger;
 import api.utils.MakingMoveUtils;
 import backend.logic.games.Game;
 import backend.logic.games.GameManager;
-import backend.logic.models.cards.NumberedCard;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

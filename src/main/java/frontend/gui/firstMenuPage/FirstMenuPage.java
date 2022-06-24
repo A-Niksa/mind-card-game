@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class FirstMenuPage extends JPanel{
+public class FirstMenuPage extends JPanel {
     JFrame frame;
     ClientNetwork clientNetwork;
     final int playerId;
@@ -22,7 +22,7 @@ public class FirstMenuPage extends JPanel{
 
     String fileName = "FirstPage.png";
 
-    public FirstMenuPage (ClientNetwork clientNetwork, int playerId){
+    public FirstMenuPage(ClientNetwork clientNetwork, int playerId) {
 
         this.clientNetwork = clientNetwork;
         this.playerId = playerId;
@@ -34,24 +34,20 @@ public class FirstMenuPage extends JPanel{
 
             }
 
-            public void mousePressed(MouseEvent e){
+            public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
 
-                if(x >= 90 & x <= 320 & y >= 180 & y <= 369){
+                if (x >= 90 & x <= 320 & y >= 180 & y <= 369) {
                     frame.dispose();
                     new ChooseNumOfBot(clientNetwork, playerId);
-                }
-
-                else if(x >= 90 & x <= 320 & y >= 370 & y <= 579){
+                } else if (x >= 90 & x <= 320 & y >= 370 & y <= 579) {
                     frame.dispose();
                     new JoinGamePage(clientNetwork, playerId);
-                }
-                else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 35 * 35){
+                } else if ((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 35 * 35) {
                     frame.dispose();
 //                    TODO -> stop network
-                }
-                else{
+                } else {
 
                 }
             }
@@ -71,27 +67,23 @@ public class FirstMenuPage extends JPanel{
         addMouseMotionListener(new MouseAdapter() {
 
 
-
             public void mouseMoved(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
 
-                if(x >= 90 & x <= 320 & y >= 180 & y <= 369){
+                if (x >= 90 & x <= 320 & y >= 180 & y <= 369) {
                     fileName = "FirstPageNewGameHigh.png";
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
                     repaint();
-                }
-                else if(x >= 90 & x <= 320 & y >= 370 & y <= 579){
+                } else if (x >= 90 & x <= 320 & y >= 370 & y <= 579) {
                     fileName = "FirstPageJoinGameHigh.png";
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
                     repaint();
-                }
-                else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 35 * 35){
+                } else if ((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 35 * 35) {
                     fileName = "FirstPage.png";
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
                     repaint();
-                }
-                else{
+                } else {
                     fileName = "FirstPage.png";
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     repaint();
@@ -101,11 +93,11 @@ public class FirstMenuPage extends JPanel{
         });
     }
 
-    public void initializeFrame(){
+    public void initializeFrame() {
         frame = new JFrame();
         frame.setTitle("Game");
         frame.setSize(414, 738);
-        frame.setLocation(0,0);
+        frame.setLocation(0, 0);
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.WHITE);
         frame.setResizable(false);
@@ -122,13 +114,12 @@ public class FirstMenuPage extends JPanel{
         printBack(g);
     }
 
-    public void printBack(Graphics g){
+    public void printBack(Graphics g) {
         BufferedImage imageBack = null;
         try {
             File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + fileName);
             imageBack = ImageIO.read(file1);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         int w = 400;

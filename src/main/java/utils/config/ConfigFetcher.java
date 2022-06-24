@@ -29,7 +29,7 @@ public class ConfigFetcher {
     }
 
     public static String fetchFromDefaultConfig(ConfigIdentifier configIdentifier) {
-        switch(configIdentifier) {
+        switch (configIdentifier) {
             case IP:
                 return DefaultConfig.IP;
             case PORT:

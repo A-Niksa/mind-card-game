@@ -37,7 +37,7 @@ public class JsonParser {
         return gson().fromJson(jsonString, getClassLiteral(dataEggType));
     }
 
-    private static Class<? extends DataEgg> getClassLiteral(DataEggType dataEggType) { // ?
+    private static Class<? extends DataEgg> getClassLiteral(DataEggType dataEggType) {
         switch (dataEggType) {
             case MAKING_MOVE_EGG:
                 return MakingMoveEgg.class;

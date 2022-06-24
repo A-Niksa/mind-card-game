@@ -1,7 +1,6 @@
 package backend.logic.models.players;
 
 import backend.logic.games.components.Hand;
-import backend.logic.models.cards.NumberedCard;
 
 public abstract class Player {
     private static int globalPlayerId = 0;

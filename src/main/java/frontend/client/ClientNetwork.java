@@ -37,8 +37,7 @@ public class ClientNetwork {
 
         try {
             authToken = inputStream.readUTF();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -46,11 +45,11 @@ public class ClientNetwork {
     }
 
 
-    public boolean testConnection(){
+    public boolean testConnection() {
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
-               return false;
+            if (!inputStream.readBoolean()) {
+                return false;
             }
             outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.TEST_CONNECTION));
             boolean b = true;
@@ -64,42 +63,39 @@ public class ClientNetwork {
 
             return b & socket.isConnected();
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
 
     }
 
-    public void noAction(){
+    public void noAction() {
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return;
             }
 
             outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.NO_ACTION));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public int addNewPlayer(){
+    public int addNewPlayer() {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return -1;
             }
 
             outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_PLAYER_IN_NETWORK));
             return inputStream.readInt();
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -110,10 +106,10 @@ public class ClientNetwork {
 
     }
 
-    public String createNewGame(int numberOfBots, int playerId){
+    public String createNewGame(int numberOfBots, int playerId) {
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return "";
             }
 
@@ -121,8 +117,7 @@ public class ClientNetwork {
             outputStream.writeInt(numberOfBots);
             outputStream.writeInt(playerId);
             return inputStream.readUTF();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -132,11 +127,11 @@ public class ClientNetwork {
         }
     }
 
-    public boolean joinGame(int idGame, int playerId){
+    public boolean joinGame(int idGame, int playerId) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return false;
             }
 
@@ -144,9 +139,7 @@ public class ClientNetwork {
             outputStream.writeInt(idGame);
             outputStream.writeInt(playerId);
             return inputStream.readBoolean();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -157,19 +150,17 @@ public class ClientNetwork {
 
     }
 
-    public String allJoinableGames(){
+    public String allJoinableGames() {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return "";
             }
 
             outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.ALL_JOINABLE_GAMES));
             return inputStream.readUTF();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -180,11 +171,11 @@ public class ClientNetwork {
 
     }
 
-    public String updateGame(int gameId, int currentHumanId){
+    public String updateGame(int gameId, int currentHumanId) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return "";
             }
 
@@ -192,9 +183,7 @@ public class ClientNetwork {
             outputStream.writeInt(gameId);
             outputStream.writeInt(currentHumanId);
             return inputStream.readUTF();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -205,11 +194,11 @@ public class ClientNetwork {
 
     }
 
-    public String makeMove(int gameId, int playerId, int cardNumber){
+    public String makeMove(int gameId, int playerId, int cardNumber) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return "";
             }
 
@@ -218,9 +207,7 @@ public class ClientNetwork {
             outputStream.writeInt(playerId);
             outputStream.writeInt(cardNumber);
             return inputStream.readUTF();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -231,20 +218,18 @@ public class ClientNetwork {
 
     }
 
-    public boolean makeGameUnjoinable(int gameId){
+    public boolean makeGameUnjoinable(int gameId) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return false;
             }
 
             outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.MAKE_GAME_UNJOINABLE));
             outputStream.writeInt(gameId);
             return inputStream.readBoolean();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -255,20 +240,18 @@ public class ClientNetwork {
 
     }
 
-    public boolean isGameStarted(int gameId){
+    public boolean isGameStarted(int gameId) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return false;
             }
 
             outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.HAS_GAME_STARTED));
             outputStream.writeInt(gameId);
             return inputStream.readBoolean();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -279,20 +262,18 @@ public class ClientNetwork {
 
     }
 
-    public int getHostId(int gameId){
+    public int getHostId(int gameId) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return -1;
             }
 
             outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.GET_HOST_ID));
             outputStream.writeInt(gameId);
             return inputStream.readInt();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -303,11 +284,11 @@ public class ClientNetwork {
 
     }
 
-    public void castNinjaVote(boolean agreesWithRequest, int playerId, int gameId){
+    public void castNinjaVote(boolean agreesWithRequest, int playerId, int gameId) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return;
             }
 
@@ -315,9 +296,7 @@ public class ClientNetwork {
             outputStream.writeBoolean(agreesWithRequest);
             outputStream.writeInt(playerId);
             outputStream.writeInt(gameId);
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -327,11 +306,11 @@ public class ClientNetwork {
 
     }
 
-    public void setEmoji(int gameId, int playerId, Emoji emoji){
+    public void setEmoji(int gameId, int playerId, Emoji emoji) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return;
             }
 
@@ -340,9 +319,7 @@ public class ClientNetwork {
             outputStream.writeInt(playerId);
             outputStream.writeUTF(emoji.name());
 
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {
@@ -352,20 +329,18 @@ public class ClientNetwork {
 
     }
 
-    public void showedSmallestCards(int gameId){
+    public void showedSmallestCards(int gameId) {
 
         try {
             outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
+            if (!inputStream.readBoolean()) {
                 return;
             }
 
             outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.SHOWED_SMALLEST_CARDS));
             outputStream.writeInt(gameId);
 
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             try {
                 socket.close();
             } catch (IOException ioException) {

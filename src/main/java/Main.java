@@ -1,16 +1,23 @@
+// 06/24/2022
+// Ali Banayeean Zade & Arsha Niksa
+// https://github.com/A-Niksa/mind-card-game
+
+import utils.config.ConfigFetcher;
+import utils.config.ConfigIdentifier;
 import utils.musicplayer.MP3Player;
 import frontend.client.ClientNetwork;
 import frontend.gui.firstMenuPage.FirstMenuPage;
+
 import javax.swing.*;
 
 public class Main {
     private static JFrame frame;
 
-    public static void playMusic(String path1, String path2){
+    public static void playMusic(String path1, String path2) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
                     MP3Player mp3Player = new MP3Player(path1);
                     mp3Player.play();
                     try {
@@ -32,9 +39,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-//        playMusic(DefaultConfig.publicNameForPath + "m.mp3", DefaultConfig.publicNameForPath + "m2.mp3");
+        String path = ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH);
+        playMusic(path + "m.mp3", path + "m2.mp3");
 
-        
+
         var clientNetwork = new ClientNetwork();
         int playerId = clientNetwork.addNewPlayer();
         new FirstMenuPage(clientNetwork, playerId);

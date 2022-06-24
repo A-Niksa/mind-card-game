@@ -46,15 +46,13 @@ public class GameStateEgg extends DataEgg {
         numberOfPlayers = game.getNumberOfPlayers();
         numberOfHumans = numberOfPlayers - game.getNumberOfBots();
 
-        if(game.getDroppingGround() == null){
+        if (game.getDroppingGround() == null) {
             lastCardNumberOnGround = -1;
         }
 
-        if(game.getDroppingGround().getNumberOfCardsOnGround() == 0){
+        if (game.getDroppingGround().getNumberOfCardsOnGround() == 0) {
             lastCardNumberOnGround = -1;
-        }
-
-        else{
+        } else {
             lastCardNumberOnGround = game.getDroppingGround()
                     .peek().getCardNumber();
         }

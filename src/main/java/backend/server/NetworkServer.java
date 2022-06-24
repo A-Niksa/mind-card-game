@@ -1,3 +1,7 @@
+// 06/24/2022
+// Ali Banayeean Zade & Arsha Niksa
+// https://github.com/A-Niksa/mind-card-game
+
 package backend.server;
 
 import utils.config.ConfigFetcher;

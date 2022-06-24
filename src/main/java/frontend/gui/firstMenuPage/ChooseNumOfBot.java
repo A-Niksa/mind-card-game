@@ -17,14 +17,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ChooseNumOfBot extends JPanel{
+public class ChooseNumOfBot extends JPanel {
     JFrame frame;
     ClientNetwork clientNetwork;
     final int playerId;
 
     String fileName = "ChooseBotPage.png";
 
-    public ChooseNumOfBot (ClientNetwork clientNetwork, int playerId){
+    public ChooseNumOfBot(ClientNetwork clientNetwork, int playerId) {
 
         this.clientNetwork = clientNetwork;
         initializeFrame();
@@ -32,13 +32,12 @@ public class ChooseNumOfBot extends JPanel{
         this.playerId = playerId;
 
 
-
         addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
 
             }
 
-            public void mousePressed(MouseEvent e){
+            public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
 
@@ -47,48 +46,42 @@ public class ChooseNumOfBot extends JPanel{
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
-                    if(isCreatingNewGameWasSuccessful){
+                    if (isCreatingNewGameWasSuccessful) {
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
                         frame.dispose();
-                    }
-                    else{
+                    } else {
                         JOptionPane.showMessageDialog(frame, "Error!!!",
                                 "Creating game was unsuccessful", JOptionPane.ERROR_MESSAGE);
                     }
 
-                }
-                else if(x >= 90 & x <= 320 & y >= 175 & y <= 374){
+                } else if (x >= 90 & x <= 320 & y >= 175 & y <= 374) {
                     String output = clientNetwork.createNewGame(2, playerId);
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
-                    if(isCreatingNewGameWasSuccessful){
+                    if (isCreatingNewGameWasSuccessful) {
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
                         frame.dispose();
-                    }
-                    else{
+                    } else {
                         JOptionPane.showMessageDialog(frame, "Error!!!",
                                 "Creating game was unsuccessful", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                else if(x >= 90 & x <= 320 & y >= 375 & y <= 584){
+                } else if (x >= 90 & x <= 320 & y >= 375 & y <= 584) {
                     String output = clientNetwork.createNewGame(3, playerId);
                     Gson gson = new Gson();
                     NewGameEgg newGameEgg = gson.fromJson(output, NewGameEgg.class);
                     boolean isCreatingNewGameWasSuccessful = newGameEgg.creatingNewGameWasSuccessful();
-                    if(isCreatingNewGameWasSuccessful){
+                    if (isCreatingNewGameWasSuccessful) {
                         int gameId = newGameEgg.getIdOfCreatedGame();
                         new GamePage(clientNetwork, gameId, playerId);
                         frame.dispose();
-                    }
-                    else{
+                    } else {
                         JOptionPane.showMessageDialog(frame, "Error!!!",
                                 "Creating game was unsuccessful", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 38 * 38){
+                } else if ((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 38 * 38) {
                     new FirstMenuPage(clientNetwork, playerId);
                     frame.dispose();
                 }
@@ -110,7 +103,6 @@ public class ChooseNumOfBot extends JPanel{
         addMouseMotionListener(new MouseAdapter() {
 
 
-
             public void mouseMoved(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
@@ -119,23 +111,19 @@ public class ChooseNumOfBot extends JPanel{
                     fileName = "ChooseBotPageOneRobot.png";
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
                     repaint();
-                }
-                else if(x >= 90 & x <= 320 & y >= 175 & y <= 374){
+                } else if (x >= 90 & x <= 320 & y >= 175 & y <= 374) {
                     fileName = "ChooseBotPageTwoRobot.png";
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
                     repaint();
-                }
-                else if(x >= 90 & x <= 320 & y >= 375 & y <= 584){
+                } else if (x >= 90 & x <= 320 & y >= 375 & y <= 584) {
                     fileName = "ChooseBotPageThreeRobot.png";
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
                     repaint();
-                }
-                else if((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 37 * 37){
+                } else if ((x - 200) * (x - 200) + (y - 650) * (y - 650) <= 37 * 37) {
                     fileName = "ChooseBotPage.png";
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
                     repaint();
-                }
-                else{
+                } else {
                     fileName = "ChooseBotPage.png";
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     repaint();
@@ -146,7 +134,6 @@ public class ChooseNumOfBot extends JPanel{
     }
 
 
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -154,13 +141,12 @@ public class ChooseNumOfBot extends JPanel{
         printBack(g);
     }
 
-    public void printBack(Graphics g){
+    public void printBack(Graphics g) {
         BufferedImage imageBack = null;
         try {
             File file1 = new File(ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH) + fileName);
             imageBack = ImageIO.read(file1);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         int w = 400;
@@ -168,11 +154,11 @@ public class ChooseNumOfBot extends JPanel{
         g.drawImage(imageBack, 0, 0, (int) w, (int) h, null);
     }
 
-    public void initializeFrame(){
+    public void initializeFrame() {
         frame = new JFrame();
         frame.setTitle("Game");
         frame.setSize(414, 738);
-        frame.setLocation(0,0);
+        frame.setLocation(0, 0);
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.WHITE);
         frame.getContentPane().add(this);
@@ -180,8 +166,6 @@ public class ChooseNumOfBot extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
-
 
 
 }

@@ -82,7 +82,7 @@ public class JudgeUtils {
         NumberedCardComparator comparator = new NumberedCardComparator();
         cardsOfAllPlayersList.sort(comparator);
 
-        if(cardsOfAllPlayersList.size() == 0){
+        if (cardsOfAllPlayersList.size() == 0) {
             return true;
         }
         return cardsOfAllPlayersList.get(0).getCardNumber() > cardToDrop.getCardNumber();

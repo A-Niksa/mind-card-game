@@ -164,7 +164,6 @@ public class Game {
     public synchronized void dropCard(int playerId, NumberedCard cardToDrop) {
         if (!JudgeUtils.cardToDropIsTheMinOfAllPlayers(this, cardToDrop)) {
             actionLogger.logLossOfHealthCard();
-            // dummy
             removeOneHealthCardFromDeck();
             if (JudgeUtils.checkIfPlayersHaveLost(this)) {
                 return;

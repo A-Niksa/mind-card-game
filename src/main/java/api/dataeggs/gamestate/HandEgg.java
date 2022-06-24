@@ -9,7 +9,7 @@ public class HandEgg extends DataEgg implements Comparable<HandEgg> {
     private Hand playerHand;
 
     public HandEgg(int playerId, Hand playerHand) {
-        super(DataEggType.HAND_EGG); // should it extend DataEgg?
+        super(DataEggType.HAND_EGG);
 
         this.playerId = playerId;
         this.playerHand = playerHand;

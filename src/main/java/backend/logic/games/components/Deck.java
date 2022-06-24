@@ -48,7 +48,7 @@ public class Deck {
 
     private void addNumberedCards() {
         for (int i = 0; i < NUMBER_OF_NUMBERED_CARDS; i++) {
-            numberedCardsList.add(new NumberedCard(i+1));
+            numberedCardsList.add(new NumberedCard(i + 1));
         }
         Collections.shuffle(numberedCardsList);
     }

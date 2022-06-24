@@ -1,10 +1,8 @@
 package backend.logic.games.components.ninjahandling;
 
 import api.dataeggs.ninjarequest.NinjaRequestStatus;
-import backend.logic.games.Game;
 import backend.logic.games.GameManager;
 import backend.logic.games.components.Hand;
-import backend.logic.models.cards.NumberedCard;
 import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 
@@ -23,20 +21,8 @@ public class NinjaHandler {
         this.numberOfHumansInGame = numberOfHumansInGame;
         this.playersList = playersList;
         ninjaRequestsStack = new ArrayDeque<>();
-//        fillNinjaRequestsStack();
         shouldShowSmallestCards = false;
     }
-
-//    private void fillNinjaRequestsStack() {
-//        Game game = GameManager.getGameById(gameId);
-//        int numberOfHumans = game.getNumbexrOfPlayers() - game.getNumberOfBots();
-//        for (Player player : playersList) {
-//            if (!player.isBot()) {
-//                Human human = (Human) player;
-//                ninjaRequestsStack.offer(new NinjaRequest(human, numberOfHumans));
-//            }
-//        }
-//    }
 
     public ArrayList<CardAndPlayerTuple> carryOutRequestAndReturnDroppedCards() {
 
@@ -54,19 +40,11 @@ public class NinjaHandler {
         return smallestCardsList;
     }
 
-//    private void dropCardOnGame(ArrayList<CardAndPlayerTuple> cardTuplesList) {
-//        for (CardAndPlayerTuple cardTuple : cardTuplesList) {
-//            int playerId = cardTuple.getPlayerId();
-//            NumberedCard card = cardTuple.getCard();
-//            GameManager.dropCardInGame(gameId, playerId, card);
-//        }
-//    }
-
     private ArrayList<CardAndPlayerTuple> getSmallestCardsOfPlayersTuples() {
         ArrayList<CardAndPlayerTuple> smallestCardsList = new ArrayList<>();
         for (Player player : playersList) {
             Hand hand = player.getHand();
-            if (!hand.hasAnyCards()){
+            if (!hand.hasAnyCards()) {
                 continue;
             }
 
@@ -89,10 +67,6 @@ public class NinjaHandler {
 
             request.addVote(human, agreesWithRequest);
 
-//            if (!agreesWithRequest || request.allHumansHaveAgreedOnNinjaRequest()) {
-//                ninjaRequestsStack.remove();
-//                GameManager.restartGameThreads(gameId);
-//            }
             if (!agreesWithRequest) {
                 ninjaRequestsStack.remove();
                 GameManager.restartGameThreads(gameId);
@@ -107,10 +81,9 @@ public class NinjaHandler {
     public NinjaRequestStatus getRequestStatus() {
         NinjaRequest request = ninjaRequestsStack.peek();
 
-        if(request == null){
+        if (request == null) {
             return NinjaRequestStatus.WAITING;
-        }
-        else if (request.allHumanVotesHaveBeenCast()) {
+        } else if (request.allHumanVotesHaveBeenCast()) {
             if (request.allHumansHaveAgreedOnNinjaRequest()) {
                 return NinjaRequestStatus.ACCEPTED;
             } else {

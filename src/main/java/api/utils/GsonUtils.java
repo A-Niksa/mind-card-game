@@ -4,7 +4,6 @@ import api.dataeggs.MakingMoveEgg;
 import api.dataeggs.NewGameEgg;
 import api.dataeggs.gamestate.GameStateEgg;
 import api.dataeggs.joinablegames.JoinableGamesEgg;
-import api.dataeggs.ninjarequest.NinjaMoveEgg;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -25,10 +24,6 @@ public class GsonUtils {
     }
 
     public static String getJsonString(GameStateEgg dataEgg) {
-        return gson.toJson(dataEgg);
-    }
-
-    public static String getJsonString(NinjaMoveEgg dataEgg) {
         return gson.toJson(dataEgg);
     }
 }

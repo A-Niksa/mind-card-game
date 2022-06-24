@@ -10,13 +10,12 @@ import java.io.IOException;
 import java.net.Socket;
 
 
-public class NetworkThread implements Runnable{
+public class NetworkThread implements Runnable {
     private int id;
     private static int idCounter = 0;
     private Socket socket;
     private String authToken;
     private int playerId;
-
 
     public NetworkThread(Socket socket) {
         playerId = -1;
@@ -48,15 +47,14 @@ public class NetworkThread implements Runnable{
         }
 
 
-        while (notBroken){
+        while (notBroken) {
 
             String input = "";
 
             try {
-                if(inputStream.readUTF().equals(authToken)){
+                if (inputStream.readUTF().equals(authToken)) {
                     outputStream.writeBoolean(true);
-                }
-                else{
+                } else {
                     outputStream.writeBoolean(false);
                     continue;
                 }
@@ -64,8 +62,7 @@ public class NetworkThread implements Runnable{
                 input = inputStream.readUTF();
                 checkConditionAndDoAction(input, inputStream, outputStream);
 
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 API.disconnectHuman(playerId);
                 notBroken = false;
             }
@@ -73,132 +70,101 @@ public class NetworkThread implements Runnable{
         }
     }
 
-    public void checkConditionAndDoAction(String input, DataInputStream inputStream, DataOutputStream outputStream){
+    public void checkConditionAndDoAction(String input, DataInputStream inputStream, DataOutputStream outputStream) {
 
-        if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.TEST_CONNECTION))){
+        if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.TEST_CONNECTION))) {
             try {
                 var b = inputStream.readBoolean();
 
                 System.out.println("Client : " + id + "  send boolean  " + b);
 
-                if(b){
+                if (b) {
                     outputStream.writeBoolean(true);
-                }
-                else{
+                } else {
                     outputStream.writeBoolean(false);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.NO_ACTION))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.NO_ACTION))) {
             //  No action
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_PLAYER_IN_NETWORK))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_PLAYER_IN_NETWORK))) {
             try {
                 playerId = API.addNewPlayerToLobby();
                 outputStream.writeInt(playerId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_GAME))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_GAME))) {
             try {
-                outputStream.writeUTF(API.addNewGame(inputStream.readInt() , inputStream.readInt()));
+                outputStream.writeUTF(API.addNewGame(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.JOIN_GAME))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.JOIN_GAME))) {
             try {
                 outputStream.writeBoolean(API.joinGame(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.ALL_JOINABLE_GAMES))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.ALL_JOINABLE_GAMES))) {
             try {
                 outputStream.writeUTF(API.getAllJoinableGames());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.UPDATE_GAME))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.UPDATE_GAME))) {
             try {
                 outputStream.writeUTF(API.getUpdatedGameState(inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.MOVE_A_CARD))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.MOVE_A_CARD))) {
             try {
                 outputStream.writeUTF(API.makeMove(inputStream.readInt(), inputStream.readInt(), inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.MAKE_GAME_UNJOINABLE))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.MAKE_GAME_UNJOINABLE))) {
             try {
                 outputStream.writeBoolean(API.startGame(inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.SEND_REQUEST))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.SEND_REQUEST))) {
             try {
                 API.castNinjaVote(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.HAS_GAME_STARTED))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.HAS_GAME_STARTED))) {
             try {
                 outputStream.writeBoolean(API.gameHasStarted(inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.GET_HOST_ID))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.GET_HOST_ID))) {
             try {
                 outputStream.writeInt(API.getHostId(inputStream.readInt()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.SET_EMOJI))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.SET_EMOJI))) {
             try {
                 API.setEmoji(inputStream.readInt(), inputStream.readInt(), inputStream.readUTF());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.CAST_NINJA_CARD))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.CAST_NINJA_CARD))) {
             try {
                 API.castNinjaVote(inputStream.readBoolean(), inputStream.readInt(), inputStream.readInt());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.SHOWED_SMALLEST_CARDS))){
+        } else if (input.equals(ConfigFetcher.fetch(ConfigIdentifier.SHOWED_SMALLEST_CARDS))) {
             try {
                 API.showedSmallestCards(inputStream.readInt());
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

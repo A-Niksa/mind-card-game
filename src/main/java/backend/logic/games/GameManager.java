@@ -1,11 +1,9 @@
 package backend.logic.games;
 
-import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.models.cards.NumberedCard;
 import backend.logic.models.players.Human;
 import backend.logic.models.players.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

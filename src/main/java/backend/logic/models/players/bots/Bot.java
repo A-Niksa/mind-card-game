@@ -21,14 +21,13 @@ public abstract class Bot extends Player implements Runnable {
     public void run() {
         outer:
         while (GameManager.gameHasHealthCardsLeft(joinedGameId)) {
-            if(GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
+            if (GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     break;
                 }
-            }
-            else if (hand.hasAnyCards()) {
+            } else if (hand.hasAnyCards()) {
                 if (botIsTheOnlyPlayerWithCards()) {
                     try {
                         Thread.sleep(1500);
@@ -56,9 +55,7 @@ public abstract class Bot extends Player implements Runnable {
 
                     GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
                 }
-            }
-
-            else {
+            } else {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
