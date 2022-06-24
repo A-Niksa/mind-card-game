@@ -19,7 +19,8 @@ public class JoinableGamesEgg extends DataEgg {
     public void addJoinableGame(Game game) {
         int gameId = game.getGameId();
         int numberOfBots = game.getNumberOfBots();
-        int numberOfFreePlayers = 4 - game.getNumberOfPlayers();
+        int numberOfFreePlayers = game.gameHasBeenStarted() ? numberOfBots :
+                4 - (game.getNumberOfPlayers() - game.getNumberOfBots());
         JoinableGame joinableGame = new JoinableGame(gameId, numberOfFreePlayers, numberOfBots);
 
         joinableGamesList.add(joinableGame);

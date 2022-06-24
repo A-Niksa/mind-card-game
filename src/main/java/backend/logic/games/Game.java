@@ -95,11 +95,12 @@ public class Game {
     }
 
     private Bot getFirstBotInList() {
-        if (playersList.isEmpty()) {
+        List<Bot> botsList = BotGenerationUtils.getBotsList(playersList);
+        if (botsList.isEmpty()) {
             return null;
         }
 
-        return (Bot) playersList.get(0);
+        return botsList.get(0);
     }
 
     public void disconnectHuman(int playerId) {
@@ -136,6 +137,7 @@ public class Game {
     private void addBot(Hand hand) {
         Bot bot = BotGenerationUtils.getARandomBot(gameId);
         bot.setHand(hand);
+        playersList.add(bot);
 
         Thread thread = new Thread(bot);
         botThreadsList.add(thread);
