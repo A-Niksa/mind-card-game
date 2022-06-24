@@ -19,6 +19,7 @@ public class NetworkThread implements Runnable{
 
 
     public NetworkThread(Socket socket) {
+        playerId = -1;
         this.socket = socket;
         id = idCounter;
         idCounter++;
