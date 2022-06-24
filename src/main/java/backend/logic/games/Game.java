@@ -63,25 +63,52 @@ public class Game {
     }
 
     public void addHuman(int playerId) {
+        int numberOfHumans = getNumberOfPlayers() - numberOfBots;
+        if (numberOfHumans >= 4) {
+            return;
+        }
+
+        Human human = GameManager.removePlayerFromLobbyById(playerId);
         if (!gameHasBeenStarted) {
-            Human human = GameManager.removePlayerFromLobbyById(playerId);
             playersList.add(human);
+        } else {
+            replaceBotWithHuman(human);
         }
     }
 
-    public void replaceBotWithHuman() {
-        Human human = new Human();
+    public void replaceBotWithHuman(Human human) {
         if (numberOfBots == 0) {
             return;
         }
 
+        Bot bot = getFirstBotInList();
+        Hand hand = bot.getHand();
+        removePlayer(bot.getPlayerId());
+        numberOfBots--;
 
+        reconnectThreadsToBots();
+
+        human.setHand(hand);
+        playersList.add(human);
+        int numberOfHumans = playersList.size() - numberOfBots;
+        ninjaHandler.setNumberOfHumansInGame(numberOfHumans);
+    }
+
+    private Bot getFirstBotInList() {
+        if (playersList.isEmpty()) {
+            return null;
+        }
+
+        return (Bot) playersList.get(0);
     }
 
     public void disconnectHuman(int playerId) {
         Player player = getPlayer(playerId);
+        int updatedNumberOfHumans = getNumberOfPlayers() - numberOfBots - 1;
+        ninjaHandler.setNumberOfHumansInGame(updatedNumberOfHumans);
         removePlayer(playerId);
 
+        numberOfBots++;
         addBot(player.getHand());
     }
 
@@ -96,9 +123,6 @@ public class Game {
     }
 
     private void removePlayer(int playerId) {
-        int updatedNumberOfHumans = getNumberOfPlayers() - numberOfBots - 1;
-        ninjaHandler.setNumberOfHumansInGame(updatedNumberOfHumans);
-
         Player player;
         for (int i = 0; i < playersList.size(); i++) {
             player = playersList.get(i);
@@ -110,7 +134,6 @@ public class Game {
     }
 
     private void addBot(Hand hand) {
-        numberOfBots++;
         Bot bot = BotGenerationUtils.getARandomBot(gameId);
         bot.setHand(hand);
 

@@ -107,10 +107,6 @@ public class API {
         GameManager.disconnectHumanFromGame(gameId, playerId);
     }
 
-    public static void replaceBotByHuman(int gameId, int playerId) {
-        // TODO
-    }
-
     public static synchronized boolean castNinjaVote(boolean agreesWithRequest, int playerId, int gameId) {
         Human human = NinjaRequestUtils.getHumanById(gameId, playerId);
         GameManager.castVoteForNinjaRequestInGame(gameId, human, agreesWithRequest);
