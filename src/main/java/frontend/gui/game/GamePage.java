@@ -1,14 +1,17 @@
 package frontend.gui.game;
 
+import api.dataeggs.MakingMoveEgg;
+import api.dataeggs.gamestate.EmojiEgg;
+import api.dataeggs.gamestate.GameStateEgg;
+import api.dataeggs.gamestate.HandEgg;
+import api.dataeggs.gamestate.NinjaRequestEgg;
+import api.dataeggs.ninjarequest.NinjaRequestStatus;
 import backend.logic.games.components.Hand;
 import backend.logic.models.cards.NumberedCard;
 import com.google.gson.Gson;
 import frontend.gui.firstMenuPage.FirstMenuPage;
 import utils.config.DefaultConfig;
 import frontend.client.ClientNetwork;
-import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.*;
-import utils.jsonparsing.literals.dataeggs.ninjarequest.NinjaRequestStatus;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,7 +23,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class GamePage extends JPanel {
 
@@ -171,13 +173,11 @@ public class GamePage extends JPanel {
                     else if(y >= 440 & y <= 485 & x >= 360 & x < 420){
                         if(numberOfShurikens >= 2){
                             clientNetwork.castNinjaVote(true, playerId, gameId);
-                            GameStateEgg.numberOfShows.add(playerId);
                         }
                     }
                     else if(y >= 440 & y <= 485 & x >= 420 & x < 480){
                         if(numberOfShurikens >= 1){
                             clientNetwork.castNinjaVote(true, playerId, gameId);
-                            GameStateEgg.numberOfShows.add(playerId);
                         }
                     }
                 }

@@ -1,9 +1,9 @@
 package frontend.gui.game;
 
+import api.dataeggs.gamestate.Emoji;
+import api.dataeggs.gamestate.EmojiEgg;
 import backend.logic.models.cards.NumberedCard;
 import utils.config.DefaultConfig;
-import utils.jsonparsing.literals.dataeggs.gamestate.Emoji;
-import utils.jsonparsing.literals.dataeggs.gamestate.EmojiEgg;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Draw {
-
     public static void drawEmojis(Graphics g, ArrayList<EmojiEgg> lastStatusOfPlayers){
         for (int i = 0; i < lastStatusOfPlayers.size(); i++) {
             if(lastStatusOfPlayers.get(i).getPlayerId() == -1){

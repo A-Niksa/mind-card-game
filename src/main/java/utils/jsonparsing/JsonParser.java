@@ -1,17 +1,17 @@
 package utils.jsonparsing;
 
+import api.dataeggs.DataEgg;
+import api.dataeggs.DataEggType;
+import api.dataeggs.MakingMoveEgg;
+import api.dataeggs.NewGameEgg;
+import api.dataeggs.gamestate.EmojiEgg;
+import api.dataeggs.gamestate.GameStateEgg;
+import api.dataeggs.gamestate.HandEgg;
+import api.dataeggs.gamestate.NinjaRequestEgg;
+import api.dataeggs.joinablegames.JoinableGamesEgg;
+import api.dataeggs.ninjarequest.DroppedCardEgg;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import utils.jsonparsing.literals.dataeggs.DataEgg;
-import utils.jsonparsing.literals.dataeggs.DataEggType;
-import utils.jsonparsing.literals.dataeggs.MakingMoveEgg;
-import utils.jsonparsing.literals.dataeggs.NewGameEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.EmojiEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.GameStateEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.HandEgg;
-import utils.jsonparsing.literals.dataeggs.gamestate.NinjaRequestEgg;
-import utils.jsonparsing.literals.dataeggs.joinablegames.JoinableGamesEgg;
-import utils.jsonparsing.literals.dataeggs.ninjarequest.DroppedCardEgg;
 
 public class JsonParser {
     private static JsonParser parser;
