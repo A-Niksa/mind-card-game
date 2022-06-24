@@ -86,7 +86,7 @@ public class Game {
         removePlayer(bot.getPlayerId());
         numberOfBots--;
 
-        reconnectThreadsToBots();
+        restartThreads();
 
         human.setHand(hand);
         playersList.add(human);
@@ -217,16 +217,6 @@ public class Game {
     private void resetComponents() {
         actionLogger.clear();
         droppingGround.clear();
-    }
-
-    private Player getPlayerById(int playerId) {
-        for (Player player : playersList) {
-            if (playerId == player.getPlayerId()) {
-                return player;
-            }
-        }
-
-        return null;
     }
 
     private void initializeGame() {
