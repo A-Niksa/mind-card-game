@@ -3,6 +3,7 @@ package backend.logic.games;
 import backend.logic.games.components.ninjahandling.CardAndPlayerTuple;
 import backend.logic.models.cards.NumberedCard;
 import backend.logic.models.players.Human;
+import backend.logic.models.players.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +59,18 @@ public class GameManager {
         }
 
         game.addHuman(playerId);
+    }
+
+    public static int getGameIdWithPlayerInside(int playerId) {
+        for (Game game : getGamesMap().values()) {
+            for (Player player : game.getPlayersList()) {
+                if (playerId == player.getPlayerId()) {
+                    return game.getGameId();
+                }
+            }
+        }
+
+        return -1;
     }
 
     public static void restartGameThreads(int gameId) {

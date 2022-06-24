@@ -103,7 +103,12 @@ public class API {
         return GameManager.startGameById(gameId);
     }
 
-    public static void disconnectHuman(int gameId, int playerId) {
+    public static void disconnectHuman(int playerId) {
+        if (playerId == -1) {
+            return;
+        }
+
+        int gameId = GameManager.getGameIdWithPlayerInside(playerId);
         GameManager.disconnectHumanFromGame(gameId, playerId);
     }
 

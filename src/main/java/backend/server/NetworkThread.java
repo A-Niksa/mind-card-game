@@ -65,7 +65,7 @@ public class NetworkThread implements Runnable{
 
             }
             catch (IOException e) {
-                API.disconnectHuman(0, playerId);
+                API.disconnectHuman(playerId);
                 notBroken = false;
             }
 
