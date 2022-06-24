@@ -1,7 +1,7 @@
 package backend.logic.models.players.bots;
 
 import backend.logic.games.GameManager;
-import backend.logic.games.components.Hand;
+import backend.logic.games.components.JudgeUtils;
 import backend.logic.models.cards.NumberedCard;
 import backend.logic.models.players.Player;
 
@@ -19,11 +19,9 @@ public abstract class Bot extends Player implements Runnable {
 
     @Override
     public void run() {
-
         outer:
         while (GameManager.gameHasHealthCardsLeft(joinedGameId)) {
-            if(GameManager.thereHasBeenANinjaRequest(joinedGameId)){
-                System.out.println("there has been a ninja request");
+            if(GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -31,41 +29,36 @@ public abstract class Bot extends Player implements Runnable {
                 }
             }
             else if (hand.hasAnyCards()) {
-                System.out.println("have any card");
-                System.out.println("want to sleep");
-                try {
-                    Thread.sleep(getTimeToSleep());
-                    System.out.println("awake from sleep");
-                } catch (InterruptedException e) {
-                    break;
-                }
+                if (!botIsTheOnlyPlayerWithCards()) {
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
 
+                    GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
+                } else {
+                    try {
+                        Thread.sleep(getTimeToSleep());
+                    } catch (InterruptedException e) {
+                        break;
+                    }
 
-                if (GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
-                    System.out.println("before middle while for ninja request");
-
-
-                    while (GameManager.thereHasBeenANinjaRequest(joinedGameId)){
-                        System.out.println("in middle while for ninja request");
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            break outer;
+                    if (GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
+                        while (GameManager.thereHasBeenANinjaRequest(joinedGameId)) {
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                break outer;
+                            }
                         }
                     }
 
-                    System.out.println("after middle while for ninja request");
-
+                    GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
                 }
-
-                System.out.println("want to drop card");
-                GameManager.dropCardInGame(joinedGameId, playerId, getSmallestCardFromHand());
             }
 
             else {
-                System.out.println("don't have any card");
-
-
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -85,19 +78,15 @@ public abstract class Bot extends Player implements Runnable {
                 (getNumberOfCards() * 1000.0 / AVERAGING_DIVISION_CONSTANT)) / 2 +
                 ADDITIONAL_WAITING_CONSTANT * 1000.0;
 
-        System.out.println((int) calculatedSleepTime);
         return (int) calculatedSleepTime;
-    }
-
-    private void sleepFor(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public int getNumberOfCards() {
         return hand.getNumberedCardsList().size();
+    }
+
+    public boolean botIsTheOnlyPlayerWithCards() {
+        int idOfOnlyPlayerWithCards = JudgeUtils.getIdOfOnlyPlayerWithCards(joinedGameId);
+        return playerId == idOfOnlyPlayerWithCards;
     }
 }

@@ -1,6 +1,7 @@
 package backend.logic.games.components;
 
 import backend.logic.games.Game;
+import backend.logic.games.GameManager;
 import backend.logic.models.cards.NumberedCard;
 import backend.logic.models.cards.NumberedCardComparator;
 import backend.logic.models.players.Player;
@@ -15,9 +16,28 @@ public class JudgeUtils {
             for (int i = 0; i < hand.getNumberedCardsList().size(); i++) {
                 if (hand.getNumberedCardsList().get(i).getCardNumber() < droppedCard.getCardNumber()) {
                     hand.removeCard(hand.getNumberedCardsList().get(i));
+                    i--;
                 }
             }
         }
+    }
+
+    public static int getIdOfOnlyPlayerWithCards(int gameId) { // returns -1 if more than 1 player has at least a card
+        Game game = GameManager.getGameById(gameId);
+        List<Player> playersList = game.getPlayersList();
+
+        int numberOfPlayersWithCards = 0;
+        int idOfOnlyPlayerWithCards = -1;
+        Hand hand;
+        for (Player player : playersList) {
+            hand = player.getHand();
+            if (hand.getNumberedCardsList().size() > 0) {
+                numberOfPlayersWithCards++;
+                idOfOnlyPlayerWithCards = player.getPlayerId();
+            }
+        }
+
+        return numberOfPlayersWithCards > 1 ? -1 : idOfOnlyPlayerWithCards;
     }
 
     private static ArrayList<Hand> getHandsOfAllPlayers(Game game) {

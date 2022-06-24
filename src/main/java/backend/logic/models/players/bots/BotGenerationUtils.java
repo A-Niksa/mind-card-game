@@ -1,6 +1,7 @@
 package backend.logic.models.players.bots;
 
 import backend.logic.games.Game;
+import backend.logic.games.GameManager;
 import backend.logic.games.components.Deck;
 import backend.logic.models.players.Player;
 
@@ -12,8 +13,6 @@ public class BotGenerationUtils {
     public static void giveHandsToPlayersFromDeck(List<Player> playersList, Deck deck, int numberOfCardsPerHand) {
         for (Player player : playersList) {
             player.setHand(deck.getRandomHand(numberOfCardsPerHand));
-
-
         }
     }
 
