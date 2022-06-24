@@ -15,6 +15,7 @@ public class NetworkThread implements Runnable{
     private static int idCounter = 0;
     private Socket socket;
     private String authToken;
+    private int playerId;
 
 
     public NetworkThread(Socket socket) {
@@ -64,7 +65,7 @@ public class NetworkThread implements Runnable{
 
             }
             catch (IOException e) {
-                e.printStackTrace();
+                API.disconnectHuman(0, playerId);
                 notBroken = false;
             }
 
@@ -96,7 +97,8 @@ public class NetworkThread implements Runnable{
 
         else if(input.equals(ConfigFetcher.fetch(ConfigIdentifier.ADD_NEW_PLAYER_IN_NETWORK))){
             try {
-                outputStream.writeInt(API.addNewPlayerToLobby());
+                playerId = API.addNewPlayerToLobby();
+                outputStream.writeInt(playerId);
             } catch (IOException e) {
                 e.printStackTrace();
             }

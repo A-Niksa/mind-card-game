@@ -101,7 +101,11 @@ public class ClientNetwork {
 
         }
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return -1;
         }
 
@@ -120,7 +124,11 @@ public class ClientNetwork {
             return inputStream.readUTF();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return "";
         }
     }
@@ -140,7 +148,11 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return false;
         }
 
@@ -159,7 +171,11 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return "";
         }
 
@@ -180,7 +196,11 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return "";
         }
 
@@ -202,7 +222,11 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return "";
         }
 
@@ -222,7 +246,11 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return false;
         }
 
@@ -242,7 +270,11 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return false;
         }
 
@@ -262,26 +294,12 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
-            return -1;
-        }
-
-    }
-
-    public void useNinjaCard(int gameId){
-
-        try {
-            outputStream.writeUTF(authToken);
-            if(!inputStream.readBoolean()){
-                return;
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
-
-            outputStream.writeUTF(ConfigFetcher.fetch(ConfigIdentifier.MAKE_GAME_UNJOINABLE));
-            outputStream.writeInt(gameId);
-        }
-
-        catch (IOException e) {
-            e.printStackTrace();
+            return -1;
         }
 
     }
@@ -301,7 +319,11 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
 
     }
@@ -322,7 +344,11 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
 
     }
@@ -341,14 +367,13 @@ public class ClientNetwork {
         }
 
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
 
     }
-
-
-
-    
-
 
 }
