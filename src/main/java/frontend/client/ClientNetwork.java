@@ -15,31 +15,24 @@ public class ClientNetwork {
     DataInputStream inputStream = null;
     DataOutputStream outputStream = null;
     String authToken;
+    public boolean isConnected;
 
     public ClientNetwork() {
+
+        isConnected = true;
 
         try {
             String ip = ConfigFetcher.fetch(ConfigIdentifier.IP);
             int port = Integer.parseInt(ConfigFetcher.fetch(ConfigIdentifier.PORT));
             socket = new Socket(ip, port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Connected to the server");
-
-        try {
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             authToken = inputStream.readUTF();
         } catch (IOException e) {
-            e.printStackTrace();
+            isConnected = false;
         }
+
+
 
 
     }

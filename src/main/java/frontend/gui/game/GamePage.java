@@ -17,9 +17,7 @@ import frontend.client.ClientNetwork;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -102,7 +100,8 @@ public class GamePage extends JPanel {
                     } else {
                         // Nothing to do
                     }
-                } else {
+                }
+                else {
 
                     double start = 160.0 * 6 / 10;
                     double distance = 636.0 * 600 / 1000;
@@ -144,8 +143,8 @@ public class GamePage extends JPanel {
                         MakingMoveEgg makingMoveEgg = gson.fromJson(s, MakingMoveEgg.class);
                         if (!makingMoveEgg.moveWasValid()) {
                             JOptionPane.showMessageDialog(null, "Move wasn't valid", "Error!!", JOptionPane.ERROR_MESSAGE);
-                        } else if (makingMoveEgg.moveCausesLossOfHealth()) {
-                            System.out.println(makingMoveEgg.getNumberOfSmallestCardThatHasCausedLoss());
+                        }
+                        else if (makingMoveEgg.moveCausesLossOfHealth()) {
                             JOptionPane.showMessageDialog(null, "Cause lost of heart because card of " + makingMoveEgg.getNumberOfSmallestCardThatHasCausedLoss(), "Lose heart", JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
@@ -202,7 +201,8 @@ public class GamePage extends JPanel {
 
                         repaint();
                     }
-                } else {
+                }
+                else {
 
                     double start = 160.0 * 6 / 10;
                     double distance = 636.0 * 600 / 1000;
@@ -267,6 +267,35 @@ public class GamePage extends JPanel {
                 }
             }
         });
+
+        addKeyListener(new KeyListener() {
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+                if(isGameStarted){
+                    if(e.getKeyCode() == KeyEvent.VK_D){
+                        String s = clientNetwork.makeMove(gameId, playerId, 0);
+                        Gson gson = new Gson();
+                        MakingMoveEgg makingMoveEgg = gson.fromJson(s, MakingMoveEgg.class);
+                        if (!makingMoveEgg.moveWasValid()) {
+                            JOptionPane.showMessageDialog(null, "Move wasn't valid", "Error!!", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else if (makingMoveEgg.moveCausesLossOfHealth()) {
+                            JOptionPane.showMessageDialog(null, "Cause lost of heart because card of " + makingMoveEgg.getNumberOfSmallestCardThatHasCausedLoss(), "Lose heart", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+
+                }
+
+
+            }
+
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
 
 
     }
@@ -346,6 +375,8 @@ public class GamePage extends JPanel {
         frame.setTitle("Game");
         frame.setSize(614, 758);
         this.setSize(614, 758);
+        this.setFocusable(true);
+        this.setFocusTraversalKeysEnabled(false);
         frame.setLocation(0, 0);
         frame.getContentPane().add(this);
         frame.setLocationRelativeTo(null);
@@ -411,6 +442,8 @@ public class GamePage extends JPanel {
 
 
                     if (isCauseLooseOfHeartBecauseOfOtherPlayer) {
+                        System.out.println(playerId);
+                        System.out.println(gameStateEgg.getPlayerIdOfLatestAction());
                         if (gameStateEgg.getPlayerIdOfLatestAction() != playerId) {
                             JOptionPane.showMessageDialog(null, "Cause lost of heart because card of "
                                     + gameStateEgg.getSmallestCardNumberThatHasCausedLoss(), "Lose heart", JOptionPane.INFORMATION_MESSAGE);

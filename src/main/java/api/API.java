@@ -83,7 +83,7 @@ public class API {
     }
 
 
-    public static String makeMove(int gameId, int playerId, int cardIndex) {
+    public static synchronized String makeMove(int gameId, int playerId, int cardIndex) {
         // moveWasValid, doesMoveCauseLossOfHeart, smallestCardThatHasCausedLoss (if the second boolean is true)
         Game game = GameManager.getGameById(gameId);
         boolean moveRespectsGroundOrder = MakingMoveUtils.moveRespectsGroundOrder(game, playerId);

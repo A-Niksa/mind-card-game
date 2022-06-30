@@ -39,11 +39,23 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
+
+
+        var clientNetwork = new ClientNetwork();
+        while (!clientNetwork.isConnected){
+            clientNetwork = new ClientNetwork();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         String path = ConfigFetcher.fetch(ConfigIdentifier.PRIVATE_NAME_FOR_PATH);
         playMusic(path + "m.mp3", path + "m2.mp3");
 
 
-        var clientNetwork = new ClientNetwork();
         int playerId = clientNetwork.addNewPlayer();
         new FirstMenuPage(clientNetwork, playerId);
 
